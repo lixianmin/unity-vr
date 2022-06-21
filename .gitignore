@@ -1,0 +1,5 @@
+*.sln
+*.proj
+Temp/
+Library/
+.vscode/
