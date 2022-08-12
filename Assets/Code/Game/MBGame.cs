@@ -5,8 +5,7 @@ author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using Unicorn;
 //using Unicorn.Web;

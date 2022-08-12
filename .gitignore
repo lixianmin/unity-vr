@@ -5,3 +5,5 @@ Library/
 .vscode/
 .vs
 obj/
+resource/android/
+resource/ios/
