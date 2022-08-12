@@ -28,7 +28,7 @@ namespace Unicorn
 
 		public static byte[] ReadAllBytesNoBomb(string path)
 		{
-            using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using FileStream fileStream = new (path, FileMode.Open, FileAccess.Read, FileShare.Read);
             long num = fileStream.Length;
             if (num > int.MaxValue)
             {

@@ -7,6 +7,7 @@ Copyright (C) - All Rights Reserved
 *********************************************************************/
 #pragma warning disable 0436
 
+using System.IO;
 using System.Collections;
 using UnityEngine;
 using Unicorn;
@@ -63,7 +64,7 @@ public class MBGame : MonoBehaviour
         {
             try
             {
-				var stream = ClientFileTools.OpenFileByStream(fullpath);
+				var stream = File.OpenRead(fullpath);
 				metadataManager.LoadRawStream(stream);
             }catch(Exception ex)
             {
@@ -72,13 +73,13 @@ public class MBGame : MonoBehaviour
 		}
 
 
-		var version = metadataManager.GetMetadataVersion();
 		var table = metadataManager.GetTemplateTable(typeof(PetEatFishTemplate));
 		foreach (var template in table.Values)
         {
 			Console.WriteLine("template={0}", template);
         }
 
+		var version = metadataManager.GetMetadataVersion();
 		Console.WriteLine("[_CoLoadMetadata()] Metadata Loaded, metadataVersion={0}.", version.ToString());
 		yield return null;
 	}
