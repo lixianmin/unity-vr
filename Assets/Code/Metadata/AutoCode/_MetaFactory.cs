@@ -12,8 +12,8 @@ namespace Metadata
         private static Hashtable _GetLookupTableByName ()
         {
             var table = new Hashtable(2);
-            table.Add ("Metadata.PetEatFishEditorTemplate", new MetaCreator(()=> new Metadata.PetEatFishEditorTemplate()));
-            table.Add ("Metadata.PetEatFishEditorTemplate+StatUp", new MetaCreator(()=> new Metadata.PetEatFishEditorTemplate.StatUp()));
+            table.Add ("Metadata.PetEatFishTemplate", new MetaCreator(()=> new Metadata.PetEatFishTemplate()));
+            table.Add ("Metadata.PetEatFishTemplate+StatUp", new MetaCreator(()=> new Metadata.PetEatFishTemplate.StatUp()));
             return table;
         }
     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XmlMetadata xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Templates>
+    <Template xsi:type="PetEatFishTemplate">
+      <id>1</id>
+      <stat_up />
+      <hello>faint</hello>
+      <world guid="" />
+      <height>-84850506</height>
+      <f32>-6.26409148E+35</f32>
+      <normal_float>0</normal_float>
+      <i64>-84850506</i64>
+    </Template>
+  </Templates>
+  <Configs />
+</XmlMetadata>

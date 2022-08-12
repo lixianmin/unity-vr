@@ -5,9 +5,14 @@ author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
+#pragma warning disable 0436
 
+using System.Collections;
 using UnityEngine;
 using Unicorn;
+using Metadata;
+using Client;
+using System;
 //using Unicorn.Web;
 
 public class MBGame : MonoBehaviour
@@ -15,6 +20,8 @@ public class MBGame : MonoBehaviour
 	private void Start()
 	{
 		UnicornMain.Instance.Init();
+		CoroutineManager.StartCoroutine(_CoLoadMetadata());
+
 		//DependencyManager.Instance.Init();
 		// AssetManager.Instance.RequestAsset("globals.ab", "", (assetReference)=>{
 		// 	Debug.LogError("assetReference : " + assetReference);
@@ -43,6 +50,38 @@ public class MBGame : MonoBehaviour
 	private void Update()
 	{
 		//AssetManager.Instance.Tick();
-		UnicornMain.Instance.Tick(Time.deltaTime);
+		var deltaTime = Time.deltaTime;
+		UnicornMain.Instance.Tick(deltaTime);
+		Client.Game.Instance.Tick(deltaTime);
 	}
+
+	private IEnumerator _CoLoadMetadata()
+    {
+		var metadataManager = MetadataManager.Instance as GameMetadataManager;
+		var fullpath = "/Users/xmli/code/unity-vr/resource/android/metadata.raw";
+		if (!fullpath.IsNullOrEmptyEx())
+        {
+            try
+            {
+				var stream = ClientFileTools.OpenFileByStream(fullpath);
+				metadataManager.LoadRawStream(stream);
+            }catch(Exception ex)
+            {
+				Console.Error.WriteLine("[_CoLoadMetadata()] load metadata failed, ex={0}", ex.ToString());
+			}
+		}
+
+
+		var version = metadataManager.GetMetadataVersion();
+		var table = metadataManager.GetTemplateTable(typeof(PetEatFishTemplate));
+		foreach (var template in table.Values)
+        {
+			Console.WriteLine("template={0}", template);
+        }
+
+		Console.WriteLine("[_CoLoadMetadata()] Metadata Loaded, metadataVersion={0}.", version.ToString());
+		yield return null;
+	}
+
+	private readonly Game _game = Game.Instance;
 }

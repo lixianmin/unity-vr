@@ -18,7 +18,7 @@ namespace Metadata
     [Export(ExportFlags.ExportAll)]
     [System.Serializable]
 #endif
-    public partial class PetEatFishEditorTemplate : Template
+    public partial class PetEatFishTemplate : Template
     {
         public partial class StatUp : IMetadata
         {
