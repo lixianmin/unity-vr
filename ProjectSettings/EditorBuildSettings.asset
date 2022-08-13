@@ -7,3 +7,4 @@ EditorBuildSettings:
   m_Scenes: []
   m_configObjects:
     Unity.XR.PXR.Settings: {fileID: 11400000, guid: 373f29139186a4d788d217dd9fe42319, type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: fb314ce126e044add8bd25d5ab5c5391, type: 2}

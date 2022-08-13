@@ -14,7 +14,7 @@ using Unicorn;
 using Metadata;
 using Client;
 using System;
-//using Unicorn.Web;
+using Unicorn.Web;
 
 public class MBGame : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public class MBGame : MonoBehaviour
 		// AssetManager.Instance.RequestGameObject("prefabs/ui/_battle.ab", "uibattle_stage", (go)=>
 		// {
 		// 	Console.Error.WriteLine("go : " + go);
-		// });		
+		// });
 
 		// AssetManager.Instance.RequestAsset("prefabs/atlas/_chapter.ab", "chapter_checkbox_b05_background", (obj)=>{
 		// 	assetReference = obj;
@@ -45,6 +45,13 @@ public class MBGame : MonoBehaviour
 		//	webItem.CloneMainAsset();
 		//	// GameObject.Instantiate(webItem.mainAsset);
 		//});
+
+		WebManager.LoadWebItem("res/prefabs/cube.prefab", webItem =>
+		{
+			var handle = webItem.Handle;
+			GameObject.Instantiate<GameObject>(handle.Result as GameObject);
+			Console.WriteLine("webItem");
+		});
 	}
 
 	// Update is called once per frame
@@ -53,7 +60,7 @@ public class MBGame : MonoBehaviour
 		//AssetManager.Instance.Tick();
 		var deltaTime = Time.deltaTime;
 		UnicornMain.Instance.Tick(deltaTime);
-		Client.Game.Instance.Tick(deltaTime);
+		_game.Tick(deltaTime);
 	}
 
 	private IEnumerator _CoLoadMetadata()
@@ -72,12 +79,6 @@ public class MBGame : MonoBehaviour
 			}
 		}
 
-
-		var table = metadataManager.GetTemplateTable(typeof(PetEatFishTemplate));
-		foreach (var template in table.Values)
-        {
-			Console.WriteLine("template={0}", template);
-        }
 
 		var version = metadataManager.GetMetadataVersion();
 		Console.WriteLine("[_CoLoadMetadata()] Metadata Loaded, metadataVersion={0}.", version.ToString());
