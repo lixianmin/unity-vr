@@ -1,3 +1,4 @@
+
 /********************************************************************
 created:    2022-08-13
 author:     lixianmin
@@ -17,7 +18,7 @@ namespace Unicorn.Web.Internal
     
     internal static class PrefabRecycler
     {
-        public static void AddPrefab(string localPath, WebPrefab prefab)
+        public static void TryAddPrefab(string localPath, WebPrefab prefab)
         {
             if (prefab != null && !_cache.TryGetValue(localPath, out var cached))
             {

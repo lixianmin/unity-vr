@@ -60,10 +60,11 @@ public class MBGame : MonoBehaviour
         if (GUI.Button(new Rect(10, 10, 200, 100), "load cube"))
         {
 	        WebManager.LoadWebPrefab("res/prefabs/cube.prefab", prefab =>
-			{
-				GameObject.Instantiate(prefab.MainAsset);
-				Console.WriteLine("load cube done");
-			});
+	        {
+		        var mainAsset = prefab.MainAsset;
+				Console.WriteLine("load cube done, mainAsset={0}", mainAsset);
+				GameObject.Instantiate(mainAsset);
+	        });
         }
 
 		if (GUI.Button(new Rect(10, step, 100, 50), "load sphere"))
