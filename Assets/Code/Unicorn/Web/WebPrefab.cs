@@ -21,8 +21,18 @@ namespace Unicorn.Web
                 if (!webItem.IsSucceeded) return;
                 if (webItem.Asset is not GameObject mainAsset) return;
 
-                var script = mainAsset.GetComponent<MBPrefabAid>() ?? mainAsset.AddComponent<MBPrefabAid>();
-                script.key = argument.key;
+                var script = mainAsset.GetComponent<MBPrefabAid>();
+                if (script is null)
+                {
+                     script = mainAsset.AddComponent<MBPrefabAid>();
+                     script.key = argument.key;
+                     
+#if UNITY_EDITOR
+                     _ProcessDependenciesInEditor(mainAsset);
+#endif
+                }
+                
+                
                 PrefabRecycler.TryAddPrefab(argument.key, this);
 
                 // 这里的handler是有可能立即调用到的, 所以不能外面new WebItem()返回值的时候设置_webItem
