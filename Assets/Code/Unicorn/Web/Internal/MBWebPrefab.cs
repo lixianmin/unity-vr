@@ -29,7 +29,7 @@ namespace Unicorn.Web.Internal
             if (!_isInited)
             {
                 _isInited = true;
-                PrefabRecycler.AddReference(localPath);
+                PrefabRecycler.AddReference(key);
             }
         }
 
@@ -37,12 +37,12 @@ namespace Unicorn.Web.Internal
         {
             if (_isInited)
             {
-               PrefabRecycler.RemoveReference(localPath);
+               PrefabRecycler.RemoveReference(key);
             }
         }
 
         // this variable is declared as public because we need it to be copied when gameObject is cloned.
-        public string 	localPath;
+        public string key;
 
         private bool _isInited;
     }

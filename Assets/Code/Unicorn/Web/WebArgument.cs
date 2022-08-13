@@ -11,6 +11,6 @@ namespace Unicorn.Web
 {
     public struct WebArgument
     {
-        public string localPath;
+        public string key;
     }
 }

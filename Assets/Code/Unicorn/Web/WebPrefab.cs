@@ -22,8 +22,8 @@ namespace Unicorn.Web
                 if (webItem.Asset is not GameObject mainAsset) return;
 
                 var script = mainAsset.GetComponent<MBPrefabAid>() ?? mainAsset.AddComponent<MBPrefabAid>();
-                script.localPath = argument.localPath;
-                PrefabRecycler.TryAddPrefab(argument.localPath, this);
+                script.key = argument.key;
+                PrefabRecycler.TryAddPrefab(argument.key, this);
 
                 // 这里的handler是有可能立即调用到的, 所以不能外面new WebItem()返回值的时候设置_webItem
                 _webItem = webItem;
@@ -38,7 +38,7 @@ namespace Unicorn.Web
 
         public override string ToString()
         {
-            return $"WebPrefab: id={_id.ToString()}, localPath={_webItem.LocalPath}";
+            return $"WebPrefab: id={_id.ToString()}, key={_webItem.Key}";
         }
 
         public bool IsDone => _webItem.IsDone;

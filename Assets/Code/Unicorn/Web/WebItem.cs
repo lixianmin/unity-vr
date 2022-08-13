@@ -26,8 +26,7 @@ namespace Unicorn.Web
 
         private IEnumerator _CoLoad(WebArgument argument, Action<WebItem> handler)
         {
-            var fullPath = PathManager.GetFullPath(argument.localPath);
-            var loadHandle = Addressables.LoadAssetAsync<UObject>(fullPath);
+            var loadHandle = Addressables.LoadAssetAsync<UObject>(argument.key);
             _loadHandle = loadHandle;
 
             while (!loadHandle.IsDone)
@@ -52,12 +51,12 @@ namespace Unicorn.Web
         
         public override string ToString()
         {
-            return $"WebItem: id={_id.ToString()}, localPath={_argument.localPath}";
+            return $"WebItem: id={_id.ToString()}, localPath={_argument.key}";
         }
 
         public bool IsDone      { get; private set; }
         public bool IsSucceeded { get; private set; }
-        public string LocalPath => _argument.localPath;
+        public string Key => _argument.key;
 
         public UObject Asset
         {

@@ -14,19 +14,17 @@ namespace Unicorn.Web
 {
     public static class WebManager
     {
-        public static WebItem LoadWebItem(string localPath, Action<WebItem> handler)
+        public static WebItem LoadWebItem(string key, Action<WebItem> handler)
         {
-            var argument = new WebArgument { localPath = localPath };
+            var argument = new WebArgument { key = key ?? string.Empty };
             var item = new WebItem(argument, handler);
-
             return item;
         }
 
-        public static WebPrefab LoadWebPrefab(string localPath, Action<WebPrefab> handler)
+        public static WebPrefab LoadWebPrefab(string key, Action<WebPrefab> handler)
         {
-            var argument = new WebArgument { localPath = localPath};
+            var argument = new WebArgument { key = key ?? string.Empty };
             var prefab = new WebPrefab(argument, handler);
-
             return prefab;
         }
 

@@ -50,6 +50,6 @@ namespace Unicorn.Web.Internal
             }       
         }
         
-         private static readonly Dictionary<string, RecyclerItem> _cache = new ();
+         private static readonly Dictionary<string, RecyclerItem> _cache = new (128);
     }
 }
