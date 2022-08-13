@@ -54,24 +54,23 @@ public class MBGame : MonoBehaviour
 		_game.Tick(deltaTime);
 	}
 
-	private WebItem _cubeItem;
     private void OnGUI()
     {
 		const float step = 200;
         if (GUI.Button(new Rect(10, 10, 200, 100), "load cube"))
         {
-			_cubeItem = WebManager.LoadWebItem("res/prefabs/cube.prefab", webItem =>
+	        WebManager.LoadWebPrefab("res/prefabs/cube.prefab", prefab =>
 			{
-				GameObject.Instantiate(webItem.Handle.Result as GameObject);
+				GameObject.Instantiate(prefab.MainAsset);
 				Console.WriteLine("load cube done");
 			});
         }
 
 		if (GUI.Button(new Rect(10, step, 100, 50), "load sphere"))
 		{
-			WebManager.LoadWebItem("res/prefabs/sphere.prefab", webItem =>
+			WebManager.LoadWebPrefab("res/prefabs/sphere.prefab", prefab =>
 			{
-				GameObject.Instantiate(webItem.Handle.Result as GameObject);
+				GameObject.Instantiate(prefab.MainAsset);
 				Console.WriteLine("load sphere done");
 			});
 		}
@@ -89,7 +88,6 @@ public class MBGame : MonoBehaviour
 
 		if (GUI.Button(new Rect(10, 4 * step, 100, 50), "gc"))
 		{
-			_cubeItem = null;
 			Resources.UnloadUnusedAssets();
 			GC.Collect();
 			Console.WriteLine("gc done");

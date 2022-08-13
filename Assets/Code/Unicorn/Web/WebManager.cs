@@ -22,6 +22,14 @@ namespace Unicorn.Web
             return item;
         }
 
+        public static WebPrefab LoadWebPrefab(string localPath, Action<WebPrefab> handler)
+        {
+            var argument = new WebArgument { localPath = localPath};
+            var prefab = new WebPrefab(argument, handler);
+
+            return prefab;
+        }
+
         public static void Tick()
         {
             

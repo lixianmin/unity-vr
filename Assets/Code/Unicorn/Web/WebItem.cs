@@ -39,7 +39,7 @@ namespace Unicorn.Web
             if (loadHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 IsSucceeded = true;
-                handler?.Invoke(this);
+                HandleTools.SafeHandle(handler, this);
             }
         }
 
@@ -51,7 +51,9 @@ namespace Unicorn.Web
 
         public bool IsDone      { get; private set; }
         public bool IsSucceeded { get; private set; }
-        public AsyncOperationHandle Handle { get { return _loadHandle; } }
+        public string LocalPath => _argument.localPath;
+
+        public UObject Asset => _loadHandle.Result as UObject;
 
         private WebArgument _argument;
         private AsyncOperationHandle _loadHandle;
