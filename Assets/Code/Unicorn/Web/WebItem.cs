@@ -19,13 +19,14 @@ namespace Unicorn.Web
     {
         internal WebItem(WebArgument argument, Action<WebItem> handler)
         {
+            _argument = argument;
             CoroutineManager.StartCoroutine(_CoLoad(argument, handler));
         }
 
         private IEnumerator _CoLoad(WebArgument argument, Action<WebItem> handler)
         {
-            var fullpath = PathManager.GetFullPath(argument.localPath);
-            var loadHandle = Addressables.LoadAssetAsync<UObject>(fullpath);
+            var fullPath = PathManager.GetFullPath(argument.localPath);
+            var loadHandle = Addressables.LoadAssetAsync<UObject>(fullPath);
             _loadHandle = loadHandle;
 
             while (!loadHandle.IsDone)
@@ -45,12 +46,14 @@ namespace Unicorn.Web
         protected override void _DoDispose(bool isManualDisposing)
         {
             Addressables.Release(_loadHandle);
+            Console.WriteLine("[_DoDispose()] localPath={0}", _argument.localPath);
         }
 
         public bool IsDone      { get; private set; }
         public bool IsSucceeded { get; private set; }
         public AsyncOperationHandle Handle { get { return _loadHandle; } }
 
+        private WebArgument _argument;
         private AsyncOperationHandle _loadHandle;
     }
 }

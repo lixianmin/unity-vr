@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 0d8905a37b0074ff5a0930fb8a63a3f8
   m_SerializeEntries:
-  - m_GUID: 9fc0d4010bbf28b4594072e72b8655ab
-    m_Address: Assets/Scenes/WinMain.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: dd74841260e2b49e7a6a36ba62c41741
     m_Address: Assets/Scenes/Level1.unity
     m_ReadOnly: 0

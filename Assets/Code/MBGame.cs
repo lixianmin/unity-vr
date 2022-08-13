@@ -45,27 +45,65 @@ public class MBGame : MonoBehaviour
 		//	webItem.CloneMainAsset();
 		//	// GameObject.Instantiate(webItem.mainAsset);
 		//});
-
-		WebManager.LoadWebItem("res/prefabs/cube.prefab", webItem =>
-		{
-			var handle = webItem.Handle;
-			GameObject.Instantiate<GameObject>(handle.Result as GameObject);
-			Console.WriteLine("webItem");
-		});
 	}
 
-	// Update is called once per frame
 	private void Update()
 	{
-		//AssetManager.Instance.Tick();
 		var deltaTime = Time.deltaTime;
 		UnicornMain.Instance.Tick(deltaTime);
 		_game.Tick(deltaTime);
 	}
 
-	private IEnumerator _CoLoadMetadata()
+	private WebItem _cubeItem;
+    private void OnGUI()
+    {
+		const float step = 200;
+        if (GUI.Button(new Rect(10, 10, 200, 100), "load cube"))
+        {
+			_cubeItem = WebManager.LoadWebItem("res/prefabs/cube.prefab", webItem =>
+			{
+				GameObject.Instantiate(webItem.Handle.Result as GameObject);
+				Console.WriteLine("load cube done");
+			});
+        }
+
+		if (GUI.Button(new Rect(10, step, 100, 50), "load sphere"))
+		{
+			WebManager.LoadWebItem("res/prefabs/sphere.prefab", webItem =>
+			{
+				GameObject.Instantiate(webItem.Handle.Result as GameObject);
+				Console.WriteLine("load sphere done");
+			});
+		}
+
+
+		if (GUI.Button(new Rect(10, 2* step, 100, 50), "unload cube"))
+		{
+
+		}
+
+		if (GUI.Button(new Rect(10, 3* step, 100, 50), "unload sphere"))
+		{
+
+		}
+
+		if (GUI.Button(new Rect(10, 4 * step, 100, 50), "gc"))
+		{
+			_cubeItem = null;
+			Resources.UnloadUnusedAssets();
+			GC.Collect();
+			Console.WriteLine("gc done");
+		}
+	}
+
+    private IEnumerator _CoLoadMetadata()
     {
 		var metadataManager = MetadataManager.Instance as GameMetadataManager;
+		if (metadataManager == null)
+		{
+			yield break;
+		}
+		
 		var fullpath = "/Users/xmli/code/unity-vr/resource/android/metadata.raw";
 		if (!fullpath.IsNullOrEmptyEx())
         {
