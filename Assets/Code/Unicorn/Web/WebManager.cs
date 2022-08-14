@@ -27,10 +27,5 @@ namespace Unicorn.Web
             var prefab = new WebPrefab(argument, handler);
             return prefab;
         }
-
-        public static void Tick()
-        {
-            
-        }
     }
 }

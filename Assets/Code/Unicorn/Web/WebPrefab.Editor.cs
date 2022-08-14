@@ -25,8 +25,8 @@ namespace Unicorn.Web
             
             ReassignShaders(goAsset);
         }
-
-        public static void ReassignShaders(GameObject goAsset)
+        
+        internal static void ReassignShaders(GameObject goAsset)
         {
             if (!Application.isEditor)
             {
@@ -38,13 +38,13 @@ namespace Unicorn.Web
             
             foreach (var renderer in renderers)
             {
-                var materials = renderer.sharedMaterials;
-                if (materials == null)
+                var sharedMaterials = renderer.sharedMaterials;
+                if (sharedMaterials == null)
                 {
                     continue;
                 }
                     
-                foreach (var material in materials)
+                foreach (var material in sharedMaterials)
                 {
                     if (material is not  null && material.shader is not null)
                     {
