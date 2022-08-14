@@ -132,11 +132,11 @@ namespace Unicorn.UI
             PlaceUIElementRoot(go, menuCommand);
         }
 
-        [MenuItem(MenuRoot + "----------", false, 1999)]
-        private static void _CreateSeparator (MenuCommand menuCommand)
-        {
-            
-        }
+        // [MenuItem(MenuRoot + "----------", false, 1999)]
+        // private static void _CreateSeparator (MenuCommand menuCommand)
+        // {
+        //     
+        // }
 
         public static void PlaceUIElementRoot(GameObject element, MenuCommand menuCommand)
         {
