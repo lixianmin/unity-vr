@@ -8,8 +8,6 @@ Copyright (C) - All Rights Reserved
 
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using TMPro;
@@ -19,7 +17,7 @@ namespace Unicorn.UI
 {
     internal static class MenuOptionsTMP
     {
-        [MenuItem(MenuRoot + "UI Text - TextMeshPro", false, 2001)]
+        [MenuItem(MenuRoot + "UI Text - TextMeshPro", false, 1800)]
         private static void CreateTextMeshProGuiObjectPerform(MenuCommand menuCommand)
         {
             GameObject go = TMP_DefaultControls.CreateText(GetStandardResources());
@@ -38,7 +36,7 @@ namespace Unicorn.UI
                 {
                     textComponent.fontSize = TMP_Settings.defaultFontSize;
                     textComponent.color = Color.white;
-                    textComponent.text = "New Text";
+                    textComponent.text = "Hello Panda";
                 }
             
                 if (TMP_Settings.autoSizeTextContainer)
@@ -57,6 +55,18 @@ namespace Unicorn.UI
                 textComponent.color = Color.white;
                 textComponent.text = "New Text";
             }
+
+            PlaceUIElementRoot(go, menuCommand);
+        }
+        
+        [MenuItem(MenuRoot+"/UI Button - TextMeshPro", false, 1830)]
+        public static void AddButton(MenuCommand menuCommand)
+        {
+            var go = TMP_DefaultControls.CreateButton(GetStandardResources());
+
+            // Override font size
+            var textComponent = go.GetComponentInChildren<TMP_Text>();
+            textComponent.fontSize = 24;
 
             PlaceUIElementRoot(go, menuCommand);
         }

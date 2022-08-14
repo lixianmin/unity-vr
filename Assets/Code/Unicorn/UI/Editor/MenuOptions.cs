@@ -15,7 +15,7 @@ namespace Unicorn.UI
 {
     internal static class MenuOptions
     {
-        [MenuItem(MenuRoot + "UI Text", false, 1800)]
+        [MenuItem(MenuRoot + "Legacy/UI Text", false, 1800)]
         private static void _AddText (MenuCommand menuCommand)
         {
             GameObject go = DefaultControls.CreateText(GetStandardResources());
@@ -55,7 +55,7 @@ namespace Unicorn.UI
             }
         }
 
-        [MenuItem(MenuRoot + "UI Button", false, 1830)]
+        [MenuItem(MenuRoot + "Legacy/UI Button", false, 1830)]
         private static void _AddButton (MenuCommand menuCommand)
         {
             GameObject go = DefaultControls.CreateButton(GetStandardResources());
@@ -83,14 +83,14 @@ namespace Unicorn.UI
             PlaceUIElementRoot(go, menuCommand);
         }
 
-        [MenuItem(MenuRoot + "UI Dropdown", false, 1835)]
+        [MenuItem(MenuRoot + "Legacy/UI Dropdown", false, 1835)]
         private static void _AddDropdown(MenuCommand menuCommand)
         {
             GameObject go = DefaultControls.CreateDropdown(GetStandardResources());
             PlaceUIElementRoot(go, menuCommand);
         }
 
-        [MenuItem(MenuRoot + "UI Input Field", false, 1836)]
+        [MenuItem(MenuRoot + "Legacy/UI Input Field", false, 1836)]
         private static void _AddInputField (MenuCommand menuCommand)
         {
             GameObject go = DefaultControls.CreateInputField(GetStandardResources());

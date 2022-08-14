@@ -129,21 +129,21 @@ namespace Unicorn.UI
 
         public static GameObject CreateButton(Resources resources)
         {
-            GameObject buttonRoot = CreateUIElementRoot("Button", s_ThickElementSize);
+            GameObject buttonRoot = CreateUIElementRoot("UIButton", s_ThickElementSize);
 
-            GameObject childText = new GameObject("Text (TMP)");
+            GameObject childText = new GameObject("UIText (TMP)");
             childText.AddComponent<RectTransform>();
             SetParentAndAlign(childText, buttonRoot);
 
-            Image image = buttonRoot.AddComponent<Image>();
+            Image image = buttonRoot.AddComponent<UIImage>();
             image.sprite = resources.standard;
             image.type = Image.Type.Sliced;
             image.color = s_DefaultSelectableColor;
 
-            Button bt = buttonRoot.AddComponent<Button>();
+            Button bt = buttonRoot.AddComponent<UIButton>();
             SetDefaultColorTransitionValues(bt);
 
-            TextMeshProUGUI text = childText.AddComponent<TextMeshProUGUI>();
+            TextMeshProUGUI text = childText.AddComponent<UITextMeshProUGUI>();
             text.text = "Button";
             text.alignment = TextAlignmentOptions.Center;
             SetDefaultTextValues(text);
