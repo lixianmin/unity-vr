@@ -6,12 +6,14 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using TMPro;
+using TMPro.EditorUtilities;
 
 namespace Unicorn.UI
 {
@@ -26,7 +28,7 @@ namespace Unicorn.UI
             UITextMeshProUGUI textComponent = go.GetComponent<UITextMeshProUGUI>();
             
             // var isWaitingOnResourceLoad = textComponent.m_isWaitingOnResourceLoad == false;
-            var isWaitingOnResourceLoad = false;
+            var isWaitingOnResourceLoad = IsWaitingOnResourceLoad(textComponent);
             if (isWaitingOnResourceLoad == false)
             {
                 // Get reference to potential Presets for <TextMeshProUGUI> component
@@ -58,14 +60,22 @@ namespace Unicorn.UI
 
             PlaceUIElementRoot(go, menuCommand);
         }
-        
+
+        private static bool IsWaitingOnResourceLoad(UITextMeshProUGUI script)
+        {
+            var type = script.GetType();
+            var fieldInfo = type.GetField("m_isWaitingOnResourceLoad", BindingFlags.NonPublic | BindingFlags.Instance);
+            var value = (bool) fieldInfo?.GetValue(script)!;
+            return value;
+        }
+
         private static void PlaceUIElementRoot(GameObject element, MenuCommand menuCommand)
         {
             GameObject parent = menuCommand.context as GameObject;
             bool explicitParentChoice = true;
             if (parent == null)
             {
-                parent = GetOrCreateCanvasGameObject();
+                parent = TMPro_CreateObjectMenu.GetOrCreateCanvasGameObject();
                 explicitParentChoice = false;
 
                 // If in Prefab Mode, Canvas has to be part of Prefab contents,
@@ -79,7 +89,7 @@ namespace Unicorn.UI
             {
                 // Create canvas under context GameObject,
                 // and make that be the parent which UI element is added under.
-                GameObject canvas = CreateNewUI();
+                GameObject canvas = TMPro_CreateObjectMenu.CreateNewUI();
                 Undo.SetTransformParent(canvas.transform, parent.transform, "");
                 parent = canvas;
             }
@@ -147,43 +157,6 @@ namespace Unicorn.UI
         }
 
         
-        // Helper function that returns a Canvas GameObject; preferably a parent of the selection, or other existing Canvas.
-        public static GameObject GetOrCreateCanvasGameObject()
-        {
-            GameObject selectedGo = Selection.activeGameObject;
-
-            // Try to find a gameobject that is the selected GO or one if its parents.
-            Canvas canvas = (selectedGo != null) ? selectedGo.GetComponentInParent<Canvas>() : null;
-            if (IsValidCanvas(canvas))
-                return canvas.gameObject;
-
-            // No canvas in selection or its parents? Then use any valid canvas.
-            // We have to find all loaded Canvases, not just the ones in main scenes.
-            Canvas[] canvasArray = StageUtility.GetCurrentStageHandle().FindComponentsOfType<Canvas>();
-            for (int i = 0; i < canvasArray.Length; i++)
-                if (IsValidCanvas(canvasArray[i]))
-                    return canvasArray[i].gameObject;
-
-            // No canvas in the scene at all? Then create a new one.
-            return CreateNewUI();
-        }
-        
-        static bool IsValidCanvas(Canvas canvas)
-        {
-            if (canvas == null || !canvas.gameObject.activeInHierarchy)
-                return false;
-
-            // It's important that the non-editable canvas from a prefab scene won't be rejected,
-            // but canvases not visible in the Hierarchy at all do. Don't check for HideAndDontSave.
-            if (EditorUtility.IsPersistent(canvas) || (canvas.hideFlags & HideFlags.HideInHierarchy) != 0)
-                return false;
-
-            if (StageUtility.GetStageHandle(canvas.gameObject) != StageUtility.GetCurrentStageHandle())
-                return false;
-
-            return true;
-        }
-        
         private static void SetParentAndAlign(GameObject child, GameObject parent)
         {
             if (parent == null)
@@ -216,62 +189,7 @@ namespace Unicorn.UI
             for (int i = 0; i < t.childCount; i++)
                 SetLayerRecursively(t.GetChild(i).gameObject, layer);
         }
-        
-        public static GameObject CreateNewUI()
-        {
-            // Root for the UI
-            var root = new GameObject("Canvas");
-            root.layer = LayerMask.NameToLayer(kUILayerName);
-            Canvas canvas = root.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            root.AddComponent<CanvasScaler>();
-            root.AddComponent<GraphicRaycaster>();
 
-            // Works for all stages.
-            StageUtility.PlaceGameObjectInCurrentStage(root);
-            bool customScene = false;
-            PrefabStage prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
-            if (prefabStage != null)
-            {
-                root.transform.SetParent(prefabStage.prefabContentsRoot.transform, false);
-                customScene = true;
-            }
-
-            Undo.RegisterCreatedObjectUndo(root, "Create " + root.name);
-
-            // If there is no event system add one...
-            // No need to place event system in custom scene as these are temporary anyway.
-            // It can be argued for or against placing it in the user scenes,
-            // but let's not modify scene user is not currently looking at.
-            if (!customScene)
-                CreateEventSystem(false);
-            return root;
-        }
-        
-        private static void CreateEventSystem(bool select)
-        {
-            CreateEventSystem(select, null);
-        }
-
-
-        private static void CreateEventSystem(bool select, GameObject parent)
-        {
-            var esys = Object.FindObjectOfType<EventSystem>();
-            if (esys == null)
-            {
-                var eventSystem = new GameObject("EventSystem");
-                GameObjectUtility.SetParentAndAlign(eventSystem, parent);
-                esys = eventSystem.AddComponent<EventSystem>();
-                eventSystem.AddComponent<StandaloneInputModule>();
-
-                Undo.RegisterCreatedObjectUndo(eventSystem, "Create " + eventSystem.name);
-            }
-
-            if (select && esys != null)
-            {
-                Selection.activeGameObject = esys.gameObject;
-            }
-        }
         
         private static TMP_DefaultControls.Resources GetStandardResources()
         {
@@ -292,8 +210,6 @@ namespace Unicorn.UI
 
         private const string MenuRoot = "GameObject/UI/";
         
-        private const string kUILayerName = "UI";
-
         private const string kStandardSpritePath = "UI/Skin/UISprite.psd";
         private const string kBackgroundSpritePath = "UI/Skin/Background.psd";
         private const string kInputFieldBackgroundPath = "UI/Skin/InputFieldBackground.psd";
