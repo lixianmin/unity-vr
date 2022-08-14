@@ -13,7 +13,7 @@ using UnityEditor;
 
 namespace Unicorn.UI
 {
-    static internal class MenuOptions
+    internal static class MenuOptions
     {
         [MenuItem(MenuRoot + "UI Text", false, 1800)]
         private static void _AddText (MenuCommand menuCommand)
