@@ -70,6 +70,20 @@ namespace Unicorn.UI
 
             PlaceUIElementRoot(go, menuCommand);
         }
+        
+        [MenuItem(MenuRoot+"UI Input Field - TextMeshPro", false, 1836)]
+        static void AddTextMeshProInputField(MenuCommand menuCommand)
+        {
+            GameObject go = TMP_DefaultControls.CreateInputField(GetStandardResources());
+            PlaceUIElementRoot(go, menuCommand);
+        }
+        
+        [MenuItem(MenuRoot+"UI Dropdown - TextMeshPro", false, 1835)]
+        public static void AddDropdown(MenuCommand menuCommand)
+        {
+            GameObject go = TMP_DefaultControls.CreateDropdown(GetStandardResources());
+            PlaceUIElementRoot(go, menuCommand);
+        }
 
         private static bool IsWaitingOnResourceLoad(UITextMeshProUGUI script)
         {

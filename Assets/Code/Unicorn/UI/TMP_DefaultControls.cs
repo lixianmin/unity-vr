@@ -101,12 +101,12 @@ namespace Unicorn.UI
             GameObject sliderArea = CreateUIObject("Sliding Area", scrollbarRoot);
             GameObject handle = CreateUIObject("Handle", sliderArea);
 
-            Image bgImage = scrollbarRoot.AddComponent<Image>();
+            var bgImage = scrollbarRoot.AddComponent<UIImage>();
             bgImage.sprite = resources.background;
             bgImage.type = Image.Type.Sliced;
             bgImage.color = s_DefaultSelectableColor;
 
-            Image handleImage = handle.AddComponent<Image>();
+            var handleImage = handle.AddComponent<UIImage>();
             handleImage.sprite = resources.standard;
             handleImage.type = Image.Type.Sliced;
             handleImage.color = s_DefaultSelectableColor;
@@ -119,7 +119,7 @@ namespace Unicorn.UI
             RectTransform handleRect = handle.GetComponent<RectTransform>();
             handleRect.sizeDelta = new Vector2(20, 20);
 
-            Scrollbar scrollbar = scrollbarRoot.AddComponent<Scrollbar>();
+            var scrollbar = scrollbarRoot.AddComponent<UIScrollbar>();
             scrollbar.handleRect = handleRect;
             scrollbar.targetGraphic = handleImage;
             SetDefaultColorTransitionValues(scrollbar);
@@ -174,18 +174,18 @@ namespace Unicorn.UI
 
         public static GameObject CreateInputField(Resources resources)
         {
-            GameObject root = CreateUIElementRoot("InputField (TMP)", s_ThickElementSize);
+            GameObject root = CreateUIElementRoot("UIInputField (TMP)", s_ThickElementSize);
 
             GameObject textArea = CreateUIObject("Text Area", root);
             GameObject childPlaceholder = CreateUIObject("Placeholder", textArea);
-            GameObject childText = CreateUIObject("Text", textArea);
+            GameObject childText = CreateUIObject("UIText", textArea);
 
-            Image image = root.AddComponent<Image>();
+            var image = root.AddComponent<UIImage>();
             image.sprite = resources.inputField;
             image.type = Image.Type.Sliced;
             image.color = s_DefaultSelectableColor;
 
-            TMP_InputField inputField = root.AddComponent<TMP_InputField>();
+            var inputField = root.AddComponent<TMP_InputField>();
             SetDefaultColorTransitionValues(inputField);
 
             // Use UI.Mask for Unity 5.0 - 5.1 and 2D RectMask for Unity 5.2 and up
@@ -202,14 +202,14 @@ namespace Unicorn.UI
             textAreaRectTransform.offsetMax = new Vector2(-10, -7);
 
 
-            TextMeshProUGUI text = childText.AddComponent<TextMeshProUGUI>();
+            var text = childText.AddComponent<UITextMeshProUGUI>();
             text.text = "";
             text.enableWordWrapping = false;
             text.extraPadding = true;
             text.richText = true;
             SetDefaultTextValues(text);
 
-            TextMeshProUGUI placeholder = childPlaceholder.AddComponent<TextMeshProUGUI>();
+            var placeholder = childPlaceholder.AddComponent<UITextMeshProUGUI>();
             placeholder.text = "Enter text...";
             placeholder.fontSize = 14;
             placeholder.fontStyle = FontStyles.Italic;
@@ -248,7 +248,7 @@ namespace Unicorn.UI
 
         public static GameObject CreateDropdown(Resources resources)
         {
-            GameObject root = CreateUIElementRoot("Dropdown", s_ThickElementSize);
+            GameObject root = CreateUIElementRoot("UIDropdown", s_ThickElementSize);
 
             GameObject label = CreateUIObject("Label", root);
             GameObject arrow = CreateUIObject("Arrow", root);
@@ -266,7 +266,7 @@ namespace Unicorn.UI
             scrollbar.name = "Scrollbar";
             SetParentAndAlign(scrollbar, template);
 
-            Scrollbar scrollbarScrollbar = scrollbar.GetComponent<Scrollbar>();
+            var scrollbarScrollbar = scrollbar.GetComponent<UIScrollbar>();
             scrollbarScrollbar.SetDirection(Scrollbar.Direction.BottomToTop, true);
 
             RectTransform vScrollbarRT = scrollbar.GetComponent<RectTransform>();
@@ -277,24 +277,24 @@ namespace Unicorn.UI
 
             // Setup item UI components.
 
-            TextMeshProUGUI itemLabelText = itemLabel.AddComponent<TextMeshProUGUI>();
+            var itemLabelText = itemLabel.AddComponent<UITextMeshProUGUI>();
             SetDefaultTextValues(itemLabelText);
             itemLabelText.alignment = TextAlignmentOptions.Left;
 
-            Image itemBackgroundImage = itemBackground.AddComponent<Image>();
+            var itemBackgroundImage = itemBackground.AddComponent<UIImage>();
             itemBackgroundImage.color = new Color32(245, 245, 245, 255);
 
-            Image itemCheckmarkImage = itemCheckmark.AddComponent<Image>();
+            var itemCheckmarkImage = itemCheckmark.AddComponent<UIImage>();
             itemCheckmarkImage.sprite = resources.checkmark;
 
-            Toggle itemToggle = item.AddComponent<Toggle>();
+            var itemToggle = item.AddComponent<UIToggle>();
             itemToggle.targetGraphic = itemBackgroundImage;
             itemToggle.graphic = itemCheckmarkImage;
             itemToggle.isOn = true;
 
             // Setup template UI components.
 
-            Image templateImage = template.AddComponent<Image>();
+            var templateImage = template.AddComponent<UIImage>();
             templateImage.sprite = resources.standard;
             templateImage.type = Image.Type.Sliced;
 
@@ -310,25 +310,25 @@ namespace Unicorn.UI
             Mask scrollRectMask = viewport.AddComponent<Mask>();
             scrollRectMask.showMaskGraphic = false;
 
-            Image viewportImage = viewport.AddComponent<Image>();
+            var viewportImage = viewport.AddComponent<UIImage>();
             viewportImage.sprite = resources.mask;
             viewportImage.type = Image.Type.Sliced;
 
             // Setup dropdown UI components.
 
-            TextMeshProUGUI labelText = label.AddComponent<TextMeshProUGUI>();
+            var labelText = label.AddComponent<UITextMeshProUGUI>();
             SetDefaultTextValues(labelText);
             labelText.alignment = TextAlignmentOptions.Left;
 
-            Image arrowImage = arrow.AddComponent<Image>();
+            var arrowImage = arrow.AddComponent<UIImage>();
             arrowImage.sprite = resources.dropdown;
 
-            Image backgroundImage = root.AddComponent<Image>();
+            var backgroundImage = root.AddComponent<UIImage>();
             backgroundImage.sprite = resources.standard;
             backgroundImage.color = s_DefaultSelectableColor;
             backgroundImage.type = Image.Type.Sliced;
 
-            TMP_Dropdown dropdown = root.AddComponent<TMP_Dropdown>();
+            var dropdown = root.AddComponent<TMP_Dropdown>();
             dropdown.targetGraphic = backgroundImage;
             SetDefaultColorTransitionValues(dropdown);
             dropdown.template = template.GetComponent<RectTransform>();

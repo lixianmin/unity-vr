@@ -126,7 +126,7 @@ namespace Unicorn.UI
 		}
 
         [MenuItem(MenuRoot + "UI Scroll View", false, 1862)]
-        static public void AddScrollView(MenuCommand menuCommand)
+        public static void AddScrollView(MenuCommand menuCommand)
         {
             GameObject go = DefaultControls.CreateScrollView(GetStandardResources());
             PlaceUIElementRoot(go, menuCommand);
@@ -203,7 +203,7 @@ namespace Unicorn.UI
         }
 
         // Helper function that returns a Canvas GameObject; preferably a parent of the selection, or other existing Canvas.
-        static public GameObject GetOrCreateCanvasGameObject()
+        public static GameObject GetOrCreateCanvasGameObject()
         {
             GameObject selectedGo = Selection.activeGameObject;
 
@@ -221,7 +221,7 @@ namespace Unicorn.UI
             return MenuOptions.CreateNewUI();
         }
 
-        static public GameObject CreateNewUI()
+        public static GameObject CreateNewUI()
         {
             // Root for the UI
             var root = new GameObject("Canvas");
