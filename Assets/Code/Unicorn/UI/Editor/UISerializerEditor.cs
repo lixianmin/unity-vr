@@ -294,7 +294,7 @@ namespace Unicorn.UI
 
             foreach (var item in script.labels)
             {
-                var label = item as UIText;
+                var label = item as UIText1;
                 if (null == label || string.IsNullOrEmpty(label.GetGUID()))
                 {
                     continue;

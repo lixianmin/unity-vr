@@ -5,11 +5,12 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Unicorn.UI
 {
-    public class UIInputField2 : TMP_InputField
+    public class UIInputField1 : InputField
     {
 
     }

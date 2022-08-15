@@ -21,7 +21,7 @@ namespace Unicorn.UI
             GameObject go = DefaultControls.CreateText(GetStandardResources());
             PlaceUIElementRoot(go, menuCommand);
 
-            var label = go.GetComponent<UIText>();
+            var label = go.GetComponent<UIText1>();
             if (null != label)
             {
                 label.raycastTarget = false;

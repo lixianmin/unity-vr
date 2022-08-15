@@ -17,13 +17,13 @@ namespace Unicorn.UI
 {
     internal static class MenuOptionsTMP
     {
-        [MenuItem(MenuRoot + "UI Text - TextMeshPro", false, 1800)]
+        [MenuItem(MenuRoot + "UI Text", false, 1800)]
         private static void CreateTextMeshProGuiObjectPerform(MenuCommand menuCommand)
         {
             GameObject go = TMP_DefaultControls.CreateText(GetStandardResources());
             
             // Override text color and font size
-            UIText2 textComponent = go.GetComponent<UIText2>();
+            UIText textComponent = go.GetComponent<UIText>();
             
             // var isWaitingOnResourceLoad = textComponent.m_isWaitingOnResourceLoad == false;
             var isWaitingOnResourceLoad = IsWaitingOnResourceLoad(textComponent);
@@ -59,7 +59,7 @@ namespace Unicorn.UI
             PlaceUIElementRoot(go, menuCommand);
         }
         
-        [MenuItem(MenuRoot+"/UI Button - TextMeshPro", false, 1830)]
+        [MenuItem(MenuRoot+"/UI Button", false, 1830)]
         public static void AddButton(MenuCommand menuCommand)
         {
             var go = TMP_DefaultControls.CreateButton(GetStandardResources());
@@ -71,21 +71,21 @@ namespace Unicorn.UI
             PlaceUIElementRoot(go, menuCommand);
         }
         
-        [MenuItem(MenuRoot+"UI Input Field - TextMeshPro", false, 1836)]
+        [MenuItem(MenuRoot+"UI Input Field", false, 1836)]
         static void AddTextMeshProInputField(MenuCommand menuCommand)
         {
             GameObject go = TMP_DefaultControls.CreateInputField(GetStandardResources());
             PlaceUIElementRoot(go, menuCommand);
         }
         
-        [MenuItem(MenuRoot+"UI Dropdown - TextMeshPro", false, 1835)]
+        [MenuItem(MenuRoot+"UI Dropdown", false, 1835)]
         public static void AddDropdown(MenuCommand menuCommand)
         {
             GameObject go = TMP_DefaultControls.CreateDropdown(GetStandardResources());
             PlaceUIElementRoot(go, menuCommand);
         }
 
-        private static bool IsWaitingOnResourceLoad(UIText2 script)
+        private static bool IsWaitingOnResourceLoad(UIText script)
         {
             var type = script.GetType();
             var fieldInfo = type.GetField("m_isWaitingOnResourceLoad", BindingFlags.NonPublic | BindingFlags.Instance);

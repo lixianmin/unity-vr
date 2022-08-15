@@ -131,7 +131,7 @@ namespace Unicorn.UI
         {
             GameObject buttonRoot = CreateUIElementRoot("UIButton", s_ThickElementSize);
 
-            GameObject childText = new GameObject("UIText2");
+            GameObject childText = new GameObject("UIText");
             childText.AddComponent<RectTransform>();
             SetParentAndAlign(childText, buttonRoot);
 
@@ -143,7 +143,7 @@ namespace Unicorn.UI
             Button bt = buttonRoot.AddComponent<UIButton>();
             SetDefaultColorTransitionValues(bt);
 
-            TextMeshProUGUI text = childText.AddComponent<UIText2>();
+            TextMeshProUGUI text = childText.AddComponent<UIText>();
             text.text = "Button";
             text.alignment = TextAlignmentOptions.Center;
             SetDefaultTextValues(text);
@@ -161,10 +161,10 @@ namespace Unicorn.UI
             GameObject go = null;
 
             #if UNITY_EDITOR
-                go = ObjectFactory.CreateGameObject("UIText2");
-                ObjectFactory.AddComponent<UIText2>(go);
+                go = ObjectFactory.CreateGameObject("UIText");
+                ObjectFactory.AddComponent<UIText>(go);
             #else
-                go = CreateUIElementRoot("UIText2", s_TextElementSize);
+                go = CreateUIElementRoot("UIText", s_TextElementSize);
                 go.AddComponent<UITextMeshProUGUI>();
             #endif
 
@@ -174,7 +174,7 @@ namespace Unicorn.UI
 
         public static GameObject CreateInputField(Resources resources)
         {
-            GameObject root = CreateUIElementRoot("UIInputField2", s_ThickElementSize);
+            GameObject root = CreateUIElementRoot("UIInputField", s_ThickElementSize);
 
             GameObject textArea = CreateUIObject("Text Area", root);
             GameObject childPlaceholder = CreateUIObject("Placeholder", textArea);
@@ -185,7 +185,7 @@ namespace Unicorn.UI
             image.type = Image.Type.Sliced;
             image.color = s_DefaultSelectableColor;
 
-            var inputField = root.AddComponent<UIInputField2>();
+            var inputField = root.AddComponent<UIInputField>();
             SetDefaultColorTransitionValues(inputField);
 
             // Use UI.Mask for Unity 5.0 - 5.1 and 2D RectMask for Unity 5.2 and up
@@ -202,14 +202,14 @@ namespace Unicorn.UI
             textAreaRectTransform.offsetMax = new Vector2(-10, -7);
 
 
-            var text = childText.AddComponent<UIText2>();
+            var text = childText.AddComponent<UIText>();
             text.text = "";
             text.enableWordWrapping = false;
             text.extraPadding = true;
             text.richText = true;
             SetDefaultTextValues(text);
 
-            var placeholder = childPlaceholder.AddComponent<UIText2>();
+            var placeholder = childPlaceholder.AddComponent<UIText>();
             placeholder.text = "Enter text...";
             placeholder.fontSize = 14;
             placeholder.fontStyle = FontStyles.Italic;
@@ -277,7 +277,7 @@ namespace Unicorn.UI
 
             // Setup item UI components.
 
-            var itemLabelText = itemLabel.AddComponent<UIText2>();
+            var itemLabelText = itemLabel.AddComponent<UIText>();
             SetDefaultTextValues(itemLabelText);
             itemLabelText.alignment = TextAlignmentOptions.Left;
 
@@ -316,7 +316,7 @@ namespace Unicorn.UI
 
             // Setup dropdown UI components.
 
-            var labelText = label.AddComponent<UIText2>();
+            var labelText = label.AddComponent<UIText>();
             SetDefaultTextValues(labelText);
             labelText.alignment = TextAlignmentOptions.Left;
 

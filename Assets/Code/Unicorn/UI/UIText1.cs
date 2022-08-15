@@ -1,17 +1,22 @@
 /********************************************************************
-created:    2022-08-14
+created:    2017-07-26
 author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Unicorn.UI
 {
-    public class UIText2 : TextMeshProUGUI
+    public class UIText1 : Text
     {
+        internal void AssignDefaultFont ()
+        {
+            font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        }
+
         public string GetGUID ()
         {
             return _guid;

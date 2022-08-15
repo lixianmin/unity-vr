@@ -1,16 +1,15 @@
 /********************************************************************
-created:    2017-07-28
+created:    2022-08-15
 author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 namespace Unicorn.UI
 {
-    public class UIInputField : InputField
+    public class UIInputField : TMP_InputField
     {
 
     }

@@ -52,7 +52,7 @@ namespace Unicorn.UI
             return go;
         }
 
-        private static void SetDefaultTextValues (UIText lbl)
+        private static void SetDefaultTextValues (UIText1 lbl)
         {
             // Set text values we want across UI elements in default controls.
             // Don't set values which are the same as the default values for the Text component,
@@ -115,7 +115,7 @@ namespace Unicorn.UI
         {
             GameObject go = CreateUIElementRoot("UIText", s_ThickElementSize);
 
-            var lbl = go.AddComponent<UIText>();
+            var lbl = go.AddComponent<UIText1>();
             lbl.text = "New UIText";
             SetDefaultTextValues(lbl);
 
@@ -152,7 +152,7 @@ namespace Unicorn.UI
             var bt = buttonRoot.AddComponent<UIButton>();
             SetDefaultColorTransitionValues(bt);
 
-            var text = childText.AddComponent<UIText>();
+            var text = childText.AddComponent<UIText1>();
             text.text = "UIButton";
             text.alignment = TextAnchor.MiddleCenter;
             SetDefaultTextValues(text);
@@ -186,7 +186,7 @@ namespace Unicorn.UI
             var checkmarkImage = checkmark.AddComponent<UIImage>();
             checkmarkImage.sprite = resources.checkmark;
 
-            var label = childLabel.AddComponent<UIText>();
+            var label = childLabel.AddComponent<UIText1>();
             label.text = "Toggle";
             SetDefaultTextValues(label);
 
@@ -323,15 +323,15 @@ namespace Unicorn.UI
             image.type = Image.Type.Sliced;
             image.color = s_DefaultSelectableColor;
 
-            var inputField = root.AddComponent<UIInputField>();
+            var inputField = root.AddComponent<UIInputField1>();
             SetDefaultColorTransitionValues(inputField);
 
-            var text = childText.AddComponent<UIText>();
+            var text = childText.AddComponent<UIText1>();
             text.text = "";
             text.supportRichText = false;
             SetDefaultTextValues(text);
 
-            var placeholder = childPlaceholder.AddComponent<UIText>();
+            var placeholder = childPlaceholder.AddComponent<UIText1>();
             placeholder.text = "Enter text...";
             placeholder.fontStyle = FontStyle.Italic;
             // Make placeholder color half as opaque as normal text color.
@@ -390,7 +390,7 @@ namespace Unicorn.UI
 
             // Setup item UI components.
 
-            var itemLabelText = itemLabel.AddComponent<UIText>();
+            var itemLabelText = itemLabel.AddComponent<UIText1>();
             SetDefaultTextValues(itemLabelText);
             itemLabelText.alignment = TextAnchor.MiddleLeft;
 
@@ -429,7 +429,7 @@ namespace Unicorn.UI
 
             // Setup dropdown UI components.
 
-            var labelText = label.AddComponent<UIText>();
+            var labelText = label.AddComponent<UIText1>();
             SetDefaultTextValues(labelText);
             labelText.alignment = TextAnchor.MiddleLeft;
 
