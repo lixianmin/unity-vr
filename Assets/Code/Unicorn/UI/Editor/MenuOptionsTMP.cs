@@ -23,7 +23,7 @@ namespace Unicorn.UI
             GameObject go = TMP_DefaultControls.CreateText(GetStandardResources());
             
             // Override text color and font size
-            UITextMeshProUGUI textComponent = go.GetComponent<UITextMeshProUGUI>();
+            UIText2 textComponent = go.GetComponent<UIText2>();
             
             // var isWaitingOnResourceLoad = textComponent.m_isWaitingOnResourceLoad == false;
             var isWaitingOnResourceLoad = IsWaitingOnResourceLoad(textComponent);
@@ -85,7 +85,7 @@ namespace Unicorn.UI
             PlaceUIElementRoot(go, menuCommand);
         }
 
-        private static bool IsWaitingOnResourceLoad(UITextMeshProUGUI script)
+        private static bool IsWaitingOnResourceLoad(UIText2 script)
         {
             var type = script.GetType();
             var fieldInfo = type.GetField("m_isWaitingOnResourceLoad", BindingFlags.NonPublic | BindingFlags.Instance);

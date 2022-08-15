@@ -7,17 +7,11 @@ Copyright (C) - All Rights Reserved
 
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Unicorn.UI
 {
-    public class UITextMeshProUGUI : TextMeshProUGUI
+    public class UIText2 : TextMeshProUGUI
     {
-        // internal void AssignDefaultFont ()
-        // {
-        //     font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-        // }
-
         public string GetGUID ()
         {
             return _guid;
