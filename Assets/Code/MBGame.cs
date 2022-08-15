@@ -54,48 +54,7 @@ public class MBGame : MonoBehaviour
 		_game.Tick(deltaTime);
 	}
 
-    private void OnGUI()
-    {
-		const float step = 200;
-        if (GUI.Button(new Rect(10, 10, 200, 100), "load cube"))
-        {
-	        WebManager.LoadWebPrefab("Assets/res/prefabs/cube.prefab", prefab =>
-	        {
-		        var mainAsset = prefab.MainAsset;
-				Console.WriteLine("load cube done, mainAsset={0}", mainAsset);
-				GameObject.Instantiate(mainAsset);
-	        });
-        }
-
-		if (GUI.Button(new Rect(10, step, 100, 50), "load sphere"))
-		{
-			WebManager.LoadWebPrefab("Assets/res/prefabs/sphere.prefab", prefab =>
-			{
-				GameObject.Instantiate(prefab.MainAsset);
-				Console.WriteLine("load sphere done");
-			});
-		}
-
-
-		if (GUI.Button(new Rect(10, 2* step, 100, 50), "unload cube"))
-		{
-
-		}
-
-		if (GUI.Button(new Rect(10, 3* step, 100, 50), "unload sphere"))
-		{
-
-		}
-
-		if (GUI.Button(new Rect(10, 4 * step, 100, 50), "gc"))
-		{
-			Resources.UnloadUnusedAssets();
-			GC.Collect();
-			Console.WriteLine("gc done");
-		}
-	}
-
-    private IEnumerator _CoLoadMetadata()
+	private IEnumerator _CoLoadMetadata()
     {
 		var metadataManager = MetadataManager.Instance as GameMetadataManager;
 		if (metadataManager == null)
