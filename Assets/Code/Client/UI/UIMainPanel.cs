@@ -1,23 +1,40 @@
 using System;
-using TMPro;
+using System.Collections.Generic;
 using Unicorn.UI;
 using Unicorn.Web;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Client.UI
 {
-    public class UIMainPanel : MonoBehaviour
+    public static class ExtendUnityEvent 
     {
-        private void Awake()
+        public static void AddListenerEx(this UnityEvent evt, UnityAction handler)
         {
-            btnLoadCube.onClick.AddListener(onClickBtnLoadCube);
-            btnLoadSphere.onClick.AddListener(onClickBtnLoadSphere);
-            btnGarbageCollect.onClick.AddListener(onClickBtnCollectGarbage);
+            if (evt != null && handler != null)
+            {
+                evt.AddListener(handler);
+            }
+        }
+    }
+
+    public class UIMainPanel : UIPanel
+    {
+        protected override void Awake()
+        {
+            listener.AddListener(btnLoadCube.onClick, OnClickBtnLoadCube);
+            listener.AddListener(btnLoadSphere.onClick, OnClickBtnLoadSphere);
+            listener.AddListener(btnGarbageCollect.onClick, OnClickBtnCollectGarbage);
+            base.Awake();
         }
 
-        private void onClickBtnLoadCube()
+        protected override void OnDestroy()
+        {
+            listener.RemoveAllListeners();
+            base.OnDestroy();
+        }
+
+        private void OnClickBtnLoadCube()
         {
             WebManager.LoadWebPrefab("Assets/res/prefabs/cube.prefab", prefab =>
             {
@@ -27,7 +44,7 @@ namespace Client.UI
             });
         }
 
-        private void onClickBtnLoadSphere()
+        private void OnClickBtnLoadSphere()
         {
             WebManager.LoadWebPrefab("Assets/res/prefabs/sphere.prefab", prefab =>
             {
@@ -36,16 +53,18 @@ namespace Client.UI
             });
         }
 
-        private void onClickBtnCollectGarbage()
+        private void OnClickBtnCollectGarbage()
         {
             Resources.UnloadUnusedAssets();
-            			GC.Collect();
-            			Console.WriteLine("gc done");
+            GC.Collect();
+            Console.WriteLine("gc done");
         }
 
         public UIInputField input;
         public UIButton btnLoadCube;
         public UIButton btnLoadSphere;
         public UIButton btnGarbageCollect;
+
+        private readonly UIEventListener listener = new();
     }
 }
