@@ -14,7 +14,6 @@ using Unicorn;
 using Metadata;
 using Client;
 using System;
-using Unicorn.Web;
 
 public class MBGame : MonoBehaviour
 {
@@ -50,7 +49,7 @@ public class MBGame : MonoBehaviour
 	private void Update()
 	{
 		var deltaTime = Time.deltaTime;
-		UnicornMain.Instance.Tick(deltaTime);
+		UnicornMain.Instance.Update(deltaTime);
 		_game.Update(deltaTime);
 	}
 
