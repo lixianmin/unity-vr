@@ -36,7 +36,7 @@ namespace Unicorn.UI
         public virtual void OnDeactivating() {}
         public virtual void OnUnloading() {}
 
-        public virtual void LogicTick(float deltaTime) {}
+        public virtual void LogicUpdate(float deltaTime) {}
         public virtual void Update(float deltaTime) {}
         public virtual void Dispose() {}
 

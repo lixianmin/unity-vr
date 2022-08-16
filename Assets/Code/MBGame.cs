@@ -51,7 +51,7 @@ public class MBGame : MonoBehaviour
 	{
 		var deltaTime = Time.deltaTime;
 		UnicornMain.Instance.Tick(deltaTime);
-		_game.Tick(deltaTime);
+		_game.Update(deltaTime);
 	}
 
 	private IEnumerator _CoLoadMetadata()

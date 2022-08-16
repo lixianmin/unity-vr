@@ -60,7 +60,7 @@ namespace Unicorn.UI
             return item.window;
         }
         
-        public static void LogicTick(float deltaTime)
+        public static void LogicUpdate(float deltaTime)
         {
             var snapshot = _TakeSnapshot();
             var windows = snapshot.windows;
@@ -70,7 +70,7 @@ namespace Unicorn.UI
                 var window = windows[i];
                 if (window.GetFetus().isLoaded)
                 {
-                    window.LogicTick(deltaTime);
+                    window.LogicUpdate(deltaTime);
                 }
             }
         }
