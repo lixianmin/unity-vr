@@ -13,6 +13,11 @@ namespace Unicorn.UI
 {
     internal class UIWindowFetus
     {
+        public UIWindowFetus(UIWindowBase master)
+        {
+            this.master = master;
+        }
+        
         public void Dispose()
         {
             _CloseWindow();
@@ -72,7 +77,7 @@ namespace Unicorn.UI
 
         public GameObject gameObject;
         public Transform transform;
-        public Transform parent;
+        public Transform parent = UIManager.GetUIRoot();
         public UISerializer serializer;
         
         public float activateTime = 0;

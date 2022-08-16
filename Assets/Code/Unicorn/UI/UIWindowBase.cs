@@ -22,11 +22,7 @@ namespace Unicorn.UI
     {
         protected UIWindowBase()
         {
-            _fetus = new UIWindowFetus
-            {
-                master = this,
-                transform = null,
-            };
+            _fetus = new UIWindowFetus(this);
         }
 
         public virtual void OnLoaded() {}

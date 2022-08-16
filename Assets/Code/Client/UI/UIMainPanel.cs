@@ -22,8 +22,8 @@ namespace Client.UI
     {
         protected override void Awake()
         {
-            listener.AddListener(btnLoadCube.onClick, OnClickBtnLoadCube);
-            listener.AddListener(btnLoadSphere.onClick, OnClickBtnLoadBag);
+            listener.AddListener(btnOpenShop.onClick, OnClickOpenShop);
+            listener.AddListener(btnOpenBag.onClick, OnClickOpenBag);
             listener.AddListener(btnGarbageCollect.onClick, OnClickBtnCollectGarbage);
             base.Awake();
         }
@@ -34,31 +34,29 @@ namespace Client.UI
             base.OnDestroy();
         }
 
-        private void OnClickBtnLoadCube()
+        private void OnClickOpenShop()
         {
-            WebManager.LoadWebPrefab("Assets/res/prefabs/cube.prefab", prefab =>
-            {
-                var mainAsset = prefab.MainAsset;
-                Console.WriteLine("load cube done, mainAsset={0}", mainAsset);
-                GameObject.Instantiate(mainAsset);
-            });
+            UIManager.OpenWindow(typeof(UIShop));
         }
 
-        private void OnClickBtnLoadBag()
+        private void OnClickOpenBag()
         {
             UIManager.OpenWindow(typeof(UIBag));
         }
 
         private void OnClickBtnCollectGarbage()
         {
-            Resources.UnloadUnusedAssets();
-            GC.Collect();
+            UIManager.CloseWindow(typeof(UIShop));
+            UIManager.CloseWindow(typeof(UIBag));
+            
+            // Resources.UnloadUnusedAssets();
+            // GC.Collect();
             Console.WriteLine("gc done");
         }
 
         public UIInputField input;
-        public UIButton btnLoadCube;
-        public UIButton btnLoadSphere;
+        public UIButton btnOpenShop;
+        public UIButton btnOpenBag;
         public UIButton btnGarbageCollect;
 
         private readonly UIEventListener listener = new();
