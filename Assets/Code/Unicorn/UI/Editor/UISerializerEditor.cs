@@ -25,10 +25,12 @@ namespace Unicorn.UI
                 return null;
             }
 
-            var item = new UISerializer.WidgetData();
-            item.key  = key;
-            item.name = name;
-            item.type = type;
+            var item = new UISerializer.WidgetData
+            {
+                key = key,
+                name = name,
+                type = type
+            };
 
             if (type == "GameObject")
             {
@@ -213,7 +215,7 @@ namespace Unicorn.UI
             if (null != dataList)
             {
                 var count = dataList.Count;
-                for (int i = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     var item = dataList[i];
                     if (item.target == current.target)
@@ -264,26 +266,24 @@ namespace Unicorn.UI
 
         private static IEnumerable<Transform> _ForEachNode (Transform father)
         {
-            if (null != father)
-            {
-                yield return father;
+            if (null == father) yield break;
+            yield return father;
 
-                var childCount = father.childCount;
-                for (int i= 0; i< childCount; ++i)
+            var childCount = father.childCount;
+            for (var i= 0; i< childCount; ++i)
+            {
+                var child = father.GetChild(i);
+                var isNotControl = null == child.GetComponent(typeof(UISerializer));
+                if (isNotControl)
                 {
-                    var child = father.GetChild(i);
-                    var isNotControl = null == child.GetComponent(typeof(UISerializer));
-                    if (isNotControl)
+                    foreach (var node in _ForEachNode(child))
                     {
-                        foreach (var node in _ForEachNode(child))
-                        {
-                            yield return node;
-                        }
+                        yield return node;
                     }
-                    else
-                    {
-                        yield return child;
-                    }
+                }
+                else
+                {
+                    yield return child;
                 }
             }
         }
@@ -308,8 +308,7 @@ namespace Unicorn.UI
                     continue;
                 }
 
-                var key = name;
-                var currentData = _FillWidgetData(transform, key, name, type);
+                var currentData = _FillWidgetData(transform, name, name, type);
                 if (null != currentData)
                 {
                     _AddUniqueWidgetDdata(dataList, currentData);
@@ -323,7 +322,7 @@ namespace Unicorn.UI
 
             foreach (var child in _ForEachNode(root))
             {
-                string name = child.name;
+                var name = child.name;
                 if (name.Contains("(") || name.Contains(")"))
                 {
                     string currentPath = child.GetFindPathEx();
@@ -382,7 +381,7 @@ namespace Unicorn.UI
         {
             if (null == _headRegex)
             {
-                var pattern = @"^\s*Layout\s*=\s*{";
+                const string pattern = @"^\s*Layout\s*=\s*{";
                 _headRegex = new Regex(pattern, RegexOptions.Multiline);
             }
 
