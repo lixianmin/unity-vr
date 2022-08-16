@@ -13,20 +13,20 @@ namespace Unicorn.UI.States
         {
             AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
             var script = fetus.serializer.openWindowScript;
-            var evt = fetus.serializer.openWindowFinished;
+            var evt = fetus.serializer.onOpenWindowFinished;
             if (script is not null && evt is not null)
             {
                 _openAnimation = new UIAnimation(script, evt);
                 _isPlaying = _openAnimation.PlayAnimation(_OnOpenWindowFinishedCallback, this, fetus);
-
-                if (_isPlaying)
-                {
-                    _playAnimationMask.OpenWindow();
-                }
-                else
-                {
-                    fetus.ChangeState(StateKind.Opened);
-                }
+            }
+            
+            if (_isPlaying)
+            {
+                _playAnimationMask.OpenWindow();
+            }
+            else
+            {
+                fetus.ChangeState(StateKind.Opened);
             }
         }
 

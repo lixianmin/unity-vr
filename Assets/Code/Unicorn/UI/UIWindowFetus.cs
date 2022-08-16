@@ -61,6 +61,7 @@ namespace Unicorn.UI
         public UISerializer serializer;
         
         public float activateTime = 0;
+        public bool isWindowCached;
         public bool isLoaded;
         public bool isOpened;
         public bool isDelayedOpenWindow;

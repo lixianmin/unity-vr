@@ -18,6 +18,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Unicorn.UI
@@ -185,9 +186,9 @@ namespace Unicorn.UI
         private static Action<UISerializer> _lpfnSerializePrefab;
 
         public MonoBehaviour openWindowScript;
-        public UnityEvent openWindowFinished;
+        public UnityEvent onOpenWindowFinished;
         public MonoBehaviour closeWindowScript;
-        public UnityEvent closeWindowFinished;
+        public UnityEvent onCloseWindowFinished;
 
         public WidgetData[] widgetDatas = null;
         public Text[] labels = null;
