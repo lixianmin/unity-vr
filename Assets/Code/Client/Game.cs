@@ -21,7 +21,7 @@ namespace Client
         public void Update(float deltaTime)
         {
             var time = Time.time;
-            if (time > _nextLogicUpdateTime)
+            if (time >= _nextLogicUpdateTime)
             {
                 var deltaLogicTime = time - _lastLogicUpdateTime;
                 _lastLogicUpdateTime = _nextLogicUpdateTime;

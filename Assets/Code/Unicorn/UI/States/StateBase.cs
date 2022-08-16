@@ -6,6 +6,7 @@ Copyright (C) - All Rights Reserved
 *********************************************************************/
 
 using Unicorn.Collections;
+using Unicorn.UI.Internal;
 
 namespace Unicorn.UI.States
 {

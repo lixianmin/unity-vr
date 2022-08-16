@@ -14,7 +14,7 @@ using TMPro;
 using UnityEditor;
 #endif
 
-namespace Unicorn.UI
+namespace Unicorn.UI.Internal
 {
     public static class TMP_DefaultControls
     {

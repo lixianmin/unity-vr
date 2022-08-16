@@ -42,14 +42,14 @@ namespace Unicorn.UI
                 item.target = target;
                 if (null != target)
                 {
-//                    if (target is UIText)
-//                    {
-//                        var label = target as UIText;
-//                        if (!string.IsNullOrEmpty(label.GetGUID()))
-//                        {
-//                            item.userdata = label.GetGUID();
-//                        }
-//                    }
+                    // if (target is UIText)
+                    // {
+                    //     var label = target as UIText;
+                    //     if (!string.IsNullOrEmpty(label.GetGUID()))
+                    //     {
+                    //         item.userdata = label.GetGUID();
+                    //     }
+                    // }
                 }
                 else
                 {
@@ -136,40 +136,37 @@ namespace Unicorn.UI
         private static string _CutCandidateText (string text)
         {
             var match = _GetHeadRegex().Match(text);
-            if (null != match)
+            var textLength = text.Length;
+            var startIndex = match.Index + match.Length;
+            var index = startIndex;
+
+            var flag = 1;
+            for (; index< textLength; ++index)
             {
-                var textLength = text.Length;
-                var startIndex = match.Index + match.Length;
-                var index = startIndex;
-
-                var flag = 1;
-                for (; index< textLength; ++index)
+                var c = text[index];
+                if (c == '{')
                 {
-                    var c = text[index];
-                    if (c == '{')
-                    {
-                        ++flag;
-                    }
-                    else if (c == '}')
-                    {
-                        --flag;
+                    ++flag;
+                }
+                else if (c == '}')
+                {
+                    --flag;
 
-                        if (flag == 0)
-                        {
-                            break;
-                        }
+                    if (flag == 0)
+                    {
+                        break;
                     }
                 }
-
-                text = text.Substring(startIndex, index - startIndex);
             }
+
+            text = text.Substring(startIndex, index - startIndex);
 
             return text;
         }
 
-        private static void _CollectWidgetFromLua (Transform root, List<UISerializer.WidgetData> dataList)
+        private static void _CollectWidgetFromLua (Transform root, IList<UISerializer.WidgetData> dataList)
         {
-            string scriptPath = _SearchLuaScriptPath(root.name);
+            var scriptPath = _SearchLuaScriptPath(root.name);
             if (!File.Exists(scriptPath))
             {
                 return;
@@ -178,7 +175,7 @@ namespace Unicorn.UI
             var text = File.ReadAllText(scriptPath);
             text = _CutCandidateText(text);
 
-            var validGroupCount = 5;
+            const int validGroupCount = 5;
 
             foreach (Match match in _GetWidgetRegex().Matches(text))
             {
@@ -206,11 +203,11 @@ namespace Unicorn.UI
                     return;
                 }
 
-                _AddUniqueWidgetDdata(dataList, currentData);
+                _AddUniqueWidgetData(dataList, currentData);
             }
         }
 
-        private static void _AddUniqueWidgetDdata (IList<UISerializer.WidgetData> dataList, UISerializer.WidgetData current)
+        private static void _AddUniqueWidgetData (IList<UISerializer.WidgetData> dataList, UISerializer.WidgetData current)
         {
             if (null != dataList)
             {
@@ -311,7 +308,7 @@ namespace Unicorn.UI
                 var currentData = _FillWidgetData(transform, name, name, type);
                 if (null != currentData)
                 {
-                    _AddUniqueWidgetDdata(dataList, currentData);
+                    _AddUniqueWidgetData(dataList, currentData);
                 }
             }
         }
@@ -325,7 +322,7 @@ namespace Unicorn.UI
                 var name = child.name;
                 if (name.Contains("(") || name.Contains(")"))
                 {
-                    string currentPath = child.GetFindPathEx();
+                    var currentPath = child.GetFindPathEx();
                     Console.Error.WriteLine("\"()\" is not allowed in gameObject names, path={0}/{1}", root.name, currentPath);
                 }
 
@@ -343,7 +340,7 @@ namespace Unicorn.UI
             }
         }
 
-        private static void _CheckEventSystemExistance (Transform transform)
+        private static void _CheckEventSystemExistence (Transform transform)
         {
             var script = transform.GetComponentInChildren<UnityEngine.EventSystems.EventSystem>(true);
             if (null != script)
@@ -360,7 +357,7 @@ namespace Unicorn.UI
             var root = rootScript.transform;
 
             _CheckNameDuplication(root);
-            _CheckEventSystemExistance(root);
+            _CheckEventSystemExistence(root);
 
             rootScript.widgetDatas = null;
             var dataList = ListPool<UISerializer.WidgetData>.Spawn();

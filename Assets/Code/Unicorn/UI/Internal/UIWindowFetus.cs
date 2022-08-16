@@ -9,7 +9,7 @@ Copyright (C) - All Rights Reserved
 using Unicorn.UI.States;
 using UnityEngine;
 
-namespace Unicorn.UI
+namespace Unicorn.UI.Internal
 {
     internal class UIWindowFetus
     {
@@ -72,7 +72,7 @@ namespace Unicorn.UI
         }
 
         public StateBase state = StateBase.Create(StateKind.None);
-        public UIWindowBase master;
+        public readonly UIWindowBase master;
         public object argument;
 
         public GameObject gameObject;

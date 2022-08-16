@@ -15,10 +15,8 @@ Copyright (C) - All Rights Reserved
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Unicorn.UI
@@ -134,7 +132,7 @@ namespace Unicorn.UI
         private static Font _GetFont (Font currentFont, Font[] cachedFonts)
         {
             var count = cachedFonts.Length;
-            for (int i= 0; i< count; ++i)
+            for (var i= 0; i< count; ++i)
             {
                 var cached = cachedFonts[i];
                 if (null != cached)
@@ -160,7 +158,7 @@ namespace Unicorn.UI
             _SerializePrefab();
         }
 
-        // [ContextMenu("Serialize Prefab")]
+        [ContextMenu("Serialize Prefab")]
         private void _SerializePrefab ()
         {
             if (null == _lpfnSerializePrefab)

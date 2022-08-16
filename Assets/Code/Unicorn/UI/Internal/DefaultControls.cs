@@ -9,7 +9,7 @@ Copyright (C) - All Rights Reserved
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unicorn.UI
+namespace Unicorn.UI.Internal
 {
     public static class DefaultControls
     {

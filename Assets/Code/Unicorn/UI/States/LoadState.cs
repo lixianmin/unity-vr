@@ -5,6 +5,7 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using Unicorn.UI.Internal;
 using Unicorn.Web;
 using UnityEngine;
 

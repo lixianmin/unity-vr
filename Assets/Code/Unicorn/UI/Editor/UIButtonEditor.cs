@@ -5,7 +5,6 @@ author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
-#if UNITY_2017_1_OR_NEWER
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -58,4 +57,3 @@ namespace Unicorn.UI
         private UIButton _target;
     }
 }
-#endif

@@ -41,6 +41,11 @@ namespace Client.UI
             Console.WriteLine("bag is OnUnloading");
         }
 
+        public override void LogicUpdate(float deltaTime)
+        {
+            var a = "hello world";
+            // Console.WriteLine(a);
+        }
 
         public override string GetResourcePath()
         {

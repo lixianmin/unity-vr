@@ -4,6 +4,9 @@ author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
+
+using Unicorn.UI.Internal;
+
 namespace Unicorn.UI.States
 {
     internal class CloseAnimationState : StateBase
