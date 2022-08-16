@@ -6,8 +6,8 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Unicorn.Web
 {
@@ -34,23 +34,39 @@ namespace Unicorn.Web
             }
             
             var renderers = goAsset.GetComponentsInChildren<Renderer>(true);
-            if (renderers == null) return;
-            
-            foreach (var renderer in renderers)
+            if (renderers != null)
             {
-                var sharedMaterials = renderer.sharedMaterials;
-                if (sharedMaterials == null)
+                foreach (var renderer in renderers)
                 {
-                    continue;
-                }
-                    
-                foreach (var material in sharedMaterials)
-                {
-                    if (material is not  null && material.shader is not null)
+                    var sharedMaterials = renderer.sharedMaterials;
+                    if (sharedMaterials == null)
                     {
-                        material.shader = Shader.Find(material.shader.name);
+                        continue;
+                    }
+
+                    foreach (var material in sharedMaterials)
+                    {
+                        _ReassignMaterialShader(material);
                     }
                 }
+            }
+
+            var graphics = goAsset.GetComponentsInChildren<Graphic>(true);
+            if (graphics != null)
+            {
+                foreach (var graphic in graphics)
+                {
+                    _ReassignMaterialShader(graphic.material);
+                    _ReassignMaterialShader(graphic.materialForRendering);
+                }
+            }
+        }
+
+        private static void _ReassignMaterialShader(Material material)
+        {
+            if (material?.shader != null)
+            {
+                material.shader = Shader.Find(material.shader.name);
             }
         }
     }
