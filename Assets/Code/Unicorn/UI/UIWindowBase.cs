@@ -14,21 +14,34 @@ Copyright (C) - All Rights Reserved
 *********************************************************************/
 
 
+using UnityEngine;
+
 namespace Unicorn.UI
 {
     public abstract class UIWindowBase
     {
         protected UIWindowBase()
         {
-            fetus = new UIWindowFetus
+            _fetus = new UIWindowFetus
             {
                 master = this,
                 transform = null,
             };
         }
-        
+
+        public virtual void OnLoaded() { }
+        public virtual void Release() { }
+
+        public abstract string ResourcePath { get;  }
+
+        public void _SetTransform(Transform transform)
+        {
+            _transform = transform;
+        }
+
         public virtual RenderQueue RenderQueue => RenderQueue.Geometry;
         
-        private UIWindowFetus fetus;
+        private UIWindowFetus _fetus;
+        private Transform _transform;
     }
 }

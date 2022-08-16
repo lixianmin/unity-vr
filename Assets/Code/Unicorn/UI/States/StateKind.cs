@@ -5,13 +5,17 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-
-using UnityEngine;
-
 namespace Unicorn.UI.States
 {
-    internal class StateBase
+    internal enum StateKind
     {
-        
+        None,
+        Load,
+        OpenAnimation,
+        Opened,
+        Unload,
+        CloseAnimation,
+        Closed,
+        Failure,
     }
 }
