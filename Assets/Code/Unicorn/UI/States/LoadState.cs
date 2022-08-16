@@ -53,11 +53,14 @@ namespace Unicorn.UI.States
                     fetus.isDelayedCloseWindow = false;
                     fetus.ChangeState(StateKind.None);
                     master.Dispose();
-                } else if (isLoading)
+                } 
+                else if (isLoading)
                 {
-                    var goCloned = Object.Instantiate(prefab.MainAsset);
+                    var mainAsset = prefab.MainAsset;
+                    var goCloned = Object.Instantiate(mainAsset);
                     if (goCloned is not null)
                     {
+                        goCloned.name = mainAsset.name;
                         fetus.OnLoadGameObject(goCloned);
                         master.OnLoaded();
                         fetus.isLoaded = true;

@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Assets/res/prefabs/sphere.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: bf4499fd5bcf94f6d95decb431ae2378
+    m_Address: Assets/res/prefabs/uibag.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8da663b87a77e4ff9b57055c9e29d296, type: 2}
   m_SchemaSet:

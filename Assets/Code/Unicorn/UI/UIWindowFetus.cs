@@ -13,6 +13,21 @@ namespace Unicorn.UI
 {
     internal class UIWindowFetus
     {
+        public void Dispose()
+        {
+            _CloseWindow();
+
+            parent = null;
+            serializer = null;
+            argument = null;
+
+            if (gameObject is not null)
+            {
+                Object.Destroy(gameObject);
+                gameObject = null;
+            }
+        }
+        
         public void ChangeState(StateKind kind, object arg1=null)
         {
             state?.OnExit(this, arg1);
@@ -51,7 +66,7 @@ namespace Unicorn.UI
             state.OnCloseWindow(this);
         }
 
-        public StateBase state;
+        public StateBase state = StateBase.Create(StateKind.None);
         public UIWindowBase master;
         public object argument;
 

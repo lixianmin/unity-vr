@@ -38,11 +38,23 @@ namespace Unicorn.UI
 
         public virtual void LogicUpdate(float deltaTime) {}
         public virtual void Update(float deltaTime) {}
-        public virtual void Dispose() {}
+
+        public virtual void Dispose()
+        {
+            if (_isReleased)
+            {
+                return;
+            }
+
+            _isReleased = true;
+            UIManager._RemoveWindow(GetType());
+            
+            _fetus.Dispose();
+            _fetus = null;
+        }
 
         public abstract string GetResourcePath();
 
-        
         internal UIWindowFetus GetFetus()
         {
             return _fetus;
@@ -65,5 +77,6 @@ namespace Unicorn.UI
         
         private UIWindowFetus _fetus;
         private Transform _transform;
+        private  bool _isReleased;
     }
 }

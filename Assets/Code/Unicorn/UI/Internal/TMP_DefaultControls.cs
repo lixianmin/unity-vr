@@ -165,7 +165,7 @@ namespace Unicorn.UI
                 ObjectFactory.AddComponent<UIText>(go);
             #else
                 go = CreateUIElementRoot("UIText", s_TextElementSize);
-                go.AddComponent<UITextMeshProUGUI>();
+                go.AddComponent<UIText>();
             #endif
 
             return go;

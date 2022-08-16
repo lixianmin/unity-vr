@@ -23,7 +23,7 @@ namespace Client.UI
         protected override void Awake()
         {
             listener.AddListener(btnLoadCube.onClick, OnClickBtnLoadCube);
-            listener.AddListener(btnLoadSphere.onClick, OnClickBtnLoadSphere);
+            listener.AddListener(btnLoadSphere.onClick, OnClickBtnLoadBag);
             listener.AddListener(btnGarbageCollect.onClick, OnClickBtnCollectGarbage);
             base.Awake();
         }
@@ -44,13 +44,9 @@ namespace Client.UI
             });
         }
 
-        private void OnClickBtnLoadSphere()
+        private void OnClickBtnLoadBag()
         {
-            WebManager.LoadWebPrefab("Assets/res/prefabs/sphere.prefab", prefab =>
-            {
-                GameObject.Instantiate(prefab.MainAsset);
-                Console.WriteLine("load sphere done");
-            });
+            UIManager.OpenWindow(typeof(UIBag));
         }
 
         private void OnClickBtnCollectGarbage()

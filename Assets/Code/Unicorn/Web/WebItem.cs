@@ -39,7 +39,7 @@ namespace Unicorn.Web
             if (loadHandle.Status == AsyncOperationStatus.Succeeded)
             {
                 IsSucceeded = true;
-                HandleTools.SafeHandle(handler, this);
+                CallbackTools.Handle(ref handler, this, string.Empty);
             }
         }
 
