@@ -9,7 +9,7 @@ using Unicorn.Collections;
 
 namespace Unicorn.UI.States
 {
-    internal class StateBase
+    internal abstract class StateBase
     {
         public static StateBase Create(StateKind kind)
         {
@@ -24,8 +24,10 @@ namespace Unicorn.UI.States
                     last = new NoneState();
                     break;
                 case StateKind.Load:
+                    last = new LoadState();
                     break;
                 case StateKind.OpenAnimation:
+                    last = new OpenAnimationState();
                     break;
                 case StateKind.Opened:
                     break;
@@ -36,6 +38,7 @@ namespace Unicorn.UI.States
                 case StateKind.Closed:
                     break;
                 case StateKind.Failure:
+                    last = new FailureState();
                     break;
                 default:
                     Console.Error.WriteLine("invalid state kind={0}", kind);
@@ -46,16 +49,10 @@ namespace Unicorn.UI.States
             return last;
         }
 
-        public virtual void OnEnter(UIWindowFetus fetus, object arg1)
-        {
-            
-        }
-                
-        public virtual void OnExit(UIWindowFetus fetus, object arg1)
-        {
-            
-        }
+        public abstract void OnEnter(UIWindowFetus fetus, object arg1);
 
+        public abstract void OnExit(UIWindowFetus fetus, object arg1);
+        
         private static readonly SortedTable<StateKind, StateBase> _states = new(8);
         protected static readonly UILoadingMask _loadWindowMask = new(0.5f);
         protected static readonly UILoadingMask _playAnimationMask = new(0);

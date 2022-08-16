@@ -4,26 +4,19 @@ author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
+
 namespace Unicorn.UI.States
 {
-    internal class NoneState : StateBase
+    internal class FailureState : StateBase
     {
-        public override void OnEnter(UIWindowFetus fetus, object arg1)
+        public override void OnEnter(UIWindowFetus fetus, object failureText)
         {
-            
+            Console.Error.WriteLine("Enter FailureState, failureText={0}", failureText);
+            fetus.ChangeState(StateKind.None);
+            fetus.master.Release();
         }
 
         public override void OnExit(UIWindowFetus fetus, object arg1)
-        {
-            
-        }
-
-        public void OnOpenWindow(UIWindowFetus fetus)
-        {
-            fetus.ChangeState(StateKind.Load);
-        }
-        
-        public void Release()
         {
             
         }
