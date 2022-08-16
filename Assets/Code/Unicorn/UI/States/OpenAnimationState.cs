@@ -59,16 +59,15 @@ namespace Unicorn.UI.States
             }
         }
 
-        public void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(UIWindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = false;
         }
 
-        public void OnCloseWindow(UIWindowFetus fetus)
+        public override void OnCloseWindow(UIWindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = true;
         }
-        
 
         private UIAnimation _openAnimation;
         private bool _isPlaying;

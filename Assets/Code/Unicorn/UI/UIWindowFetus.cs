@@ -40,8 +40,20 @@ namespace Unicorn.UI
             // todo how to fill widgets
         }
 
+        public void _OpenWindow(object arg1)
+        {
+            this.argument = arg1;
+            state.OnOpenWindow(this);
+        }
+
+        public void _CloseWindow()
+        {
+            state.OnCloseWindow(this);
+        }
+
         public StateBase state;
         public UIWindowBase master;
+        public object argument;
 
         public GameObject gameObject;
         public Transform transform;
@@ -50,6 +62,8 @@ namespace Unicorn.UI
         
         public float activateTime = 0;
         public bool isLoaded;
+        public bool isOpened;
+        public bool isDelayedOpenWindow;
         public bool isDelayedCloseWindow;
     }
 }

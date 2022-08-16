@@ -25,22 +25,22 @@ namespace Unicorn.UI.States
             AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
         }
 
-        public void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(UIWindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = false;
         }
 
-        public void OnCloseWindow(UIWindowFetus fetus)
+        public override void OnCloseWindow(UIWindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = true;
         }
 
         private void _Load(UIWindowFetus fetus)
         {
-            var resourcePath = fetus.master.ResourcePath;
+            var resourcePath = fetus.master.GetResourcePath();
             if (string.IsNullOrEmpty(resourcePath))
             {
-                Console.Error.WriteLine("resourcePath is emptye");
+                Console.Error.WriteLine("resourcePath is empty.");
                 return;
             }
 

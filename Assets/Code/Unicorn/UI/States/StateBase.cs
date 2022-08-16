@@ -30,6 +30,7 @@ namespace Unicorn.UI.States
                     last = new OpenAnimationState();
                     break;
                 case StateKind.Opened:
+                    last = new OpenedState();
                     break;
                 case StateKind.Unload:
                     break;
@@ -49,10 +50,13 @@ namespace Unicorn.UI.States
             return last;
         }
 
-        public abstract void OnEnter(UIWindowFetus fetus, object arg1);
+        public virtual void OnEnter(UIWindowFetus fetus, object arg1) {}
 
-        public abstract void OnExit(UIWindowFetus fetus, object arg1);
-        
+        public virtual void OnExit(UIWindowFetus fetus, object arg1) {}
+
+        public virtual void OnOpenWindow(UIWindowFetus fetus) {}
+        public virtual void OnCloseWindow(UIWindowFetus fetus) {}
+
         private static readonly SortedTable<StateKind, StateBase> _states = new(8);
         protected static readonly UILoadingMask _loadWindowMask = new(0.5f);
         protected static readonly UILoadingMask _playAnimationMask = new(0);

@@ -15,10 +15,5 @@ namespace Unicorn.UI.States
             fetus.ChangeState(StateKind.None);
             fetus.master.Release();
         }
-
-        public override void OnExit(UIWindowFetus fetus, object arg1)
-        {
-            
-        }
     }
 }

@@ -29,19 +29,37 @@ namespace Unicorn.UI
             };
         }
 
-        public virtual void OnLoaded() { }
-        public virtual void Release() { }
+        public virtual void OnLoaded() {}
+        public virtual void OnActivated() {}
+        public virtual void OnOpened() {}
+        public virtual void OnClosing() {}
+        public virtual void OnDeactivating() {}
+        public virtual void Release() {}
 
-        public abstract string ResourcePath { get;  }
+        public abstract string GetResourcePath();
 
-        public void _SetTransform(Transform transform)
+        
+        internal UIWindowFetus GetFetus()
+        {
+            return _fetus;
+        }
+        
+        public Transform GetTransform()
+        {
+            return _transform;
+        }
+
+        internal void _SetTransform(Transform transform)
         {
             _transform = transform;
         }
 
-        public virtual RenderQueue RenderQueue => RenderQueue.Geometry;
+        public virtual RenderQueue GetRenderQueue()
+        {
+            return RenderQueue.Geometry;
+        }
         
-        private UIWindowFetus _fetus;
         private Transform _transform;
+        private UIWindowFetus _fetus;
     }
 }
