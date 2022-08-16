@@ -21,53 +21,109 @@ namespace Unicorn.UI
             public UIWindowBase window;
         }
         
-        public static void OpenWindow<T>()  where T : UIWindowBase
+        public static UIWindowBase OpenWindow(Type windowType, object argument= null)
         {
-            var t = typeof(T);
-            var window = Activator.CreateInstance(typeof(T));
+            if (windowType == null || !windowType.IsSubclassOf(typeof(UIWindowBase)))
+            {
+                return null;
+            }
+            
+            var window = _FetchWindow(windowType);
+            if (window == null)
+            {
+                return null;
+            }
+            
+            window.GetFetus()._OpenWindow(argument);
+            return window;
         }
 
+        public static void CloseWindow(Type windowType)
+        {
+            var item = _IndexWindow(windowType);
+            item.window?.GetFetus()._CloseWindow();
+        }
+
+        internal static void _RemoveWindow(Type windowType)
+        {
+            var item = _IndexWindow(windowType);
+            if (item.window != null)
+            {
+                _windowsZOrder.RemoveAt(item.order);
+                _version++;
+            }
+        }
+
+        public static UIWindowBase GetWindow(Type windowType)
+        {
+            var item = _IndexWindow(windowType);
+            return item.window;
+        }
+        
         public static void LogicTick(float deltaTime)
         {
-            
+            var snapshot = _TakeSnapshot();
+            var windows = snapshot.windows;
+            var count = windows.Count;
+            for (var i = 0; i < count; i++)
+            {
+                var window = windows[i];
+                if (window.GetFetus().isLoaded)
+                {
+                    window.LogicTick(deltaTime);
+                }
+            }
         }
         
         public static void Update(float deltaTime)
         {
-        
+            var snapshot = _TakeSnapshot();
+            var windows = snapshot.windows;
+            var count = windows.Count;
+            for (var i = 0; i < count; i++)
+            {
+                var window = windows[i];
+                if (window.GetFetus().isLoaded)
+                {
+                    window.Update(deltaTime);
+                }
+            }
         }
 
-        private static UIWindowBase FetchWindow(Type windowType)
+        private static UIWindowBase _FetchWindow(Type windowType)
         {
-            var item = IndexWindow(windowType);
-            if (item.window == null)
+            var item = _IndexWindow(windowType);
+            if (item.window != null)
             {
-                if (Activator.CreateInstance(windowType) is not UIWindowBase window)
-                {
-                    throw new NullReferenceException("invalid windowType");
-                }
+                return item.window;
+            }
+            
+            if (Activator.CreateInstance(windowType) is not UIWindowBase window)
+            {
+                throw new NullReferenceException("invalid windowType");
+            }
 
-                _windowsZOrder.Add(window);
-                _version++;
+            _windowsZOrder.Add(window);
+            _version++;
                 
-                return window;
-            }
-
-            return item.window;
+            return window;
         }
 
-        private static WindowItem IndexWindow(Type windowType)
+        private static WindowItem _IndexWindow(Type windowType)
         {
-            var count = _windowsZOrder.Count;
-            for (var order = count - 1; order >= 0; order--)
+            if (windowType != null)
             {
-                var window = _windowsZOrder[order];
-                if (window.GetType() == windowType)
+                var count = _windowsZOrder.Count;
+                for (var order = count - 1; order >= 0; order--)
                 {
-                    return new WindowItem{order = order, window = window};
+                    var window = _windowsZOrder[order];
+                    if (window.GetType() == windowType)
+                    {
+                        return new WindowItem{order = order, window = window};
+                    }
                 }
             }
-
+            
             return new WindowItem{order = -1, window = null};
         }
 
@@ -209,8 +265,27 @@ namespace Unicorn.UI
             return _uiRoot;
         }
 
+        private static Snapshot _TakeSnapshot()
+        {
+            if (_version != _snapshot.version)
+            {
+                _snapshot.windows.Clear();
+                _snapshot.windows.AddRange(_windowsZOrder);
+                _snapshot.version = _version;
+            }
+
+            return _snapshot;
+        }
+
         private static readonly List<UIWindowBase> _windowsZOrder = new(4);
         private static int _version;
+        private static readonly Snapshot _snapshot = new ();
+
+        private class Snapshot
+        {
+            public readonly List<UIWindowBase> windows = new(4);
+            public int version;
+        }
         
         private static UIWindowBase _foregroundWindow;
         private static Transform _uiRoot;

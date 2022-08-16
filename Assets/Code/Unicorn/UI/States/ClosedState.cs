@@ -11,6 +11,7 @@ namespace Unicorn.UI.States
     {
         private static bool _IsWindowCacheable(UIWindowFetus fetus)
         {
+            // return fetus._master.CACHE_HINT and LuaUITools.isBigMemoryMode
             return false;
         }
         

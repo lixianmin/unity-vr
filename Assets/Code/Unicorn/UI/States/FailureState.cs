@@ -13,7 +13,7 @@ namespace Unicorn.UI.States
         {
             Console.Error.WriteLine("Enter FailureState, failureText={0}", failureText);
             fetus.ChangeState(StateKind.None);
-            fetus.master.Release();
+            fetus.master.Dispose();
         }
     }
 }

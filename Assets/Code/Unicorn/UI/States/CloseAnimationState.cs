@@ -19,7 +19,7 @@ namespace Unicorn.UI.States
 
             var script = fetus.serializer.closeWindowScript;
             var evt = fetus.serializer.onCloseWindowFinished;
-            if (script is not null)
+            if (script is not null && evt is not null)
             {
                 _closeAnimation = new UIAnimation(script, evt);
                 _isPlaying = _closeAnimation.PlayAnimation(_OnCloseWindowFinishedCallback, this, fetus);
@@ -37,10 +37,7 @@ namespace Unicorn.UI.States
 
         public override void OnExit(UIWindowFetus fetus, object arg1)
         {
-            if (_closeAnimation is not null)
-            {
-                _closeAnimation.Release();
-            }
+            _closeAnimation?.Release();
 
             if (_isPlaying)
             {

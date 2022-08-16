@@ -34,7 +34,11 @@ namespace Unicorn.UI
         public virtual void OnOpened() {}
         public virtual void OnClosing() {}
         public virtual void OnDeactivating() {}
-        public virtual void Release() {}
+        public virtual void OnUnloading() {}
+
+        public virtual void LogicTick(float deltaTime) {}
+        public virtual void Update(float deltaTime) {}
+        public virtual void Dispose() {}
 
         public abstract string GetResourcePath();
 
@@ -59,7 +63,7 @@ namespace Unicorn.UI
             return RenderQueue.Geometry;
         }
         
-        private Transform _transform;
         private UIWindowFetus _fetus;
+        private Transform _transform;
     }
 }

@@ -52,7 +52,7 @@ namespace Unicorn.UI.States
                 {
                     fetus.isDelayedCloseWindow = false;
                     fetus.ChangeState(StateKind.None);
-                    master.Release();
+                    master.Dispose();
                 } else if (isLoading)
                 {
                     var goCloned = Object.Instantiate(prefab.MainAsset);

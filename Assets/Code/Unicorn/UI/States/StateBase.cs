@@ -33,6 +33,7 @@ namespace Unicorn.UI.States
                     last = new OpenedState();
                     break;
                 case StateKind.Unload:
+                    last = new UnloadState();
                     break;
                 case StateKind.CloseAnimation:
                     last = new CloseAnimationState();

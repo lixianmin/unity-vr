@@ -11,8 +11,9 @@ namespace Unicorn.UI.States
     {
         public override void OnEnter(UIWindowFetus fetus, object arg1)
         {
-            AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
+            AssertTools.IsTrue(!fetus.isDelayedOpenWindow);
             var master = fetus.master;
+            
             master.OnOpened();
             UIManager._SetForegroundWindow(master);
             fetus.isOpened = true;
