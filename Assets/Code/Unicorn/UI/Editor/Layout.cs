@@ -10,7 +10,7 @@ using System;
 
 namespace Unicorn.UI
 {
-    public struct Layout
+    internal struct Layout
     {
         public string name;
         public Type type;

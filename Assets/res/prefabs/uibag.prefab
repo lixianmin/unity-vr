@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9126878437446782977}
   - component: {fileID: 9126878437446782976}
   - component: {fileID: 9126878437446782983}
-  - component: {fileID: 9126878437446782982}
+  - component: {fileID: 8288309436368136393}
   m_Layer: 5
   m_Name: uibag
   m_TagString: Untagged
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &9126878437446782982
+--- !u!114 &8288309436368136393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
