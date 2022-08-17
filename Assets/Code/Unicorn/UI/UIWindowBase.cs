@@ -33,11 +33,11 @@ namespace Unicorn.UI
         public virtual RenderQueue GetRenderQueue() { return RenderQueue.Geometry; }
         
         // 加载事件相关
+        public virtual void OnOpened() {}
         public virtual void OnLoaded() {}
         public virtual void OnActivated() {}
-        public virtual void OnOpened() {}
-        public virtual void OnClosing() {}
         public virtual void OnDeactivating() {}
+        public virtual void OnClosing() {}
         public virtual void OnUnloading() {}
 
         // 逻辑帧: 大概10fps
