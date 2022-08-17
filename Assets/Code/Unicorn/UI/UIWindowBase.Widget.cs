@@ -13,7 +13,7 @@ namespace Unicorn.UI
 {
     public partial class  UIWindowBase
     {
-        private struct ComponentKey :IEquatable<ComponentKey>
+        private struct WidgetKey :IEquatable<WidgetKey>
         {
             public string name;
             public Type type;
@@ -23,58 +23,58 @@ namespace Unicorn.UI
                 return name.GetHashCode();
             }
 
-            public bool Equals(ComponentKey right)
+            public bool Equals(WidgetKey right)
             {
                 return name == right.name && type == right.type;
             }
             
             public override bool Equals(object right)
             {
-                return null != right && Equals((ComponentKey)right);
+                return null != right && Equals((WidgetKey)right);
             }
             
-            public static bool operator == (ComponentKey left, ComponentKey right)
+            public static bool operator == (WidgetKey left, WidgetKey right)
             {
                 return left.Equals(right);
             }
 
-            public static bool operator != (ComponentKey left, ComponentKey right)
+            public static bool operator != (WidgetKey left, WidgetKey right)
             {
                 return !(left == right);
             }
         }
         
-        public Component GetComponent(string name, Type type)
+        public Component GetWidget(string name, Type type)
         {
             if (string.IsNullOrEmpty(name) || type == null)
             {
                 return null;
             }
             
-            var key = new ComponentKey { name = name, type = type };
-            if (_components.TryGetValue(key, out var widget))
+            var key = new WidgetKey { name = name, type = type };
+            if (_widgets.TryGetValue(key, out var widget))
             {
                 return widget;
             }
             
             widget = _transform.DeepFindComponentEx(name, type);
-            _components.Add(key, widget);
+            _widgets.Add(key, widget);
             return widget;
         }
 
-        internal void _FillComponents(UISerializer serializer)
+        internal void _FillWidgets(UISerializer serializer)
         {
             var dataList = serializer.widgetDatas;
             if (dataList is not null)
             {
                 foreach (var data in dataList)
                 {
-                    var key = new ComponentKey { name = data.name, type = data.target.GetType() };
-                    _components.Add(key, data.target);
+                    var key = new WidgetKey { name = data.name, type = data.target.GetType() };
+                    _widgets.Add(key, data.target);
                 }
             }
         }
 
-        private readonly Dictionary<ComponentKey, Component> _components = new(8);
+        private readonly Dictionary<WidgetKey, Component> _widgets = new(8);
     }
 }

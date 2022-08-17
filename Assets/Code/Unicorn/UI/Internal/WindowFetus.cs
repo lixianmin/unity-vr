@@ -57,7 +57,7 @@ namespace Unicorn.UI.Internal
                 transform.SetParent(parent, false);
             }
             
-            master._FillComponents(serializer);
+            master._FillWidgets(serializer);
         }
 
         public void _OpenWindow(object arg1)

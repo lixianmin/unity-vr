@@ -58,14 +58,13 @@ namespace Unicorn.UI
             
             _fetus.Dispose();
             _fetus = null;
-            _components.Clear();
+            _widgets.Clear();
         }
 
         internal WindowFetus GetFetus()
         {
             return _fetus;
         }
-
         
         public Transform GetTransform()
         {

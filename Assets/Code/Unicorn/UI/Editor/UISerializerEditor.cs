@@ -153,12 +153,12 @@ namespace Unicorn.UI
         private static void _CollectWidgetFromCode (Transform root, IList<UISerializer.WidgetData> dataList)
         {
             var window = _SearchWindow(root.name);
-            if (window is null)
+            var layouts = window?.GetLayouts();
+            if (layouts == null)
             {
                 return;
             }
-
-            var layouts = window.GetLayouts();
+            
             foreach (var layout in layouts)
             {
                 var name = layout.name;
@@ -183,20 +183,22 @@ namespace Unicorn.UI
 
         private static void _AddUniqueWidgetData (IList<UISerializer.WidgetData> dataList, UISerializer.WidgetData current)
         {
-            if (null != dataList)
+            if (null == dataList)
             {
-                var count = dataList.Count;
-                for (var i = 0; i < count; i++)
-                {
-                    var item = dataList[i];
-                    if (item.target == current.target)
-                    {
-                        return;
-                    }
-                }
-
-                dataList.Add(current);
+                return;
             }
+            
+            var count = dataList.Count;
+            for (var i = 0; i < count; i++)
+            {
+                var item = dataList[i];
+                if (item.target == current.target)
+                {
+                    return;
+                }
+            }
+
+            dataList.Add(current);
         }
 
         private static void _FetchLabels (UISerializer script)

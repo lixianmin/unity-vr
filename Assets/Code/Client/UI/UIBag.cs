@@ -7,10 +7,7 @@ Copyright (C) - All Rights Reserved
 
 using System;
 using System.Collections.Generic;
-using Unicorn.Collections;
 using Unicorn.UI;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Client.UI
 {
@@ -29,9 +26,18 @@ namespace Client.UI
                 new() { name = "btn_bag", type = typeof(UIButton) },
             };
         }
+
+        private readonly UIEventListener _listener = new ();
+        private readonly UIWidget<UIText> _title = new( "title");
+        private readonly UIWidget<UIButton> _btnBag = new(  "btn_bag");
         
         public override void OnLoaded()
         {
+            _listener.AddListener(_btnBag.GetWidget(this).onClick, ()=>{
+                Console.WriteLine("click button");
+                _title.GetWidget(this).text = "hello world";
+            });
+
             Console.WriteLine("bag is OnLoaded");
         }
         
