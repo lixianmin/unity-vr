@@ -50,9 +50,9 @@ namespace Client.UI
             return "Assets/res/prefabs/uishop.prefab";
         }
 
-        public override UILayout[] GetLayouts()
+        public override Layout[] GetLayouts()
         {
-            return new UILayout[]
+            return new Layout[]
             {
                 new() { name = "toggles_grid", type = typeof(Transform) },
                 new() { name = "a", type = typeof(Transform) }

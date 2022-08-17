@@ -11,7 +11,7 @@ namespace Unicorn.UI.States
 {
     internal class CloseAnimationState : StateBase
     {
-        public override void OnEnter(UIWindowFetus fetus, object arg1)
+        public override void OnEnter(WindowFetus fetus, object arg1)
         {
             if (fetus.isDelayedOpenWindow)
             {
@@ -38,7 +38,7 @@ namespace Unicorn.UI.States
             }
         }
 
-        public override void OnExit(UIWindowFetus fetus, object arg1)
+        public override void OnExit(WindowFetus fetus, object arg1)
         {
             _closeAnimation?.Release();
 
@@ -49,7 +49,7 @@ namespace Unicorn.UI.States
             }
         }
 
-        private void _OnCloseWindowFinishedCallback(UIWindowFetus fetus)
+        private void _OnCloseWindowFinishedCallback(WindowFetus fetus)
         {
             _playAnimationMask.CloseWindow();
             _isPlaying = false;
@@ -65,12 +65,12 @@ namespace Unicorn.UI.States
             }
         }
 
-        public override void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(WindowFetus fetus)
         {
             fetus.isDelayedOpenWindow = true;
         }
 
-        public override void OnCloseWindow(UIWindowFetus fetus)
+        public override void OnCloseWindow(WindowFetus fetus)
         {
             fetus.isDelayedOpenWindow = false;
         }

@@ -11,7 +11,7 @@ namespace Unicorn.UI.States
 {
     internal class FailureState : StateBase
     {
-        public override void OnEnter(UIWindowFetus fetus, object failureText)
+        public override void OnEnter(WindowFetus fetus, object failureText)
         {
             Console.Error.WriteLine("Enter FailureState, failureText={0}", failureText);
             fetus.ChangeState(StateKind.None);

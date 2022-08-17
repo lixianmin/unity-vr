@@ -51,9 +51,9 @@ namespace Client.UI
             return "Assets/res/prefabs/uibag.prefab";
         }
 
-        public override UILayout[] GetLayouts()
+        public override Layout[] GetLayouts()
         {
-            return new UILayout[]
+            return new Layout[]
             {
                 new() { name = "title", type = typeof(UIText) },
                 new() { name = "btn_bag", type = typeof(UIButton) },

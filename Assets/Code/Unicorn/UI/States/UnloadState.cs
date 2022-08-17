@@ -11,7 +11,7 @@ namespace Unicorn.UI.States
 {
     internal class UnloadState : StateBase
     {
-        public override void OnEnter(UIWindowFetus fetus, object arg1)
+        public override void OnEnter(WindowFetus fetus, object arg1)
         {
             AssertTools.IsTrue(!fetus.isDelayedOpenWindow);
             var master = fetus.master;
@@ -30,12 +30,12 @@ namespace Unicorn.UI.States
             AssertTools.IsTrue(!fetus.isDelayedOpenWindow);
         }
 
-        public override void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(WindowFetus fetus)
         {
             fetus.isDelayedOpenWindow = true;
         }
 
-        public override void OnCloseWindow(UIWindowFetus fetus)
+        public override void OnCloseWindow(WindowFetus fetus)
         {
             fetus.isDelayedOpenWindow = false;
         }

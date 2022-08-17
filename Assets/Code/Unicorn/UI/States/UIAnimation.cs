@@ -25,7 +25,7 @@ namespace Unicorn.UI.States
             // todo 这里不是单纯的animation script, 这里应该是某个tween
         }
 
-        public bool PlayAnimation(Action<UIWindowFetus> onFinishedCallback, StateBase state, UIWindowFetus fetus)
+        public bool PlayAnimation(Action<WindowFetus> onFinishedCallback, StateBase state, WindowFetus fetus)
         {
             if (_animationScript is null || onFinishedCallback == null)
             {

@@ -1,37 +1,28 @@
-using System;
-using System.Collections.Generic;
+/********************************************************************
+created:    2022-08-17
+author:     lixianmin
+
+Copyright (C) - All Rights Reserved
+*********************************************************************/
+
+using Unicorn;
 using Unicorn.UI;
-using Unicorn.Web;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Client.UI
 {
-    public static class ExtendUnityEvent 
+    public class UIMainPanel : MonoBehaviour
     {
-        public static void AddListenerEx(this UnityEvent evt, UnityAction handler)
-        {
-            if (evt != null && handler != null)
-            {
-                evt.AddListener(handler);
-            }
-        }
-    }
-
-    public class UIMainPanel : UIPanel
-    {
-        protected override void Awake()
+        protected void Awake()
         {
             listener.AddListener(btnOpenShop.onClick, OnClickOpenShop);
             listener.AddListener(btnOpenBag.onClick, OnClickOpenBag);
             listener.AddListener(btnGarbageCollect.onClick, OnClickBtnCollectGarbage);
-            base.Awake();
         }
 
-        protected override void OnDestroy()
+        protected void OnDestroy()
         {
             listener.RemoveAllListeners();
-            base.OnDestroy();
         }
 
         private void OnClickOpenShop()

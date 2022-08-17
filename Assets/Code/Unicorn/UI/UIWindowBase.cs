@@ -23,12 +23,11 @@ namespace Unicorn.UI
     {
         protected UIWindowBase()
         {
-            _fetus = new UIWindowFetus(this);
+            _fetus = new WindowFetus(this);
         }
 
-        
         public abstract string GetResourcePath();
-        public abstract UILayout[] GetLayouts();
+        public abstract Layout[] GetLayouts();
         
         public virtual void OnLoaded() {}
         public virtual void OnActivated() {}
@@ -54,7 +53,7 @@ namespace Unicorn.UI
             _fetus = null;
         }
 
-        internal UIWindowFetus GetFetus()
+        internal WindowFetus GetFetus()
         {
             return _fetus;
         }
@@ -74,7 +73,7 @@ namespace Unicorn.UI
             return RenderQueue.Geometry;
         }
         
-        private UIWindowFetus _fetus;
+        private WindowFetus _fetus;
         private Transform _transform;
         private  bool _isReleased;
     }

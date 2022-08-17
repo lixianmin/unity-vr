@@ -54,12 +54,12 @@ namespace Unicorn.UI.States
             return last;
         }
 
-        public virtual void OnEnter(UIWindowFetus fetus, object arg1) {}
+        public virtual void OnEnter(WindowFetus fetus, object arg1) {}
 
-        public virtual void OnExit(UIWindowFetus fetus, object arg1) {}
+        public virtual void OnExit(WindowFetus fetus, object arg1) {}
 
-        public virtual void OnOpenWindow(UIWindowFetus fetus) {}
-        public virtual void OnCloseWindow(UIWindowFetus fetus) {}
+        public virtual void OnOpenWindow(WindowFetus fetus) {}
+        public virtual void OnCloseWindow(WindowFetus fetus) {}
 
         private static readonly SortedTable<StateKind, StateBase> _states = new(8);
         protected static readonly UILoadingMask _loadWindowMask = new(0.5f);

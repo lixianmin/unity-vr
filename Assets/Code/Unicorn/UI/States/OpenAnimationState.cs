@@ -11,7 +11,7 @@ namespace Unicorn.UI.States
 {
     internal class OpenAnimationState: StateBase
     {
-        public override void OnEnter(UIWindowFetus fetus, object arg1)
+        public override void OnEnter(WindowFetus fetus, object arg1)
         {
             AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
             var script = fetus.serializer.openWindowScript;
@@ -32,7 +32,7 @@ namespace Unicorn.UI.States
             }
         }
 
-        public override void OnExit(UIWindowFetus fetus, object arg1)
+        public override void OnExit(WindowFetus fetus, object arg1)
         {
             _openAnimation?.Release();
 
@@ -45,7 +45,7 @@ namespace Unicorn.UI.States
             AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
         }
 
-        private void _OnOpenWindowFinishedCallback(UIWindowFetus fetus)
+        private void _OnOpenWindowFinishedCallback(WindowFetus fetus)
         {
             _playAnimationMask.CloseWindow();
             _isPlaying = false;
@@ -61,12 +61,12 @@ namespace Unicorn.UI.States
             }
         }
 
-        public override void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(WindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = false;
         }
 
-        public override void OnCloseWindow(UIWindowFetus fetus)
+        public override void OnCloseWindow(WindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = true;
         }

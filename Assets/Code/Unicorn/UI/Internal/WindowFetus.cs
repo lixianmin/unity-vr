@@ -11,9 +11,9 @@ using UnityEngine;
 
 namespace Unicorn.UI.Internal
 {
-    internal class UIWindowFetus
+    internal class WindowFetus
     {
-        public UIWindowFetus(UIWindowBase master)
+        public WindowFetus(UIWindowBase master)
         {
             this.master = master;
         }

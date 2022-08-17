@@ -11,7 +11,7 @@ namespace Unicorn.UI.States
 {
     internal class OpenedState : StateBase
     {
-        public override void OnEnter(UIWindowFetus fetus, object arg1)
+        public override void OnEnter(WindowFetus fetus, object arg1)
         {
             AssertTools.IsTrue(!fetus.isDelayedOpenWindow);
             var master = fetus.master;
@@ -21,7 +21,7 @@ namespace Unicorn.UI.States
             fetus.isOpened = true;
         }
 
-        public override void OnExit(UIWindowFetus fetus, object arg1)
+        public override void OnExit(WindowFetus fetus, object arg1)
         {
             var master = fetus.master;
             // isOpened is used to judge whether the window can be activated, thus it must be set to be false as soon as OnExit() is called.
@@ -31,7 +31,7 @@ namespace Unicorn.UI.States
             master.OnClosing();
         }
 
-        public override void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(WindowFetus fetus)
         {
             if (fetus.isOpened)
             {
@@ -44,7 +44,7 @@ namespace Unicorn.UI.States
             }
         }
 
-        public override  void OnCloseWindow(UIWindowFetus fetus)
+        public override  void OnCloseWindow(WindowFetus fetus)
         {
             fetus.isDelayedOpenWindow = false;
             if (fetus.isOpened)

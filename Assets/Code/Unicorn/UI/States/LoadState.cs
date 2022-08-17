@@ -13,30 +13,30 @@ namespace Unicorn.UI.States
 {
     internal class LoadState : StateBase
     {
-        public override void OnEnter(UIWindowFetus fetus, object arg1)
+        public override void OnEnter(WindowFetus fetus, object arg1)
         {
             AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
             _loadWindowMask.OpenWindow();
             _Load(fetus);
         }
 
-        public override void OnExit(UIWindowFetus fetus, object arg1)
+        public override void OnExit(WindowFetus fetus, object arg1)
         {
             _loadWindowMask.CloseWindow();
             AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
         }
 
-        public override void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(WindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = false;
         }
 
-        public override void OnCloseWindow(UIWindowFetus fetus)
+        public override void OnCloseWindow(WindowFetus fetus)
         {
             fetus.isDelayedCloseWindow = true;
         }
 
-        private void _Load(UIWindowFetus fetus)
+        private void _Load(WindowFetus fetus)
         {
             var resourcePath = fetus.master.GetResourcePath();
             if (string.IsNullOrEmpty(resourcePath))

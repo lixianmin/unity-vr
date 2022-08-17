@@ -11,13 +11,13 @@ namespace Unicorn.UI.States
 {
     internal class ClosedState : StateBase
     {
-        private static bool _IsWindowCacheable(UIWindowFetus fetus)
+        private static bool _IsWindowCacheable(WindowFetus fetus)
         {
             // return fetus._master.CACHE_HINT and LuaUITools.isBigMemoryMode
             return false;
         }
         
-        public override void OnEnter(UIWindowFetus fetus, object failureText)
+        public override void OnEnter(WindowFetus fetus, object failureText)
         {
             if (_IsWindowCacheable(fetus))
             {
@@ -30,7 +30,7 @@ namespace Unicorn.UI.States
             }
         }
 
-        public override void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(WindowFetus fetus)
         {
             if (fetus.isWindowCached)
             {

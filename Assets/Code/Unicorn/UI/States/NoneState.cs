@@ -11,7 +11,7 @@ namespace Unicorn.UI.States
 {
     internal class NoneState : StateBase
     {
-        public override void OnOpenWindow(UIWindowFetus fetus)
+        public override void OnOpenWindow(WindowFetus fetus)
         {
             fetus.ChangeState(StateKind.Load);
         }
