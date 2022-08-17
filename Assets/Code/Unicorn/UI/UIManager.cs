@@ -230,36 +230,37 @@ namespace Unicorn.UI
             targetWindow.OnActivated();
         }
 
-        private static void _SortWindowsTransform()
-        {
-            var count = _windowsZOrder.Count;
-            if (count <= 1)
-            {
-                return;
-            }
-
-            var deltaIndex = 0;
-            for (var i = 0; i < count; i++)
-            {
-                var window = _windowsZOrder[i];
-                var transform = window.GetTransform();
-                if (transform is not null)
-                {
-                    var targetIndex = i - deltaIndex;
-                    var lastIndex = transform.GetSiblingIndex();
-                    if (lastIndex != targetIndex)
-                    {
-                        transform.SetSiblingIndex(targetIndex);
-                    }
-                    
-                    // Console.WriteLine("transform={0}, lastIndex={1}, targetIndex={2}", transform.name, lastIndex, targetIndex);
-                }
-                else
-                {
-                    deltaIndex++;
-                }
-            }
-        }
+        // private static void _SortWindowsTransform()
+        // {
+        //     var count = _windowsZOrder.Count;
+        //     if (count <= 1)
+        //     {
+        //         return;
+        //     }
+        //
+        //     var deltaIndex = 0;
+        //     for (var i = 0; i < count; i++)
+        //     {
+        //         var window = _windowsZOrder[i];
+        //         var transform = window.GetTransform();
+        //         if (transform is not null)
+        //         {
+        //             var targetIndex = i - deltaIndex;
+        //             var lastIndex = transform.GetSiblingIndex();
+        //             if (lastIndex != targetIndex)
+        //             {
+        //                 transform.SetSiblingIndex(targetIndex);
+        //             }
+        //             
+        //             // Console.WriteLine("transform={0}, lastIndex={1}, targetIndex={2}", transform.name, lastIndex, targetIndex);
+        //         }
+        //         else
+        //         {
+        //             deltaIndex++;
+        //         }
+        //     }
+        // }
+        
         public static Transform GetUIRoot()
         {
             if (null != _uiRoot) return _uiRoot;
