@@ -217,10 +217,12 @@ namespace Unicorn.UI
 
             _version++;
             
+            // canvas需要设置canvas.overrideSorting = true, 并且设置不一样的sortingOrder, 加载出来的按钮才不是灰化的
             // order越大, 越显示在前面
             var canvas = targetWindow.GetCanvas();
             if (canvas is not null)
             {
+                // canvas.overrideSorting = true; // 这个在资源加载完成的时候设置
                 canvas.sortingOrder = _version;
             }
 
