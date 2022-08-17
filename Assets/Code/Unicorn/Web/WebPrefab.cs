@@ -19,7 +19,6 @@ namespace Unicorn.Web
             // _webItem这里也需要同步赋值, 因为回调handler有可能是一个小时之后的事, 中间万一使用到了_webItem就可能是null了. 你永远也不知道构造方法和handler谁先到来
             _webItem = new WebItem(argument, webItem =>
             {
-                if (!webItem.IsSucceeded) return;
                 if (webItem.Asset is not GameObject mainAsset) return;
 
                 var script = mainAsset.GetComponent<MBPrefabAid>();
@@ -32,8 +31,8 @@ namespace Unicorn.Web
                      _ProcessDependenciesInEditor(mainAsset);
 #endif
                 }
-                
-                
+
+                _aidScript = script;
                 PrefabRecycler.TryAddPrefab(argument.key, this);
 
                 // 这里的handler是有可能立即调用到的, 所以不能外面new WebItem()返回值的时候设置_webItem
@@ -44,6 +43,8 @@ namespace Unicorn.Web
 
         protected override void _DoDispose(bool isManualDisposing)
         {
+            var allowDestroyingAssets = Application.isEditor;
+            UnityEngine.Object.DestroyImmediate(_aidScript, allowDestroyingAssets);
             // Console.WriteLine("[_DoDispose()] {0}", this.ToString());
         }
 
@@ -57,6 +58,7 @@ namespace Unicorn.Web
         public GameObject MainAsset => _webItem.Asset as GameObject;
 
         private WebItem _webItem;
+        private MBPrefabAid _aidScript;
         private readonly int _id = WebTools.GetNextId();
     }
 }

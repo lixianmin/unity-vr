@@ -7,6 +7,7 @@ Copyright (C) - All Rights Reserved
 
 using System;
 using System.Collections.Generic;
+using Unicorn;
 using Unicorn.UI;
 
 namespace Client.UI
@@ -23,11 +24,13 @@ namespace Client.UI
         
         public override void OnLoaded()
         {
-            _btnBag.GetWidget(this).onClick.AddListener(()=>{
+            var button = _btnBag.GetWidget(this);
+            button.onClick.AddListener(()=>{
                 Console.WriteLine("click button");
                 _title.GetWidget(this).text = "hello world";
             });
 
+            
             Console.WriteLine("bag is OnLoaded");
         }
         
