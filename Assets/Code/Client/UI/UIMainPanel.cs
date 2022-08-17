@@ -18,6 +18,8 @@ namespace Client.UI
         {
             btnOpenBag.onClick.AddListener(OnClickOpenBag);
             btnOpenShop.onClick.AddListener(OnClickOpenShop);
+            btnOpenTop.onClick.AddListener(OnClickOpenTop);
+
             btnGarbageCollect.onClick.AddListener(OnClickBtnCollectGarbage);
         }
 
@@ -26,29 +28,36 @@ namespace Client.UI
             
         }
 
+        private void OnClickOpenBag()
+        {
+            UIManager.OpenWindow(typeof(UIBag));
+        }
+        
         private void OnClickOpenShop()
         {
             UIManager.OpenWindow(typeof(UIShop));
         }
-
-        private void OnClickOpenBag()
+        
+        private void OnClickOpenTop()
         {
-            UIManager.OpenWindow(typeof(UIBag));
+            UIManager.OpenWindow(typeof(UITop));
         }
 
         private void OnClickBtnCollectGarbage()
         {
             UIManager.CloseWindow(typeof(UIShop));
             UIManager.CloseWindow(typeof(UIBag));
+            UIManager.CloseWindow(typeof(UITop));
             
             Resources.UnloadUnusedAssets();
             GC.Collect();
             Console.WriteLine("gc done");
         }
 
-        public UIInputField input;
-        public UIButton btnOpenShop;
         public UIButton btnOpenBag;
+        public UIButton btnOpenShop;
+        public UIButton btnOpenTop;
+
         public UIButton btnGarbageCollect;
     }
 }

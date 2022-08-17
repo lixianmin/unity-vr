@@ -137,7 +137,7 @@ namespace Unicorn.UI
             }
             else
             {
-                _SendOnDeactivating(closingWindow);
+                _SendDeactivating(closingWindow);
             }
         }
 
@@ -177,7 +177,7 @@ namespace Unicorn.UI
             var lastWindow = GetForegroundWindow();
             if (lastWindow != window)
             {
-                _SendOnDeactivating(lastWindow);
+                _SendDeactivating(lastWindow);
                 _foregroundWindow = window;
                 _SendActivated(window);
             }
@@ -188,7 +188,7 @@ namespace Unicorn.UI
             return _foregroundWindow;
         }
 
-        private static void _SendOnDeactivating(UIWindowBase targetWindow)
+        private static void _SendDeactivating(UIWindowBase targetWindow)
         {
             targetWindow?.OnDeactivating();
         }
@@ -211,7 +211,7 @@ namespace Unicorn.UI
                     return delta;
                 }
 
-                var delta2 =  a.GetFetus().activateTime - b.GetFetus().activateTime;
+                var delta2 = b.GetFetus().activateTime - a.GetFetus().activateTime;
                 return (int) delta2;
             });
 
@@ -229,7 +229,7 @@ namespace Unicorn.UI
                 return;
             }
 
-            var deltaIndex = 1;
+            var deltaIndex = 0;
             for (var i = 0; i < count; i++)
             {
                 var window = _windowsZOrder[i];
@@ -242,10 +242,12 @@ namespace Unicorn.UI
                     {
                         transform.SetSiblingIndex(targetIndex);
                     }
+                    
+                    // Console.WriteLine("transform={0}, lastIndex={1}, targetIndex={2}", transform.name, lastIndex, targetIndex);
                 }
                 else
                 {
-                    deltaIndex += 1;
+                    deltaIndex++;
                 }
             }
         }
