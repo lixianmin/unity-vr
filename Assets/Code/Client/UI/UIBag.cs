@@ -5,7 +5,12 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using System;
+using System.Collections.Generic;
+using Unicorn.Collections;
 using Unicorn.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Client.UI
 {
@@ -41,15 +46,18 @@ namespace Client.UI
             Console.WriteLine("bag is OnUnloading");
         }
 
-        public override void LogicUpdate(float deltaTime)
-        {
-            var a = "hello world";
-            // Console.WriteLine(a);
-        }
-
         public override string GetResourcePath()
         {
             return "Assets/res/prefabs/uibag.prefab";
+        }
+
+        public override UILayout[] GetLayouts()
+        {
+            return new UILayout[]
+            {
+                new() { name = "title", type = typeof(UIText) },
+                new() { name = "btn_bag", type = typeof(UIButton) },
+            };
         }
     }
 }

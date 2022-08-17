@@ -26,6 +26,10 @@ namespace Unicorn.UI
             _fetus = new UIWindowFetus(this);
         }
 
+        
+        public abstract string GetResourcePath();
+        public abstract UILayout[] GetLayouts();
+        
         public virtual void OnLoaded() {}
         public virtual void OnActivated() {}
         public virtual void OnOpened() {}
@@ -49,8 +53,6 @@ namespace Unicorn.UI
             _fetus.Dispose();
             _fetus = null;
         }
-
-        public abstract string GetResourcePath();
 
         internal UIWindowFetus GetFetus()
         {

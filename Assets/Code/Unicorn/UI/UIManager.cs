@@ -258,10 +258,12 @@ namespace Unicorn.UI
             {
                 throw new NullReferenceException("can not find UIRoot");
             }
-                
+            
+            #if !UNITY_EDITOR
             Object.DontDestroyOnLoad(goRoot);
+            #endif
+            
             _uiRoot = goRoot.transform;
-
             return _uiRoot;
         }
 

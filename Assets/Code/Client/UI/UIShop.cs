@@ -5,7 +5,11 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using System;
+using Unicorn.Collections;
 using Unicorn.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Client.UI
 {
@@ -44,6 +48,15 @@ namespace Client.UI
         public override string GetResourcePath()
         {
             return "Assets/res/prefabs/uishop.prefab";
+        }
+
+        public override UILayout[] GetLayouts()
+        {
+            return new UILayout[]
+            {
+                new() { name = "toggles_grid", type = typeof(Transform) },
+                new() { name = "a", type = typeof(Transform) }
+            };
         }
     }
 }

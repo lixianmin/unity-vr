@@ -35,20 +35,20 @@ namespace Unicorn.UI
                 }
 
                 var myName = name ?? string.Empty;
-                var nameCompareResult = myName.CompareTo(rhs.name);
+                var nameCompareResult = string.Compare(myName, rhs.name, StringComparison.Ordinal);
                 if (nameCompareResult != 0)
                 {
                     return nameCompareResult;
                 }
 
                 var myType = type ?? string.Empty;
-                var typeCompareResult = myType.CompareTo(rhs.type);
+                var typeCompareResult = string.Compare(myType, rhs.type, StringComparison.Ordinal);
                 return typeCompareResult;
             }
 
             public override string ToString()
             {
-                return string.Format("[WidgetData] key={0}, name={1}, type={2}", key, name, type);
+                return $"[WidgetData] key={key}, name={name}, type={type}";
             }
 
             [HideInInspector]

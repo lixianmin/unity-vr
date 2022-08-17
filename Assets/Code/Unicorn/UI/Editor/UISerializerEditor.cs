@@ -15,7 +15,7 @@ using System.IO;
 
 namespace Unicorn.UI
 {
-    internal static partial class UISerializerEditor
+    internal static class UISerializerEditor
     {
         private static UISerializer.WidgetData _FillWidgetData (Transform root, string key, string name, string type)
         {
@@ -115,80 +115,63 @@ namespace Unicorn.UI
             AssetDatabase.SaveAssets();
         }
 
-        private static string _SearchLuaScriptPath (string prefabName)
+        private static List<Type> _FetchAllWindowTypes()
         {
-            // var uiScriptRoot = os.path.join(UniqueManifest.GetLuaScriptRoot(), "UI");
-            // var searchName = prefabName.Replace("_", string.Empty).ToLower() + ".lua";
-            // Console.WriteLine("prefabName={0}, searchName={1}, uiScriptRoot={2}", prefabName, searchName, uiScriptRoot);
-            //
-            // foreach (var filepath in os.walk(uiScriptRoot, "*.lua"))
-            // {
-            //     var name = Path.GetFileName(filepath).ToLower();
-            //     if (name.EndsWith(searchName))
-            //     {
-            //         return filepath;
-            //     }
-            // }
-
-            return string.Empty;
-        }
-
-        private static string _CutCandidateText (string text)
-        {
-            var match = _GetHeadRegex().Match(text);
-            var textLength = text.Length;
-            var startIndex = match.Index + match.Length;
-            var index = startIndex;
-
-            var flag = 1;
-            for (; index< textLength; ++index)
+            if (_allWindowTypes == null)
             {
-                var c = text[index];
-                if (c == '{')
+                _allWindowTypes = new();
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var assembly in assemblies)
                 {
-                    ++flag;
-                }
-                else if (c == '}')
-                {
-                    --flag;
-
-                    if (flag == 0)
+                    if (assembly.IsDynamic)
                     {
-                        break;
+                        continue;
+                    }
+                
+                    foreach (var type in assembly.GetExportedTypes())
+                    {
+                        if (type.IsSubclassOf(typeof(UIWindowBase)))
+                        {
+                            _allWindowTypes.Add(type);
+                        }
                     }
                 }
             }
 
-            text = text.Substring(startIndex, index - startIndex);
+            return _allWindowTypes;
+        }
+        
+        private static UIWindowBase _SearchWindow (string prefabName)
+        {
+            var windowTypes = _FetchAllWindowTypes();
+            var count = windowTypes.Count;
+            for (var i = 0; i < count; i++)
+            {
+                var windowType = windowTypes[i];
+                var window = Activator.CreateInstance(windowType) as UIWindowBase;
+                var resourcePath = window?.GetResourcePath();
+                if (resourcePath?.LastIndexOf(prefabName) > 0)
+                {
+                    return window;
+                }
+            }
 
-            return text;
+            return null;
         }
 
-        private static void _CollectWidgetFromLua (Transform root, IList<UISerializer.WidgetData> dataList)
+        private static void _CollectWidgetFromCode (Transform root, IList<UISerializer.WidgetData> dataList)
         {
-            var scriptPath = _SearchLuaScriptPath(root.name);
-            if (!File.Exists(scriptPath))
+            var window = _SearchWindow(root.name);
+            if (window is null)
             {
                 return;
             }
 
-            var text = File.ReadAllText(scriptPath);
-            text = _CutCandidateText(text);
-
-            const int validGroupCount = 5;
-
-            foreach (Match match in _GetWidgetRegex().Matches(text))
+            var layouts = window.GetLayouts();
+            foreach (var layout in layouts)
             {
-                var groups = match.Groups;
-                if (groups.Count != validGroupCount)
-                {
-                    continue;
-                }
-
-                var key  = groups[2].Value;
-                var name = groups[3].Value;
-                var type = groups[4].Value;
-
+                var name = layout.name;
+                var type = layout.type.Name;
                 var lastData = _GetWidgetData(dataList, name, type);
                 if (null != lastData)
                 {
@@ -196,7 +179,7 @@ namespace Unicorn.UI
                     continue;
                 }
 
-                var currentData = _FillWidgetData (root, key, name, type);
+                var currentData = _FillWidgetData (root, string.Empty, name, type);
                 if (null == currentData)
                 {
                     Console.Error.WriteLine("[_CollectWidgetFromLua()] Can not find a widgetData with name = {0} ", name);
@@ -361,7 +344,7 @@ namespace Unicorn.UI
 
             rootScript.widgetDatas = null;
             var dataList = ListPool<UISerializer.WidgetData>.Spawn();
-            _CollectWidgetFromLua(root, dataList);
+            _CollectWidgetFromCode(root, dataList);
 
             _FetchLabels(rootScript);
             _CollectUITextWithGUID(rootScript, dataList);
@@ -373,30 +356,7 @@ namespace Unicorn.UI
 
             Console.WriteLine ("End serializing **********************");
         }
-
-        private static Regex _GetHeadRegex ()
-        {
-            if (null == _headRegex)
-            {
-                const string pattern = @"^\s*Layout\s*=\s*{";
-                _headRegex = new Regex(pattern, RegexOptions.Multiline);
-            }
-
-            return _headRegex;
-        }
-
-        private static Regex _GetWidgetRegex ()
-        {
-            if (null == _widgetRegex)
-            {
-                var pattern = @"(^\s*(\w+)\s*=\s*\{\s*['""](\w+)['""]\s*,\s*['""](.+?)['""]\s*\}\s*[;,]?)+?";
-                _widgetRegex = new Regex(pattern, RegexOptions.Multiline);
-            }
-
-            return _widgetRegex;
-        }
-
-        private static Regex _headRegex;
-        private static Regex _widgetRegex;
+        
+        private static List<Type> _allWindowTypes;
     }
 }

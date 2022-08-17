@@ -124,7 +124,15 @@ MonoBehaviour:
   onCloseWindowFinished:
     m_PersistentCalls:
       m_Calls: []
-  widgetDatas: []
+  widgetDatas:
+  - key: 
+    name: title
+    type: UIText
+    target: {fileID: 9126878438605369303}
+  - key: 
+    name: btn_bag
+    type: UIButton
+    target: {fileID: 9126878438585937484}
   labels: []
 --- !u!1 &8187923240231588057
 GameObject:
