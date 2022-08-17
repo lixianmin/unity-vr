@@ -175,14 +175,14 @@ namespace Unicorn.UI
                 var lastData = _GetWidgetData(dataList, name, type);
                 if (null != lastData)
                 {
-                    Console.Error.WriteLine("[_CollectWidgetFromLua()] Found an old widgetData with the same name={0}, type={1}", name, type);
+                    Console.Error.WriteLine("[_CollectWidgetFromCode()] Found an old widgetData with the same name={0}, type={1}", name, type);
                     continue;
                 }
 
                 var currentData = _FillWidgetData (root, string.Empty, name, type);
                 if (null == currentData)
                 {
-                    Console.Error.WriteLine("[_CollectWidgetFromLua()] Can not find a widgetData with name = {0} ", name);
+                    Console.Error.WriteLine("[_CollectWidgetFromCode()] Can not find a widgetData with name = {0} ", name);
                     return;
                 }
 
@@ -355,6 +355,30 @@ namespace Unicorn.UI
             _SavePrefab(root);
 
             Console.WriteLine ("End serializing **********************");
+        }
+        
+        [MenuItem("Assets/Serialize Prefab", true)]
+        private static bool _SerializePrefab_Validate()
+        {
+            var prefab = Selection.activeGameObject;
+            if (prefab is null)
+            {
+                return false;
+            }
+            
+            var script = prefab.GetComponent<UISerializer>();
+            return script is not null;
+        }
+        
+        [MenuItem("Assets/Serialize Prefab", false, 2000)]
+        private static void _SerializePrefab()
+        {
+            var prefab = Selection.activeGameObject;
+            var script = prefab.GetComponent<UISerializer>();
+            if (script != null)
+            {
+                SerializePrefab(script);
+            }
         }
         
         private static List<Type> _allWindowTypes;

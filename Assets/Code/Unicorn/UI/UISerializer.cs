@@ -55,7 +55,7 @@ namespace Unicorn.UI
             public string key  = string.Empty;
 
             public string name = string.Empty;
-            public string type = null;
+            public string type = string.Empty;  // 这里只能序列化字符串, 无法序列化System.Type
 
             public UnityEngine.Object target = null;
 
@@ -100,7 +100,10 @@ namespace Unicorn.UI
             {
                 var entry = (DictionaryEntry) iter.Current;
                 var script = entry.Value as UISerializer;
-                script._ResetLabelsFont();
+                if (script != null)
+                {
+                    script._ResetLabelsFont();
+                }
             }
         }
 
