@@ -48,7 +48,7 @@ namespace Unicorn.UI.States
             WebManager.LoadWebPrefab(resourcePath, prefab =>
             {
                 var master = fetus.master;
-                var isLoading = this == fetus.state;
+                var isLoading = this == fetus.GetState();
                 if (fetus.isDelayedCloseWindow)
                 {
                     fetus.isDelayedCloseWindow = false;
@@ -74,7 +74,7 @@ namespace Unicorn.UI.States
                 }
                 else
                 {
-                    Console.Error.WriteLine("invalid state={0}", fetus.state);
+                    Console.Error.WriteLine("invalid state={0}", fetus.GetState());
                 }
                 
                 prefab.Dispose();

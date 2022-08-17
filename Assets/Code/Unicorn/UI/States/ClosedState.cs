@@ -21,7 +21,7 @@ namespace Unicorn.UI.States
         {
             if (_IsWindowCacheable(fetus))
             {
-                fetus.gameObject.SetActiveEx(false);
+                fetus.SetActive(false);
                 fetus.isWindowCached = true;
             }
             else
@@ -34,7 +34,7 @@ namespace Unicorn.UI.States
         {
             if (fetus.isWindowCached)
             {
-                fetus.gameObject.SetActiveEx(true);
+                fetus.SetActive(true);
                 fetus.isWindowCached = false;
             }
             

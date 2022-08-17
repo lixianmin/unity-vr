@@ -21,7 +21,7 @@ namespace Unicorn.UI
             public UIWindowBase window;
         }
         
-        public static UIWindowBase OpenWindow(Type windowType, object argument= null)
+        public static UIWindowBase OpenWindow(Type windowType)
         {
             if (windowType == null || !windowType.IsSubclassOf(typeof(UIWindowBase)))
             {
@@ -34,14 +34,14 @@ namespace Unicorn.UI
                 return null;
             }
             
-            window.GetFetus()._OpenWindow(argument);
+            window.GetFetus().OpenWindow();
             return window;
         }
 
         public static void CloseWindow(Type windowType)
         {
             var item = _IndexWindow(windowType);
-            item.window?.GetFetus()._CloseWindow();
+            item.window?.GetFetus().CloseWindow();
         }
 
         internal static void _RemoveWindow(Type windowType)

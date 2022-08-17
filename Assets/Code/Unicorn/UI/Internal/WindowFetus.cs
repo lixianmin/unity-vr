@@ -20,64 +20,73 @@ namespace Unicorn.UI.Internal
         
         public void Dispose()
         {
-            _CloseWindow();
+            CloseWindow();
 
-            parent = null;
+            _parent = null;
             serializer = null;
-            argument = null;
 
-            if (gameObject is not null)
+            if (_transform is not null)
             {
-                Object.Destroy(gameObject);
-                gameObject = null;
+                Object.Destroy(_transform.gameObject);
+                _transform = null;
             }
         }
         
         public void ChangeState(StateKind kind, object arg1=null)
         {
-            state?.OnExit(this, arg1);
-            state = StateBase.Create(kind);
-            state?.OnEnter(this, arg1);
+            _state?.OnExit(this, arg1);
+            _state = StateBase.Create(kind);
+            _state?.OnEnter(this, arg1);
         }
 
         public void OnLoadGameObject(GameObject goCloned)
         {
-            gameObject = goCloned;
-            transform = goCloned.transform;
+            _transform = goCloned.transform;
             serializer = goCloned.GetComponent(typeof(UISerializer)) as UISerializer;
             if (serializer is null)
             {
-                Console.Error.WriteLine("serializer is null, gameObject={0}", gameObject.ToString());
+                Console.Error.WriteLine("serializer is null, gameObject={0}", goCloned.ToString());
                 return;
             }
             
-            master._SetTransform(transform);
-            if (parent is not null)
+            master._SetTransform(_transform);
+            if (_parent is not null)
             {
-                transform.SetParent(parent, false);
+                _transform.SetParent(_parent, false);
             }
             
             master._FillWidgets(serializer);
         }
 
-        public void _OpenWindow(object arg1)
+        public void OpenWindow()
         {
-            this.argument = arg1;
-            state.OnOpenWindow(this);
+            _state.OnOpenWindow(this);
         }
 
-        public void _CloseWindow()
+        public void CloseWindow()
         {
-            state.OnCloseWindow(this);
+            _state.OnCloseWindow(this);
         }
 
-        public StateBase state = StateBase.Create(StateKind.None);
+        public void SetActive(bool isActive)
+        {
+            if (_transform is not null)
+            {
+                _transform.gameObject.SetActiveEx(isActive);
+            }
+        }
+
+        public StateBase GetState()
+        {
+            return _state;
+        }
+
         public readonly UIWindowBase master;
-        public object argument;
 
-        public GameObject gameObject;
-        public Transform transform;
-        public Transform parent = UIManager.GetUIRoot();
+        private StateBase _state = StateBase.Create(StateKind.None);
+        private Transform _transform;
+        private Transform _parent = UIManager.GetUIRoot();
+        
         public UISerializer serializer;
         
         public float activateTime = 0;
