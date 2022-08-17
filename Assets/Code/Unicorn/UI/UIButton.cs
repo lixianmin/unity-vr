@@ -68,6 +68,13 @@ namespace Unicorn.UI
             _SetHasLongClick(hasOnLongClick);
         }
 
+        protected override void OnDestroy()
+        {
+            onClick.RemoveAllListeners();
+            onLongClick?.RemoveAllListeners();
+            base.OnDestroy();
+        }
+
         private void _Press ()
         {
             if (!IsActive() || !IsInteractable())

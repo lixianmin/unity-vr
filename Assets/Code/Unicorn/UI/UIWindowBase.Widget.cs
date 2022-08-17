@@ -43,6 +43,11 @@ namespace Unicorn.UI
                 return !(left == right);
             }
         }
+
+        public T GetWidget<T>(string name) where T : Component
+        {
+            return GetWidget(name, typeof(T)) as T;
+        }
         
         public Component GetWidget(string name, Type type)
         {

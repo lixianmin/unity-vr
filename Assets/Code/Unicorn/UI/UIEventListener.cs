@@ -10,7 +10,7 @@ using UnityEngine.Events;
 
 namespace Unicorn.UI
 {
-    public class UIEventListener
+    public class UIEventListener : Disposable
     {
         private struct Item
         {
@@ -30,13 +30,23 @@ namespace Unicorn.UI
         public void RemoveAllListeners()
         {
             var count = items.Count;
-            for (int i = 0; i < count; i++)
+            if (count > 0)
             {
-                var item = items[i];
-                item.evt.RemoveListener(item.handler);
+                for (int i = 0; i < count; i++)
+                {
+                    var item = items[i];
+                    item.evt.RemoveListener(item.handler);
+                }
+                
+                items.Clear();
             }
         }
-        
+
+        protected override void _DoDispose(bool isManualDisposing)
+        {
+            RemoveAllListeners();
+        }
+
         private readonly List<Item> items = new(4);
     }
 }
