@@ -60,23 +60,19 @@ namespace Unicorn.UI
             _widgets.Clear();
         }
 
-        internal WindowFetus GetFetus()
-        {
-            return _fetus;
-        }
-        
-        public Transform GetTransform()
-        {
-            return _transform;
-        }
+        internal WindowFetus GetFetus() { return _fetus; }
+        public Transform GetTransform() { return _transform; }
+        public Canvas GetCanvas() { return _canvas; }
 
-        internal void _SetTransform(Transform transform)
+        internal void _SetComponents(Transform transform, Canvas canvas)
         {
             _transform = transform;
+            _canvas = canvas;
         }
 
         private WindowFetus _fetus;
         private Transform _transform;
+        private Canvas _canvas;
         private  bool _isReleased;
     }
 }

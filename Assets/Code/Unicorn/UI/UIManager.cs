@@ -216,8 +216,15 @@ namespace Unicorn.UI
             });
 
             _version++;
-            _SortWindowsTransform();
+            
+            // order越大, 越显示在前面
+            var canvas = targetWindow.GetCanvas();
+            if (canvas is not null)
+            {
+                canvas.sortingOrder = _version;
+            }
 
+            // _SortWindowsTransform();
             targetWindow.OnActivated();
         }
 

@@ -6,7 +6,6 @@ Copyright (C) - All Rights Reserved
 *********************************************************************/
 
 using System;
-using Unicorn;
 using Unicorn.UI;
 using UnityEngine;
 

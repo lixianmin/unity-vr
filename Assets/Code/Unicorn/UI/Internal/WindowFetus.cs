@@ -49,12 +49,18 @@ namespace Unicorn.UI.Internal
                 return;
             }
             
-            master._SetTransform(_transform);
             if (_parent is not null)
             {
                 _transform.SetParent(_parent, false);
             }
+
+            var canvas = goCloned.GetComponent(typeof(Canvas)) as Canvas;
+            if (canvas is not null)
+            {
+                canvas.overrideSorting = true;
+            }
             
+            master._SetComponents(_transform, canvas);
             master._FillWidgets(serializer);
         }
 
