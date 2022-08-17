@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Reflection;
 
 namespace Unicorn.UI
 {
@@ -153,8 +154,8 @@ namespace Unicorn.UI
         private static void _CollectWidgetFromCode (Transform root, IList<UISerializer.WidgetData> dataList)
         {
             var window = _SearchWindow(root.name);
-            var layouts = window?.GetLayouts();
-            if (layouts == null)
+            var layouts = _GetLayouts(window);
+            if (layouts.Count == 0)
             {
                 return;
             }
@@ -181,6 +182,33 @@ namespace Unicorn.UI
             }
         }
 
+        private static IList<Layout> _GetLayouts(UIWindowBase window)
+        {
+            var list = new List<Layout>();
+            if (window == null)
+            {
+                return list;
+            }
+
+            var type = window.GetType();
+            var fields = type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            foreach (var field in fields)
+            {
+                var fieldType = field.FieldType;
+                if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(UIWidget<>))
+                {
+                    var argType1 = fieldType.GetGenericArguments()[0];
+                    var widget = field.GetValue(window);
+                    var name = widget.GetType().GetField("_name", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(widget);
+                    // Console.WriteLine("v={0}, argType1={1}, name={2}", widget, argType1, name);
+                    
+                    list.Add(new Layout {name = name?.ToString(), type = argType1});
+                }
+            }
+            
+            return list;
+        }
+        
         private static void _AddUniqueWidgetData (IList<UISerializer.WidgetData> dataList, UISerializer.WidgetData current)
         {
             if (null == dataList)

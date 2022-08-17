@@ -125,14 +125,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   widgetDatas:
-  - key: 
-    name: title
+  - name: title
     type: UIText
     target: {fileID: 9126878438605369303}
-  - key: 
-    name: btn_bag
+    userdata: 
+  - name: btn_bag
     type: UIButton
     target: {fileID: 9126878438585937484}
+    userdata: 
   labels: []
 --- !u!1 &8187923240231588057
 GameObject:

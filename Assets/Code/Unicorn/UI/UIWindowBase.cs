@@ -30,7 +30,6 @@ namespace Unicorn.UI
 
         // UI资源相关
         public abstract string GetResourcePath();
-        public abstract Layout[] GetLayouts();
         public virtual RenderQueue GetRenderQueue() { return RenderQueue.Geometry; }
         
         // 加载事件相关
