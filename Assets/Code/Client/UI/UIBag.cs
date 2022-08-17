@@ -27,13 +27,12 @@ namespace Client.UI
             };
         }
 
-        private readonly UIEventListener _listener = new ();
         private readonly UIWidget<UIText> _title = new( "title");
         private readonly UIWidget<UIButton> _btnBag = new(  "btn_bag");
         
         public override void OnLoaded()
         {
-            _listener.AddListener(_btnBag.GetWidget(this).onClick, ()=>{
+            _btnBag.GetWidget(this).onClick.AddListener(()=>{
                 Console.WriteLine("click button");
                 _title.GetWidget(this).text = "hello world";
             });

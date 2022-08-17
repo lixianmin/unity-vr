@@ -5,6 +5,7 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using System;
 using Unicorn;
 using Unicorn.UI;
 using UnityEngine;
@@ -15,14 +16,14 @@ namespace Client.UI
     {
         protected void Awake()
         {
-            listener.AddListener(btnOpenShop.onClick, OnClickOpenShop);
-            listener.AddListener(btnOpenBag.onClick, OnClickOpenBag);
-            listener.AddListener(btnGarbageCollect.onClick, OnClickBtnCollectGarbage);
+            btnOpenBag.onClick.AddListener(OnClickOpenBag);
+            btnOpenShop.onClick.AddListener(OnClickOpenShop);
+            btnGarbageCollect.onClick.AddListener(OnClickBtnCollectGarbage);
         }
 
         protected void OnDestroy()
         {
-            listener.RemoveAllListeners();
+            
         }
 
         private void OnClickOpenShop()
@@ -40,8 +41,8 @@ namespace Client.UI
             UIManager.CloseWindow(typeof(UIShop));
             UIManager.CloseWindow(typeof(UIBag));
             
-            // Resources.UnloadUnusedAssets();
-            // GC.Collect();
+            Resources.UnloadUnusedAssets();
+            GC.Collect();
             Console.WriteLine("gc done");
         }
 
@@ -49,7 +50,5 @@ namespace Client.UI
         public UIButton btnOpenShop;
         public UIButton btnOpenBag;
         public UIButton btnGarbageCollect;
-
-        private readonly UIEventListener listener = new();
     }
 }
