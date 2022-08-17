@@ -57,7 +57,7 @@ namespace Unicorn.UI.Internal
                 transform.SetParent(parent, false);
             }
             
-            // todo how to fill widgets
+            master._FillComponents(serializer);
         }
 
         public void _OpenWindow(object arg1)

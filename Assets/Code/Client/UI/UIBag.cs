@@ -16,6 +16,20 @@ namespace Client.UI
 {
     public class UIBag: UIWindowBase
     {
+        public override string GetResourcePath()
+        {
+            return "Assets/res/prefabs/uibag.prefab";
+        }
+
+        public override Layout[] GetLayouts()
+        {
+            return new Layout[]
+            {
+                new() { name = "title", type = typeof(UIText) },
+                new() { name = "btn_bag", type = typeof(UIButton) },
+            };
+        }
+        
         public override void OnLoaded()
         {
             Console.WriteLine("bag is OnLoaded");
@@ -46,18 +60,10 @@ namespace Client.UI
             Console.WriteLine("bag is OnUnloading");
         }
 
-        public override string GetResourcePath()
+        public override void Update(float deltaTime)
         {
-            return "Assets/res/prefabs/uibag.prefab";
-        }
-
-        public override Layout[] GetLayouts()
-        {
-            return new Layout[]
-            {
-                new() { name = "title", type = typeof(UIText) },
-                new() { name = "btn_bag", type = typeof(UIButton) },
-            };
+            var t = GetType();
+            var name = t.Name;
         }
     }
 }

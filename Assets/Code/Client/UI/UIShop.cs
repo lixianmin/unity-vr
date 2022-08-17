@@ -15,6 +15,20 @@ namespace Client.UI
 {
     public class UIShop: UIWindowBase
     {
+        public override string GetResourcePath()
+        {
+            return "Assets/res/prefabs/uishop.prefab";
+        }
+
+        public override Layout[] GetLayouts()
+        {
+            return new Layout[]
+            {
+                new() { name = "toggles_grid", type = typeof(Transform) },
+                new() { name = "a", type = typeof(Transform) }
+            };
+        }
+        
         public override void OnLoaded()
         {
             Console.WriteLine("shop is OnLoaded");
@@ -43,20 +57,6 @@ namespace Client.UI
         public override void OnUnloading()
         {
             Console.WriteLine("shop is OnUnloading");
-        }
-
-        public override string GetResourcePath()
-        {
-            return "Assets/res/prefabs/uishop.prefab";
-        }
-
-        public override Layout[] GetLayouts()
-        {
-            return new Layout[]
-            {
-                new() { name = "toggles_grid", type = typeof(Transform) },
-                new() { name = "a", type = typeof(Transform) }
-            };
         }
     }
 }

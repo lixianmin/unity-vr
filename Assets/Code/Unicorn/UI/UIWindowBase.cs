@@ -14,21 +14,26 @@ Copyright (C) - All Rights Reserved
 *********************************************************************/
 
 
+using System;
+using System.Collections;
 using Unicorn.UI.Internal;
 using UnityEngine;
 
 namespace Unicorn.UI
 {
-    public abstract class UIWindowBase
+    public abstract partial class UIWindowBase
     {
         protected UIWindowBase()
         {
             _fetus = new WindowFetus(this);
         }
 
+        // UI资源相关
         public abstract string GetResourcePath();
         public abstract Layout[] GetLayouts();
+        public virtual RenderQueue GetRenderQueue() { return RenderQueue.Geometry; }
         
+        // 加载事件相关
         public virtual void OnLoaded() {}
         public virtual void OnActivated() {}
         public virtual void OnOpened() {}
@@ -36,10 +41,12 @@ namespace Unicorn.UI
         public virtual void OnDeactivating() {}
         public virtual void OnUnloading() {}
 
+        // 逻辑帧: 大概10fps
         public virtual void LogicUpdate(float deltaTime) {}
+        // 正常Update
         public virtual void Update(float deltaTime) {}
 
-        public virtual void Dispose()
+        internal virtual void Dispose()
         {
             if (_isReleased)
             {
@@ -51,12 +58,14 @@ namespace Unicorn.UI
             
             _fetus.Dispose();
             _fetus = null;
+            _components.Clear();
         }
 
         internal WindowFetus GetFetus()
         {
             return _fetus;
         }
+
         
         public Transform GetTransform()
         {
@@ -68,11 +77,6 @@ namespace Unicorn.UI
             _transform = transform;
         }
 
-        public virtual RenderQueue GetRenderQueue()
-        {
-            return RenderQueue.Geometry;
-        }
-        
         private WindowFetus _fetus;
         private Transform _transform;
         private  bool _isReleased;

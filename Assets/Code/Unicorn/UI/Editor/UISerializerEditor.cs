@@ -27,34 +27,25 @@ namespace Unicorn.UI
 
             var item = new UISerializer.WidgetData
             {
-                key = key,
                 name = name,
                 type = type
             };
 
-            if (type == "GameObject")
+            var target = _GetWidgetTarget (trans, type);
+            item.target = target;
+            if (null != target)
             {
-                item.target = trans.gameObject;
+                if (target is UIText label)
+                {
+                    if (!string.IsNullOrEmpty(label.GetGUID()))
+                    {
+                        item.userdata = label.GetGUID();
+                    }
+                }
             }
             else
             {
-                var target = _GetWidgetTarget (trans, type);
-                item.target = target;
-                if (null != target)
-                {
-                    // if (target is UIText)
-                    // {
-                    //     var label = target as UIText;
-                    //     if (!string.IsNullOrEmpty(label.GetGUID()))
-                    //     {
-                    //         item.userdata = label.GetGUID();
-                    //     }
-                    // }
-                }
-                else
-                {
-                    Console.Error.WriteLine("[_FillWidgetData()] Can not find a component with name={0}, type={1}", name, type);
-                }
+                Console.Error.WriteLine("[_FillWidgetData()] Can not find a component with name={0}, type={1}", name, type);
             }
 
             return item;
@@ -357,7 +348,7 @@ namespace Unicorn.UI
             Console.WriteLine ("End serializing **********************");
         }
         
-        [MenuItem("Assets/Serialize Prefab", true)]
+        [MenuItem("Assets/*Serialize Prefab", true)]
         private static bool _SerializePrefab_Validate()
         {
             var prefab = Selection.activeGameObject;
@@ -367,18 +358,20 @@ namespace Unicorn.UI
             }
             
             var script = prefab.GetComponent<UISerializer>();
-            return script is not null;
+            if (script is null)
+            {
+                prefab.AddComponent<UISerializer>();
+            }
+            
+            return true;
         }
         
-        [MenuItem("Assets/Serialize Prefab", false, 2000)]
+        [MenuItem("Assets/*Serialize Prefab", false, 2000)]
         private static void _SerializePrefab()
         {
             var prefab = Selection.activeGameObject;
             var script = prefab.GetComponent<UISerializer>();
-            if (script != null)
-            {
-                SerializePrefab(script);
-            }
+            SerializePrefab(script);
         }
         
         private static List<Type> _allWindowTypes;

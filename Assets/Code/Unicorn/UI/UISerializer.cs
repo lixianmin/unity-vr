@@ -22,7 +22,7 @@ using UnityEngine.UI;
 namespace Unicorn.UI
 {
     [DisallowMultipleComponent]
-	public partial class UISerializer : MonoBehaviour
+	public class UISerializer : MonoBehaviour
     {
         [Serializable]
         public class WidgetData : IComparable<WidgetData>
@@ -48,19 +48,15 @@ namespace Unicorn.UI
 
             public override string ToString()
             {
-                return $"[WidgetData] key={key}, name={name}, type={type}";
+                return $"[WidgetData] name={name}, type={type}";
             }
-
-            [HideInInspector]
-            public string key  = string.Empty;
 
             public string name = string.Empty;
             public string type = string.Empty;  // 这里只能序列化字符串, 无法序列化System.Type
 
-            public UnityEngine.Object target = null;
+            public UnityEngine.Component target = null;
 
-//            [HideInInspector]
-//            public string userdata = null;
+            [HideInInspector] public string userdata = null;
         }
 
         private void Awake ()
@@ -161,7 +157,7 @@ namespace Unicorn.UI
             _SerializePrefab();
         }
 
-        [ContextMenu("Serialize Prefab")]
+        [ContextMenu("*Serialize Prefab")]
         private void _SerializePrefab ()
         {
             if (null == _lpfnSerializePrefab)
