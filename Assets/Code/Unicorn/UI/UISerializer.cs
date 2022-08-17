@@ -182,12 +182,13 @@ namespace Unicorn.UI
 
         private static Action<UISerializer> _lpfnSerializePrefab;
 
+        public WidgetData[] widgetDatas = null;
+        
         public MonoBehaviour openWindowScript;
         public UnityEvent onOpenWindowFinished;
         public MonoBehaviour closeWindowScript;
         public UnityEvent onCloseWindowFinished;
-
-        public WidgetData[] widgetDatas = null;
+        
         public Text[] labels = null;
     }
 }

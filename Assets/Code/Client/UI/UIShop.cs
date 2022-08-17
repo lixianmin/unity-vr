@@ -19,9 +19,18 @@ namespace Client.UI
         {
             return "Assets/res/prefabs/uishop.prefab";
         }
+        
+        private readonly UIWidget<UIText> _title = new( "shop_title");
+        private readonly UIWidget<UIButton> _btnShop = new( "btn_shop");
+        
 
         public override void OnLoaded()
         {
+            _btnShop.GetWidget(this).onClick.AddListener(() =>
+            {
+                _title.GetWidget(this).text = "this is shop title";
+            });
+            
             Console.WriteLine("shop is OnLoaded");
         }
         

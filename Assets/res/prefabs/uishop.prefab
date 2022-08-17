@@ -115,6 +115,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131cec401e4c04a0dabccaf2eb925423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  widgetDatas:
+  - name: shop_title
+    type: UIText
+    target: {fileID: 9126878438605369303}
+    userdata: 
+  - name: btn_shop
+    type: UIButton
+    target: {fileID: 9126878438585937484}
+    userdata: 
   openWindowScript: {fileID: 0}
   onOpenWindowFinished:
     m_PersistentCalls:
@@ -123,7 +132,6 @@ MonoBehaviour:
   onCloseWindowFinished:
     m_PersistentCalls:
       m_Calls: []
-  widgetDatas: []
   labels: []
 --- !u!1 &9126878437069765764
 GameObject:
@@ -400,7 +408,7 @@ GameObject:
   - component: {fileID: 9126878438605369296}
   - component: {fileID: 9126878438605369303}
   m_Layer: 5
-  m_Name: uitext
+  m_Name: shop_title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -116,14 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131cec401e4c04a0dabccaf2eb925423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openWindowScript: {fileID: 0}
-  onOpenWindowFinished:
-    m_PersistentCalls:
-      m_Calls: []
-  closeWindowScript: {fileID: 0}
-  onCloseWindowFinished:
-    m_PersistentCalls:
-      m_Calls: []
   widgetDatas:
   - name: title
     type: UIText
@@ -133,6 +125,14 @@ MonoBehaviour:
     type: UIButton
     target: {fileID: 9126878438585937484}
     userdata: 
+  openWindowScript: {fileID: 0}
+  onOpenWindowFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  closeWindowScript: {fileID: 0}
+  onCloseWindowFinished:
+    m_PersistentCalls:
+      m_Calls: []
   labels: []
 --- !u!1 &8187923240231588057
 GameObject:
