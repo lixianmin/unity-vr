@@ -14,6 +14,8 @@ using Unicorn;
 using Metadata;
 using Client;
 using System;
+using Client.UI;
+using Unicorn.UI;
 
 public class MBGame : MonoBehaviour
 {
@@ -77,8 +79,9 @@ public class MBGame : MonoBehaviour
 
 		var version = metadataManager.GetMetadataVersion();
 		Console.WriteLine("[_CoLoadMetadata()] Metadata Loaded, metadataVersion={0}.", version.ToString());
-		yield return null;
-	}
+
+		UIManager.OpenWindow(typeof(UIMain));
+    }
 
 	private readonly Game _game = Game.Instance;
 }

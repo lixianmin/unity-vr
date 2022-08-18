@@ -11,22 +11,26 @@ using UnityEngine;
 
 namespace Client.UI
 {
-    public class UIMainPanel : MonoBehaviour
+    public class UIMain : UIWindowBase
     {
-        protected void Awake()
+        public override string GetResourcePath()
         {
-            btnOpenBag.onClick.AddListener(OnClickOpenBag);
-            btnOpenShop.onClick.AddListener(OnClickOpenShop);
-            btnOpenTop.onClick.AddListener(OnClickOpenTop);
-
-            btnGarbageCollect.onClick.AddListener(OnClickBtnCollectGarbage);
+            return "Assets/res/prefabs/uimain.prefab";
         }
+        
+        private readonly UIWidget<UIButton> _btnOpenBag = new( "btn_open_bag");
+        private readonly UIWidget<UIButton> _btnOpenShop = new( "btn_open_shop");
+        private readonly UIWidget<UIButton> _btnOpenTop = new( "btn_open_top");
+        private readonly UIWidget<UIButton> _btnCollectGarbage = new( "btn_collect_garbage");
 
-        protected void OnDestroy()
+        public override void OnLoaded()
         {
-            
+            _btnOpenBag.GetWidget(this).onClick.AddListener(OnClickOpenBag);
+            _btnOpenShop.GetWidget(this).onClick.AddListener(OnClickOpenShop);
+            _btnOpenTop.GetWidget(this).onClick.AddListener(OnClickOpenTop);
+            _btnCollectGarbage.GetWidget(this).onClick.AddListener(OnClickBtnCollectGarbage);
         }
-
+        
         private void OnClickOpenBag()
         {
             UIManager.OpenWindow(typeof(UIBag));
@@ -52,11 +56,5 @@ namespace Client.UI
             GC.Collect();
             Console.WriteLine("gc done");
         }
-
-        public UIButton btnOpenBag;
-        public UIButton btnOpenShop;
-        public UIButton btnOpenTop;
-
-        public UIButton btnGarbageCollect;
     }
 }

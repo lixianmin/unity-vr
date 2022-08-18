@@ -267,10 +267,10 @@ namespace Unicorn.UI
         
         public static Transform GetUIRoot()
         {
-            if (null != _uiRoot) return _uiRoot;
+            if (_uiRoot is not null) return _uiRoot;
             
             var goRoot = GameObject.Find("UIRoot");
-            if (goRoot is null)
+            if (goRoot == null)
             {
                 throw new NullReferenceException("can not find UIRoot");
             }

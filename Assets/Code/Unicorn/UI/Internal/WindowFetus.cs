@@ -55,9 +55,13 @@ namespace Unicorn.UI.Internal
             }
 
             var canvas = goCloned.GetComponent(typeof(Canvas)) as Canvas;
-            if (canvas is not null)
+            if (canvas != null)
             {
                 canvas.overrideSorting = true;
+            }
+            else
+            {   // 当不存在canvas的时候, GetComponent()好像也能给取一个出来, 只是使用is not null判断会失败
+                canvas = null;
             }
             
             master._SetComponents(_transform, canvas);

@@ -5,11 +5,7 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-using System;
-using Unicorn.Collections;
 using Unicorn.UI;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Client.UI
 {
