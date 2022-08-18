@@ -622,7 +622,7 @@ MonoBehaviour:
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
-  m_LineType: 0
+  m_LineType: 1
   m_BlendVisualLinePoints: 1
   m_MaxRaycastDistance: 30
   m_RayOriginTransform: {fileID: 0}
@@ -635,7 +635,7 @@ MonoBehaviour:
   m_EndPointHeight: -10
   m_ControlPointDistance: 10
   m_ControlPointHeight: 5
-  m_SampleFrequency: 20
+  m_SampleFrequency: 10
   m_HitDetectionType: 0
   m_SphereCastRadius: 0.1
   m_RaycastMask:
@@ -1178,7 +1178,7 @@ MonoBehaviour:
   m_OriginBaseGameObject: {fileID: 966004496}
   m_CameraFloorOffsetObject: {fileID: 218234367}
   m_RequestedTrackingOriginMode: 1
-  m_CameraYOffset: 1.1176
+  m_CameraYOffset: 1.6
 --- !u!4 &966004498
 Transform:
   m_ObjectHideFlags: 0
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
-  m_LineType: 0
+  m_LineType: 1
   m_BlendVisualLinePoints: 1
   m_MaxRaycastDistance: 30
   m_RayOriginTransform: {fileID: 0}
@@ -1896,7 +1896,7 @@ MonoBehaviour:
   m_EndPointHeight: -10
   m_ControlPointDistance: 10
   m_ControlPointHeight: 5
-  m_SampleFrequency: 20
+  m_SampleFrequency: 10
   m_HitDetectionType: 0
   m_SphereCastRadius: 0.1
   m_RaycastMask:
