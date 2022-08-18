@@ -19,7 +19,7 @@ namespace Unicorn.UI.States
             if (script is not null && evt is not null)
             {
                 _openAnimation = new UIAnimation(script, evt);
-                _isPlaying = _openAnimation.PlayAnimation(_OnOpenWindowFinishedCallback,  fetus);
+                _isPlaying = _openAnimation.PlayAnimation(()=>_OnOpenWindowFinishedCallback(fetus));
             }
             
             if (_isPlaying)

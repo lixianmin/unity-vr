@@ -25,7 +25,7 @@ namespace Unicorn.UI.States
             if (script is not null && evt is not null)
             {
                 _closeAnimation = new UIAnimation(script, evt);
-                _isPlaying = _closeAnimation.PlayAnimation(_OnCloseWindowFinishedCallback, fetus);
+                _isPlaying = _closeAnimation.PlayAnimation(()=>_OnCloseWindowFinishedCallback(fetus));
             }
 
             if (_isPlaying)
