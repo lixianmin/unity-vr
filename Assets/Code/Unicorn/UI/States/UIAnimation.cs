@@ -15,30 +15,30 @@ namespace Unicorn.UI.States
 {
     internal class UIAnimation
     {
-        public UIAnimation(UnityEvent onAnimationFinished)
+        public UIAnimation(UnityEvent onFinished)
         {
-            if (onAnimationFinished is null)
+            if (onFinished is null)
             {
                 return;
             }
 
-            _onAnimationFinished = onAnimationFinished;
+            _onFinished = onFinished;
             
-            _onAnimationFinishedHandler = () =>
+            _onFinishedHandler = () =>
             {
                 _StopAnimationRoutine();
                 _onFinishedCallback?.Invoke();
             };
                 
-            _onAnimationFinished.AddListener(_onAnimationFinishedHandler);
+            _onFinished.AddListener(_onFinishedHandler);
         }
 
         public void Dispose()
         {
-            if (_onAnimationFinishedHandler is not null)
+            if (_onFinishedHandler is not null)
             {
-                _onAnimationFinished.RemoveListener(_onAnimationFinishedHandler);
-                _onAnimationFinishedHandler = null;
+                _onFinished.RemoveListener(_onFinishedHandler);
+                _onFinishedHandler = null;
             }
             
             _StopAnimationRoutine();
@@ -80,10 +80,10 @@ namespace Unicorn.UI.States
             _animationRoutine?.Kill();
         }
         
-        private UnityEvent _onAnimationFinished;
+        private UnityEvent _onFinished;
 
         private CoroutineItem _animationRoutine;
-        private UnityAction _onAnimationFinishedHandler;
+        private UnityAction _onFinishedHandler;
         private Action _onFinishedCallback;
     }
 }
