@@ -24,8 +24,8 @@ namespace Unicorn.UI.States
             var evt = fetus.serializer.onCloseWindowFinished;
             if (script is not null && evt is not null)
             {
-                _closeAnimation = new UIAnimation(script, evt);
-                _isPlaying = _closeAnimation.PlayAnimation(()=>_OnCloseWindowFinishedCallback(fetus));
+                _closeAnimation = new UIAnimation(evt);
+                _isPlaying = _closeAnimation.PlayAnimation(script, ()=>_OnCloseWindowFinishedCallback(fetus));
             }
 
             if (_isPlaying)

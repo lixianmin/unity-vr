@@ -15,42 +15,39 @@ namespace Unicorn.UI.States
 {
     internal class UIAnimation
     {
-        public UIAnimation(MonoBehaviour animationScript, UnityEvent onAnimationFinished)
+        public UIAnimation(UnityEvent onAnimationFinished)
         {
-            if (animationScript is null || onAnimationFinished is null)
+            if (onAnimationFinished is null)
             {
                 return;
             }
 
-            _animationScript = animationScript;
             _onAnimationFinished = onAnimationFinished;
             
-            _onFinishHandler = () =>
+            _onAnimationFinishedHandler = () =>
             {
                 _StopAnimationRoutine();
                 _onFinishedCallback?.Invoke();
             };
                 
-            _onAnimationFinished.AddListener(_onFinishHandler);
+            _onAnimationFinished.AddListener(_onAnimationFinishedHandler);
         }
 
         public void Dispose()
         {
-            if (_onFinishHandler is not null)
+            if (_onAnimationFinishedHandler is not null)
             {
-                _onAnimationFinished.RemoveListener(_onFinishHandler);
-                _onFinishHandler = null;
+                _onAnimationFinished.RemoveListener(_onAnimationFinishedHandler);
+                _onAnimationFinishedHandler = null;
             }
             
             _StopAnimationRoutine();
-
-            _animationScript = null;
             _onFinishedCallback = null;
         }
 
-        public bool PlayAnimation(Action onFinishedCallback)
+        public bool PlayAnimation(MonoBehaviour animationScript, Action onFinishedCallback)
         {
-            if (_animationScript is null || onFinishedCallback is null)
+            if (animationScript is null || onFinishedCallback is null)
             {
                 return false;
             }
@@ -58,8 +55,8 @@ namespace Unicorn.UI.States
             _onFinishedCallback = onFinishedCallback;
             _StopAnimationRoutine();
             
-            _animationScript.enabled = true;
-            _animationScript.enabled = false;
+            animationScript.enabled = true;
+            animationScript.enabled = false;
             CoroutineManager.StartCoroutine(_CoWaitAnimationDone(), out _animationRoutine);
             
             return true;
@@ -83,11 +80,10 @@ namespace Unicorn.UI.States
             _animationRoutine?.Kill();
         }
         
-        private MonoBehaviour _animationScript;
         private UnityEvent _onAnimationFinished;
 
         private CoroutineItem _animationRoutine;
-        private UnityAction _onFinishHandler;
+        private UnityAction _onAnimationFinishedHandler;
         private Action _onFinishedCallback;
     }
 }
