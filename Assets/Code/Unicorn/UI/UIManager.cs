@@ -152,7 +152,11 @@ namespace Unicorn.UI
                 {
                     // only window behind the closingWindow can be activated.
                     // only a isOpened window can be activated.
-                    if (!window.GetFetus().isOpened) continue;
+                    if (!window.GetFetus().isOpened)
+                    {
+                        continue;
+                    }
+                    
                     return found ? window : null;
                 }
 

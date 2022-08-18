@@ -25,7 +25,7 @@ namespace Unicorn.UI.States
             if (script is not null && evt is not null)
             {
                 _closeAnimation = new UIAnimation(script, evt);
-                _isPlaying = _closeAnimation.PlayAnimation(_OnCloseWindowFinishedCallback, this, fetus);
+                _isPlaying = _closeAnimation.PlayAnimation(_OnCloseWindowFinishedCallback, fetus);
             }
 
             if (_isPlaying)
@@ -40,7 +40,8 @@ namespace Unicorn.UI.States
 
         public override void OnExit(WindowFetus fetus, object arg1)
         {
-            _closeAnimation?.Release();
+            _closeAnimation?.Dispose();
+            _closeAnimation = null;
 
             if (_isPlaying)
             {
