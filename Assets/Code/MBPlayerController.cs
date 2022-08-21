@@ -78,8 +78,8 @@ public class MBPlayerController : MonoBehaviour
         transform.localEulerAngles = _lookDirection;
     }
 
-    public float MoveSpeed = 10f;
-    public float RotateSpeed = 1f;
+    public float MoveSpeed = 5f;
+    public float RotateSpeed = .2f;
     
     private Transform _transform;
     private CharacterController _controller;
