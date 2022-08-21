@@ -75,13 +75,12 @@ public class MBPlayerController : MonoBehaviour
     
     private void _Move()
     {
-        var direction = _moveDirection;
-        if (direction.sqrMagnitude < 0.01)
+        if (_moveDirection.sqrMagnitude < 0.01)
         {
             return;
         }
 
-        var motion = new Vector3(direction.x, 0, direction.y) * (MoveSpeed * Time.deltaTime);
+        var motion = new Vector3(_moveDirection.x, 0, _moveDirection.y) * (MoveSpeed * Time.deltaTime);
         _controller.Move(motion);
     }
 
