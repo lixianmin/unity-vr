@@ -18,33 +18,26 @@ public class MBPlayerController : MonoBehaviour
     {
         _transform = transform;
         _controller = GetComponent<CharacterController>();
-        _inputActions = new();
         _initInputAction();
     }
 
     private void _initInputAction()
     {
-        _inputMap = new InputActionMap();
-        _horizontalInputAction = _inputMap.AddAction("Horizontal", InputActionType.PassThrough);
-        _horizontalInputAction.AddCompositeBinding("Axis").
-            With("Negative", "<Keyboard>/a").
-            With("Positive", "<Keyboard>/d");
-        
-        _verticalInputAction = _inputMap.AddAction("Vertical", InputActionType.PassThrough);
-        _verticalInputAction.AddCompositeBinding("Axis").
-            With("Negative", "<Keyboard>/w").
-            With("Positive", "<Keyboard>/s");
-
+        _moveInputAction = new InputAction("Horizontal", InputActionType.PassThrough);
+        _moveInputAction.AddCompositeBinding("2DVector") // Or "Dpad"
+            .With("Up", "<Keyboard>/w")
+            .With("Down", "<Keyboard>/s")
+            .With("Left", "<Keyboard>/a")
+            .With("Right", "<Keyboard>/d");
     }
     
     private void OnEnable()
     {
-        _inputActions.Enable();
-        _inputActions.gameplay.move.performed += _OnPlayerMovePerformed;
-        // _inputActions.gameplay.look.performed += _OnPlayerLookPerformed;
+        _moveInputAction.Enable();
+        _moveInputAction.performed += _OnMovePerformed;
     }
     
-    private void _OnPlayerMovePerformed(InputAction.CallbackContext ctx)
+    private void _OnMovePerformed(InputAction.CallbackContext ctx)
     {
         _moveDirection = ctx.ReadValue<Vector2>();
     }
@@ -56,34 +49,33 @@ public class MBPlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        // _inputActions.gameplay.move.performed -= _OnPlayerMovePerformed;
-        // _inputActions.gameplay.look.performed -= _OnPlayerLookPerformed;
-        // _inputActions.Disable();
+        _moveInputAction.performed += _OnMovePerformed;
+        _moveInputAction.Disable();
     }
 
     private void Update()
     {
-        _Move(_moveDirection);
         // _Look(_lookDirection);
-        // _MoveLikeWow();
+        _Move();
     }
 
-    private void _MoveLikeWow()
-    {
-        var horizontal = _horizontalInputAction.ReadValue<float>();
-        var vertical = _verticalInputAction.ReadValue<float>();
-        var deltaTime = Time.deltaTime;
-        
-        // move
-        var motion = _transform.forward * (MoveSpeed * vertical * deltaTime);
-        _controller.Move(motion);
-        
-        // rotate
-        _transform.Rotate(Vector3.up, horizontal * RotateSpeed);
-    }
+    // private void _MoveLikeWow()
+    // {
+    //     // var horizontal = _horizontalInputAction.ReadValue<float>();
+    //     // var vertical = _verticalInputAction.ReadValue<float>();
+    //     // var deltaTime = Time.deltaTime;
+    //     //
+    //     // // move
+    //     // var motion = _transform.forward * (MoveSpeed * vertical * deltaTime);
+    //     // _controller.Move(motion);
+    //     //
+    //     // // rotate
+    //     // _transform.Rotate(Vector3.up, horizontal * RotateSpeed);
+    // }
     
-    private void _Move(Vector2 direction)
+    private void _Move()
     {
+        var direction = _moveDirection;
         if (direction.sqrMagnitude < 0.01)
         {
             return;
@@ -91,12 +83,6 @@ public class MBPlayerController : MonoBehaviour
 
         var motion = new Vector3(direction.x, 0, direction.y) * (MoveSpeed * Time.deltaTime);
         _controller.Move(motion);
-
-        // var scaledMoveSpeed = MoveSpeed * Time.deltaTime;
-        // // For simplicity's sake, we just keep movement in a single plane here. Rotate
-        // // direction according to world Y rotation of player.
-        // var motion = Quaternion.Euler(0, _transform.eulerAngles.y, 0) * new Vector3(direction.x, 0, direction.y);
-        // _transform.position += motion * scaledMoveSpeed;
     }
 
     private void _Look(Vector2 rotate)
@@ -117,10 +103,7 @@ public class MBPlayerController : MonoBehaviour
     
     private Transform _transform;
     private CharacterController _controller;
-    private PlayerInputActions _inputActions;
-    private InputActionMap _inputMap;
-    private InputAction _horizontalInputAction;
-    private InputAction _verticalInputAction;
+    private InputAction _moveInputAction;
     
     private Vector2 _moveDirection;
     private Vector2 _lookDirection;
