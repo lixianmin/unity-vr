@@ -16,63 +16,74 @@ public class MBPlayerController : MonoBehaviour
 {
     private void Awake()
     {
-        _transform = transform;
         _controller = GetComponent<CharacterController>();
+        _transform = transform;
         _initInputAction();
     }
 
+    private SimpleControls simple; 
     private void _initInputAction()
     {
-        _moveInputAction = new InputAction("Horizontal", InputActionType.PassThrough);
-        _moveInputAction.AddCompositeBinding("2DVector") // Or "Dpad"
+        // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.3/manual/ActionBindings.html#2d-vector
+        _moveAction = new InputAction("move", InputActionType.PassThrough);
+        _moveAction.AddCompositeBinding("2DVector(mode=0)") // Or "Dpad"
             .With("Up", "<Keyboard>/w")
             .With("Down", "<Keyboard>/s")
             .With("Left", "<Keyboard>/a")
             .With("Right", "<Keyboard>/d");
+
+        
+        _lookAction = new InputAction("look", InputActionType.PassThrough, "<Pointer>/delta");
+        _rightMouseAction = new InputAction("rightMouse", InputActionType.PassThrough, "<Mouse>/rightButton");
     }
-    
-    private void OnEnable()
-    {
-        _moveInputAction.Enable();
-        _moveInputAction.performed += _OnMovePerformed;
-    }
-    
+
     private void _OnMovePerformed(InputAction.CallbackContext ctx)
     {
         _moveDirection = ctx.ReadValue<Vector2>();
     }
     
-    private void _OnPlayerLookPerformed(InputAction.CallbackContext ctx)
+    private void _OnLookPerformed(InputAction.CallbackContext ctx)
     {
-        _lookDirection = ctx.ReadValue<Vector2>();
+        _lookRotate = ctx.ReadValue<Vector2>();
+    }
+    
+    private void _OnRightMousePerformed(InputAction.CallbackContext ctx)
+    {
+        var click = ctx.ReadValue<float>();
+        _isRightButtonDown = click > 0;
+        Console.WriteLine(_isRightButtonDown);
     }
 
+    private void OnEnable()
+    {
+        _moveAction.performed += _OnMovePerformed;
+        _moveAction.Enable();
+
+        _lookAction.performed += _OnLookPerformed;
+        _lookAction.Enable();
+        
+        _rightMouseAction.performed += _OnRightMousePerformed;
+        _rightMouseAction.Enable();
+    }
+    
     private void OnDisable()
     {
-        _moveInputAction.performed += _OnMovePerformed;
-        _moveInputAction.Disable();
+        _lookAction.performed -= _OnLookPerformed;
+        _lookAction.Disable();
+        
+        _moveAction.performed -= _OnMovePerformed;
+        _moveAction.Disable();
+
+        _rightMouseAction.performed -= _OnRightMousePerformed;
+        _rightMouseAction.Disable();
     }
 
     private void Update()
     {
-        // _Look(_lookDirection);
+        _Look();
         _Move();
     }
 
-    // private void _MoveLikeWow()
-    // {
-    //     // var horizontal = _horizontalInputAction.ReadValue<float>();
-    //     // var vertical = _verticalInputAction.ReadValue<float>();
-    //     // var deltaTime = Time.deltaTime;
-    //     //
-    //     // // move
-    //     // var motion = _transform.forward * (MoveSpeed * vertical * deltaTime);
-    //     // _controller.Move(motion);
-    //     //
-    //     // // rotate
-    //     // _transform.Rotate(Vector3.up, horizontal * RotateSpeed);
-    // }
-    
     private void _Move()
     {
         if (_moveDirection.sqrMagnitude < 0.01)
@@ -81,29 +92,34 @@ public class MBPlayerController : MonoBehaviour
         }
 
         var motion = new Vector3(_moveDirection.x, 0, _moveDirection.y) * (MoveSpeed * Time.deltaTime);
-        _controller.Move(motion);
+        // _controller.Move(motion);
+        _transform.Translate(motion);
     }
 
-    private void _Look(Vector2 rotate)
+    private void _Look()
     {
-        if (rotate.sqrMagnitude < 0.01)
+        if (!_isRightButtonDown)
         {
             return;
         }
-
+        
         var scaledRotateSpeed = RotateSpeed * Time.deltaTime;
-        _lookDirection.y += rotate.x * scaledRotateSpeed;
-        _lookDirection.x = Mathf.Clamp(_lookDirection.x - rotate.y * scaledRotateSpeed, -89, 89);
-        transform.localEulerAngles = _lookDirection;
+        _transform.localRotation *= Quaternion.Euler(0, _lookRotate.x * scaledRotateSpeed, 0);
     }
 
     public float MoveSpeed = 5f;
-    public float RotateSpeed = .2f;
+    public float RotateSpeed = 3f;
     
-    private Transform _transform;
     private CharacterController _controller;
-    private InputAction _moveInputAction;
-    
+    private Transform _transform;
+
+    private InputAction _moveAction;
     private Vector2 _moveDirection;
-    private Vector2 _lookDirection;
+
+    private InputAction _lookAction;
+    private Vector2 _lookRotate;
+    
+    private InputAction _rightMouseAction;
+    private bool _isRightButtonDown;
+    private Vector3 _lastMousePosition;
 }
