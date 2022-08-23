@@ -8,6 +8,8 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +23,6 @@ public class MBPlayerController : MonoBehaviour
         _initInputAction();
     }
 
-    private SimpleControls simple; 
     private void _initInputAction()
     {
         // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.3/manual/ActionBindings.html#2d-vector
@@ -36,46 +37,38 @@ public class MBPlayerController : MonoBehaviour
         _lookAction = new InputAction("look", InputActionType.PassThrough, "<Pointer>/delta");
         _rightMouseAction = new InputAction("rightMouse", InputActionType.PassThrough, "<Mouse>/rightButton");
     }
-
-    private void _OnMovePerformed(InputAction.CallbackContext ctx)
-    {
-        _moveDirection = ctx.ReadValue<Vector2>();
-    }
     
-    private void _OnLookPerformed(InputAction.CallbackContext ctx)
-    {
-        _lookRotate = ctx.ReadValue<Vector2>();
-    }
-    
-    private void _OnRightMousePerformed(InputAction.CallbackContext ctx)
-    {
-        var click = ctx.ReadValue<float>();
-        _isRightButtonDown = click > 0;
-        Console.WriteLine(_isRightButtonDown);
-    }
-
     private void OnEnable()
     {
-        _moveAction.performed += _OnMovePerformed;
-        _moveAction.Enable();
-
-        _lookAction.performed += _OnLookPerformed;
-        _lookAction.Enable();
+        _EnableAction(_moveAction, ctx=>{
+            _moveDirection = ctx.ReadValue<Vector2>();
+        });
         
-        _rightMouseAction.performed += _OnRightMousePerformed;
-        _rightMouseAction.Enable();
+        _EnableAction(_lookAction, ctx =>
+        {
+            _lookRotate = ctx.ReadValue<Vector2>();
+        });
+
+        _EnableAction(_rightMouseAction, ctx =>
+        {
+            var click = ctx.ReadValue<float>();
+            _isRightButtonDown = click > 0;
+            Console.WriteLine(_isRightButtonDown);
+        });        
     }
     
     private void OnDisable()
     {
-        _lookAction.performed -= _OnLookPerformed;
-        _lookAction.Disable();
-        
-        _moveAction.performed -= _OnMovePerformed;
-        _moveAction.Disable();
-
-        _rightMouseAction.performed -= _OnRightMousePerformed;
-        _rightMouseAction.Disable();
+        var count = _actionDisableHandlers.Count;
+        if (count > 0)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                var disableHandler = _actionDisableHandlers[i];
+                disableHandler();
+            }
+            _actionDisableHandlers.Clear();
+        }
     }
 
     private void Update()
@@ -106,12 +99,25 @@ public class MBPlayerController : MonoBehaviour
         var scaledRotateSpeed = RotateSpeed * Time.deltaTime;
         _transform.localRotation *= Quaternion.Euler(0, _lookRotate.x * scaledRotateSpeed, 0);
     }
+    
+    private void _EnableAction(InputAction action, Action<InputAction.CallbackContext> handler)
+    {
+        action.performed += handler;
+        action.Enable();
+        
+        _actionDisableHandlers.Add(() =>
+        {
+            action.performed -= handler;
+            action.Disable();
+        });
+    }
 
     public float MoveSpeed = 5f;
     public float RotateSpeed = 3f;
     
     private CharacterController _controller;
     private Transform _transform;
+    private readonly List<Action> _actionDisableHandlers = new ();
 
     private InputAction _moveAction;
     private Vector2 _moveDirection;
