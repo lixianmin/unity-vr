@@ -8,8 +8,9 @@ Copyright (C) - All Rights Reserved
 
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using UnityEditor;
+using UnityEngine.UI;
+using DefaultControls = Unicorn.UI.Internal.DefaultControls;
 
 namespace Unicorn.UI
 {

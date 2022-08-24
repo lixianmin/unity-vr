@@ -12,6 +12,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using TMPro;
 using TMPro.EditorUtilities;
+using TMP_DefaultControls = Unicorn.UI.Internal.TMP_DefaultControls;
 
 namespace Unicorn.UI
 {
