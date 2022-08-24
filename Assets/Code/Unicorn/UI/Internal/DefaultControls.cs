@@ -94,7 +94,7 @@ namespace Unicorn.UI.Internal
 
         public static GameObject CreatePanel(Resources resources)
         {
-            GameObject panelRoot = CreateUIElementRoot("Panel", s_ThickElementSize);
+            GameObject panelRoot = CreateUIElementRoot("UIPanel", s_ThickElementSize);
 
             // Set RectTransform to stretch
             RectTransform rectTransform = panelRoot.GetComponent<RectTransform>();
@@ -103,7 +103,7 @@ namespace Unicorn.UI.Internal
             rectTransform.anchoredPosition = Vector2.zero;
             rectTransform.sizeDelta = Vector2.zero;
 
-            Image image = panelRoot.AddComponent<Image>();
+            Image image = panelRoot.AddComponent<UIImage>();
             image.sprite = resources.background;
             image.type = Image.Type.Sliced;
             image.color = s_PanelColor;
