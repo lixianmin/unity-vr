@@ -7,12 +7,15 @@ Copyright (C) - All Rights Reserved
 
 using System;
 using System.Collections.Generic;
-using Unicorn.Collections;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Unicorn.UI
 {
+    /// <summary>
+    /// 不同的 Canvas.renderMode 要求不同的UI制作方式:
+    /// 1. 如果是 RenderMode.ScreenSpaceOverlay 或 RenderMode.ScreenSpaceCamera , 则可以把Canvas, Canvas Scaler, Graphic Raycaster放到UIRoot上
+    /// 2. 如果是 RenderMode.WorldSpace, 则需要把Canvas, Canvas Scaler, Graphic Raycaster跟具体的UI放到一起. 原因是WorldSpace中的UI需要位置信息, 这一点好像只能由Canvas对象所在的RectTransform提供
+    /// </summary>
     public static class UIManager
     {
         private struct WindowItem
