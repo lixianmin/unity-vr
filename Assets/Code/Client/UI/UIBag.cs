@@ -24,10 +24,9 @@ namespace Client.UI
         
         public override void OnLoaded()
         {
-            var button = _btnBag.GetWidget(this);
-            button.onClick.AddListener(()=>{
+            _btnBag.UI.onClick.AddListener(()=>{
                 Console.WriteLine("click button");
-                _title.GetWidget(this).text = "hello world";
+                _title.UI.text = "hello world";
             });
 
             

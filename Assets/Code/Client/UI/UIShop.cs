@@ -22,9 +22,9 @@ namespace Client.UI
 
         public override void OnLoaded()
         {
-            _btnShop.GetWidget(this).onClick.AddListener(() =>
+            _btnShop.UI.onClick.AddListener(() =>
             {
-                _title.GetWidget(this).text = "this is shop title";
+                _title.UI.text = "this is shop title";
             });
             
             Console.WriteLine("shop is OnLoaded");

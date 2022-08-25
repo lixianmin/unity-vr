@@ -26,15 +26,8 @@ namespace Client.UI
                 _title.UI.text = (int.Parse(_title.UI.text) + 1).ToString();
             });
             
-            var btnDecr = _btnDecr.GetWidget(this);
-            var title = _title.GetWidget(this);
-            
-            // btnIncr.onClick.AddListener(()=>{
-            //     title.text = (int.Parse(title.text) + 1).ToString();
-            // });
-            
-            btnDecr.onClick.AddListener(()=>{
-                title.text = (int.Parse(title.text) - 1).ToString();
+            _btnDecr.UI.onClick.AddListener(()=>{
+                _title.UI.text = (int.Parse(_title.UI.text) - 1).ToString();
             });
             
             Console.WriteLine("uiadjustnumber is OnLoaded");

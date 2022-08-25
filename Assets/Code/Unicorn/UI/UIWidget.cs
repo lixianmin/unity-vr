@@ -32,16 +32,6 @@ namespace Unicorn.UI
             _name = name;
         }
 
-        public T GetWidget(UIWindowBase window)
-        {
-            if (_widget == null)
-            {
-                _widget = window.GetWidget(_name, typeof(T)) as T;
-            }
-
-            return _widget;
-        }
-
         public T UI
         {
             get
