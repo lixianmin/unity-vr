@@ -290,7 +290,7 @@ namespace Unicorn.UI
             }
             
             #if !UNITY_EDITOR
-            Object.DontDestroyOnLoad(goRoot);
+            GameObject.DontDestroyOnLoad(goRoot);
             #endif
             
             _uiRoot = goRoot.transform;
