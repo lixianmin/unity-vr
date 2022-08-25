@@ -19,16 +19,15 @@ namespace Client.UI
             return "Assets/res/prefabs/uibag.prefab";
         }
 
-        private readonly UIWidget<UIText> _title = new( "title");
         private readonly UIWidget<UIButton> _btnBag = new(  "btn_bag");
         
         public override void OnLoaded()
-        {
+        { 
+            UIWidget<UIText> title = new( "title", this);
             _btnBag.UI.onClick.AddListener(()=>{
                 Console.WriteLine("click button");
-                _title.UI.text = "hello world";
+                title.UI.text = "hello world";
             });
-
             
             Console.WriteLine("bag is OnLoaded");
         }
