@@ -15,8 +15,14 @@ namespace Unicorn.UI
         {
             _window = window;
         }
+
+        public string GetName()
+        {
+            return _name;
+        }
         
         protected UIWindowBase _window;
+        protected string _name;
     }
     
     public class UIWidget<T> : UIWidgetBase where T : Component
@@ -50,6 +56,5 @@ namespace Unicorn.UI
         }
 
         private T _widget;
-        private string _name;
     }
 }

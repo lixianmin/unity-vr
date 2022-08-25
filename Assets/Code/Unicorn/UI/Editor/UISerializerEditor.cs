@@ -198,11 +198,8 @@ namespace Unicorn.UI
                 if (fieldType.IsGenericType && fieldType.GetGenericTypeDefinition() == typeof(UIWidget<>))
                 {
                     var argType1 = fieldType.GetGenericArguments()[0];
-                    var widget = field.GetValue(window);
-                    var name = widget.GetType().GetField("_name", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(widget);
-                    // Console.WriteLine("v={0}, argType1={1}, name={2}", widget, argType1, name);
-                    
-                    list.Add(new Layout {name = name?.ToString(), type = argType1});
+                    var widget = field.GetValue(window) as UIWidgetBase;
+                    list.Add(new Layout {name = widget?.GetName(), type = argType1});
                 }
             }
             
