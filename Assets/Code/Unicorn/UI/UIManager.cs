@@ -205,7 +205,10 @@ namespace Unicorn.UI
 
         private static void _SendDeactivating(UIWindowBase targetWindow)
         {
-            targetWindow?.OnDeactivating();
+            if (targetWindow is not null)
+            {
+                CallbackTools.Handle(targetWindow.OnDeactivating, "[_SendDeactivating()]");
+            }
         }
 
         private static void _SendActivated(UIWindowBase targetWindow)
@@ -242,7 +245,7 @@ namespace Unicorn.UI
             }
 
             // _SortWindowsTransform();
-            targetWindow.OnActivated();
+            CallbackTools.Handle(targetWindow.OnActivated, "[_SendActivated()]");
         }
 
         // private static void _SortWindowsTransform()

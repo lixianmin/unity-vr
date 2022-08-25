@@ -63,7 +63,7 @@ namespace Unicorn.UI.States
                     {
                         goCloned.name = mainAsset.name;
                         fetus.OnLoadGameObject(goCloned);
-                        _CallHandler(master.OnLoaded);
+                        CallbackTools.Handle(master.OnLoaded, "[_Load()]");
                         fetus.isLoaded = true;
                         fetus.ChangeState(StateKind.OpenAnimation);
                     }

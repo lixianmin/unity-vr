@@ -37,7 +37,7 @@ namespace Unicorn.Web
 
                 // 这里的handler是有可能立即调用到的, 所以不能外面new WebItem()返回值的时候设置_webItem
                 _webItem = webItem;
-                CallbackTools.Handle(ref handler, this, string.Empty);
+                CallbackTools.Handle(ref handler, this, "[WebPrefab()]");
             });
         }
 

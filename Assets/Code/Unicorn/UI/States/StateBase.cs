@@ -55,18 +55,6 @@ namespace Unicorn.UI.States
             return last;
         }
 
-        protected void _CallHandler(Action handler)
-        {
-            try
-            {
-                handler();
-            }
-            catch (Exception ex)
-            {
-               Console.Error.WriteLine("handler={0}, ex={1}", handler, ex);
-            }
-        }
-
         public virtual void OnEnter(WindowFetus fetus, object arg1) {}
 
         public virtual void OnExit(WindowFetus fetus, object arg1) {}
