@@ -7,6 +7,7 @@ Copyright (C) - All Rights Reserved
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace Unicorn.UI
@@ -76,6 +77,21 @@ namespace Unicorn.UI
                 {
                     var key = new WidgetKey { name = data.name, type = data.target.GetType() };
                     _widgets.Add(key, data.target);
+                }
+            }
+        }
+
+        internal void _InitWidgetsWindow()
+        {
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+            var fields = GetType().GetFields(flags);
+            foreach (var field in fields)
+            {
+                var fieldType = field.FieldType;
+                if (fieldType.IsSubclassOf(typeof(UIWidgetBase)))
+                {
+                    var widget = field.GetValue(this) as UIWidgetBase;
+                    widget?._SetWindow(this);
                 }
             }
         }

@@ -64,7 +64,7 @@ namespace Unicorn.UI
         public Transform GetTransform() { return _transform; }
         public Canvas GetCanvas() { return _canvas; }
 
-        internal void _SetComponents(Transform transform, Canvas canvas)
+        internal void _InitComponents(Transform transform, Canvas canvas)
         {
             _transform = transform;
             _canvas = canvas;

@@ -54,7 +54,7 @@ namespace Unicorn.UI
             public string name = string.Empty;
             public string type = string.Empty;  // 这里只能序列化字符串, 无法序列化System.Type
 
-            public UnityEngine.Component target = null;
+            public Component target = null;
 
             [HideInInspector] public string userdata = null;
         }

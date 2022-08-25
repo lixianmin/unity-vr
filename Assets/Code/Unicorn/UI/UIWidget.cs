@@ -5,13 +5,21 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-
-using System;
 using UnityEngine;
 
 namespace Unicorn.UI
 {
-    public class UIWidget<T> where T : Component
+    public abstract class UIWidgetBase
+    {
+        internal void _SetWindow(UIWindowBase window)
+        {
+            _window = window;
+        }
+        
+        protected UIWindowBase _window;
+    }
+    
+    public class UIWidget<T> : UIWidgetBase where T : Component
     {
         public UIWidget(string name)
         {
@@ -26,6 +34,19 @@ namespace Unicorn.UI
             }
 
             return _widget;
+        }
+
+        public T UI
+        {
+            get
+            {
+                if (_widget == null && _window != null)
+                {
+                    _widget = _window.GetWidget(_name, typeof(T)) as T;
+                }
+
+                return _widget;
+            }
         }
 
         private T _widget;

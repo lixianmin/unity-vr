@@ -80,8 +80,8 @@ public class MBGame : MonoBehaviour
 		var version = metadataManager.GetMetadataVersion();
 		Console.WriteLine("[_CoLoadMetadata()] Metadata Loaded, metadataVersion={0}.", version.ToString());
 
-		// UIManager.OpenWindow(typeof(UIMain));
-		UIManager.OpenWindow(typeof(UIAdjustNumber));
+		UIManager.OpenWindow(typeof(UIMain));
+		// UIManager.OpenWindow(typeof(UIAdjustNumber));
     }
 
 	private readonly Game _game = Game.Instance;

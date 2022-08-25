@@ -25,10 +25,10 @@ namespace Client.UI
 
         public override void OnLoaded()
         {
-            _btnOpenBag.GetWidget(this).onClick.AddListener(OnClickOpenBag);
-            _btnOpenShop.GetWidget(this).onClick.AddListener(OnClickOpenShop);
-            _btnOpenTop.GetWidget(this).onClick.AddListener(OnClickOpenTop);
-            _btnCollectGarbage.GetWidget(this).onClick.AddListener(OnClickBtnCollectGarbage);
+            _btnOpenBag.UI.onClick.AddListener(OnClickOpenBag);
+            _btnOpenShop.UI.onClick.AddListener(OnClickOpenShop);
+            _btnOpenTop.UI.onClick.AddListener(OnClickOpenTop);
+            _btnCollectGarbage.UI.onClick.AddListener(OnClickBtnCollectGarbage);
         }
         
         private void OnClickOpenBag()

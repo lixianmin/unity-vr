@@ -64,7 +64,8 @@ namespace Unicorn.UI.Internal
                 canvas = null;
             }
             
-            master._SetComponents(_transform, canvas);
+            master._InitComponents(_transform, canvas);
+            master._InitWidgetsWindow();
             master._FillWidgets(serializer);
         }
 

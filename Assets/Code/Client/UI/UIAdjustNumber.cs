@@ -21,13 +21,17 @@ namespace Client.UI
         private readonly UIWidget<UIText> _title = new( "text_number");
         public override void OnLoaded()
         {
-            var btnIncr = _btnIncr.GetWidget(this);
+            _btnIncr.UI.onClick.AddListener(() =>
+            {
+                _title.UI.text = (int.Parse(_title.UI.text) + 1).ToString();
+            });
+            
             var btnDecr = _btnDecr.GetWidget(this);
             var title = _title.GetWidget(this);
             
-            btnIncr.onClick.AddListener(()=>{
-                title.text = (int.Parse(title.text) + 1).ToString();
-            });
+            // btnIncr.onClick.AddListener(()=>{
+            //     title.text = (int.Parse(title.text) + 1).ToString();
+            // });
             
             btnDecr.onClick.AddListener(()=>{
                 title.text = (int.Parse(title.text) - 1).ToString();
