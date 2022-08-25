@@ -4,18 +4,15 @@ author:     lixianmin
 
 1. life cycle of a window:
 
- -----------------------------------------------------------------
- |  new     --> load   --> active   --> animation --> open  -->  |
- |                                                            |  |
- |  release <-- unload <-- deactive <-- animation <-- close <--  |
- -----------------------------------------------------------------
+ ----------------------------------------------------------------------
+ |  new     --> load   --> open animation  --> open  --> active  -->  |
+ |                                                                    |  
+ |  dispose <-- unload <-- close animation <-- close <-- deactive <-- |
+ ----------------------------------------------------------------------
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-
-using System;
-using System.Collections;
 using Unicorn.UI.Internal;
 using UnityEngine;
 
