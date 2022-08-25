@@ -23,7 +23,7 @@ namespace Unicorn.UI.Internal
             CloseWindow();
 
             _parent = null;
-            serializer = null;
+            _serializer = null;
 
             if (_transform is not null)
             {
@@ -42,12 +42,13 @@ namespace Unicorn.UI.Internal
         public void OnLoadGameObject(GameObject goCloned)
         {
             _transform = goCloned.transform;
-            serializer = goCloned.GetComponent(typeof(UISerializer)) as UISerializer;
+            var serializer = goCloned.GetComponent(typeof(UISerializer)) as UISerializer;
             if (serializer is null)
             {
                 Console.Error.WriteLine("serializer is null, gameObject={0}", goCloned.ToString());
-                return;
             }
+
+            _serializer = serializer;
             
             if (_parent is not null)
             {
@@ -92,13 +93,17 @@ namespace Unicorn.UI.Internal
             return _state;
         }
 
+        public UISerializer GetSerializer()
+        {
+            return _serializer;
+        }
+
         public readonly UIWindowBase master;
 
         private StateBase _state = StateBase.Create(StateKind.None);
         private Transform _transform;
         private Transform _parent = UIManager.GetUIRoot();
-        
-        public UISerializer serializer;
+        private UISerializer _serializer;
         
         public float activateTime = 0;
         public bool isWindowCached;

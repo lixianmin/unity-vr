@@ -20,14 +20,18 @@ namespace Unicorn.UI.States
                 return;
             }
 
-            var script = fetus.serializer.closeWindowScript;
-            var evt = fetus.serializer.onCloseWindowFinished;
-            if (script is not null && evt is not null)
+            var serializer = fetus.GetSerializer();
+            if (serializer is not null)
             {
-                _closeAnimation = new UIAnimation(evt);
-                _isPlaying = _closeAnimation.PlayAnimation(script, ()=>_OnCloseWindowFinishedCallback(fetus));
+                var script = serializer.closeWindowScript;
+                var evt = serializer.onCloseWindowFinished;
+                if (script is not null && evt is not null)
+                {
+                    _closeAnimation = new UIAnimation(evt);
+                    _isPlaying = _closeAnimation.PlayAnimation(script, ()=>_OnCloseWindowFinishedCallback(fetus));
+                }
             }
-
+            
             if (_isPlaying)
             {
                 _playAnimationMask.OpenWindow();

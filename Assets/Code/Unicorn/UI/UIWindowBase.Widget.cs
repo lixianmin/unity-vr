@@ -70,6 +70,11 @@ namespace Unicorn.UI
 
         internal void _FillWidgets(UISerializer serializer)
         {
+            if (serializer is null)
+            {
+                return;
+            }
+            
             var dataList = serializer.widgetDatas;
             if (dataList is not null)
             {

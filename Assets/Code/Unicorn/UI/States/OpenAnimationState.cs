@@ -14,12 +14,16 @@ namespace Unicorn.UI.States
         public override void OnEnter(WindowFetus fetus, object arg1)
         {
             AssertTools.IsTrue(!fetus.isDelayedCloseWindow);
-            var script = fetus.serializer.openWindowScript;
-            var evt = fetus.serializer.onOpenWindowFinished;
-            if (script is not null && evt is not null)
+            var serializer = fetus.GetSerializer();
+            if (serializer is not null)
             {
-                _openAnimation = new UIAnimation(evt);
-                _isPlaying = _openAnimation.PlayAnimation(script, ()=>_OnOpenWindowFinishedCallback(fetus));
+                var script = serializer.openWindowScript;
+                var evt = serializer.onOpenWindowFinished;
+                if (script is not null && evt is not null)
+                {
+                    _openAnimation = new UIAnimation(evt);
+                    _isPlaying = _openAnimation.PlayAnimation(script, ()=>_OnOpenWindowFinishedCallback(fetus));
+                }
             }
             
             if (_isPlaying)

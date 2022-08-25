@@ -5,6 +5,7 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using System;
 using Unicorn.Collections;
 using Unicorn.UI.Internal;
 
@@ -52,6 +53,18 @@ namespace Unicorn.UI.States
 
             _states[kind] = last;
             return last;
+        }
+
+        protected void _CallHandler(Action handler)
+        {
+            try
+            {
+                handler();
+            }
+            catch (Exception ex)
+            {
+               Console.Error.WriteLine("handler={0}, ex={1}", handler, ex);
+            }
         }
 
         public virtual void OnEnter(WindowFetus fetus, object arg1) {}
