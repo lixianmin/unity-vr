@@ -17,7 +17,6 @@ namespace Client
         {
             var targets = GetTargets();
             var script = targets[0] as XRGrabInteractable;
-            
             AddListener(script.hoverEntered, args =>
             {
                 script.GetComponent<MeshRenderer>().material = targets[1] as Material;
@@ -31,7 +30,7 @@ namespace Client
 
         public override void OnDestroy()
         {
-            
+            Console.WriteLine("@@@ OnDestroy()");
         }
     }
 }

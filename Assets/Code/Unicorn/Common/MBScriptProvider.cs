@@ -22,7 +22,8 @@ namespace Unicorn
                 {
                     if (type.IsSubclassOf(typeof(ScriptBase)))
                     {
-                        _typeTable.Add(type.FullName?? string.Empty, type);
+                        var key = type.FullName ?? string.Empty;
+                        _typeTable.Add(key, type);
                     }
                 }
             } 
@@ -35,15 +36,17 @@ namespace Unicorn
             {
                 script._SetTargets(targets);
                 CallbackTools.Handle(script.Awake, "[Awake()]");
+                _script = script;
             }
         }
         
         private void OnDestroy()
         {
-            if (_script is not null)
+            var script = _script;
+            if (script is not null)
             {
-                CallbackTools.Handle(_script.OnDestroy, "[OnDestroy()]");
-                _script.RemoveAllListeners();
+                CallbackTools.Handle(script.OnDestroy, "[OnDestroy()]");
+                script.RemoveAllListeners();
             }
         }
         
