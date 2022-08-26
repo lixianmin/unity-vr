@@ -5,7 +5,7 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
-namespace Unicorn.Scripts
+namespace Unicorn
 {
     public class ScriptBase
     {

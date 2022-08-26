@@ -7,8 +7,9 @@ Copyright (C) - All Rights Reserved
 
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using Unicorn;
 
-namespace Unicorn.Scripts
+namespace Client
 {
     public class BowlScript: ScriptBase
     {

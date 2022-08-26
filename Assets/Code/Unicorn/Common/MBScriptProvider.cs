@@ -7,15 +7,31 @@ Copyright (C) - All Rights Reserved
 *********************************************************************/
 
 using System;
+using System.Collections;
 using UnityEngine;
 
-namespace Unicorn.Scripts
+namespace Unicorn
 {
     public class MBScriptProvider : MonoBehaviour
     {
+        static MBScriptProvider()
+        {
+            foreach (var assembly in TypeTools.GetCustomAssemblies())
+            {
+                foreach (var type in assembly.GetExportedTypes())
+                {
+                    if (type.IsSubclassOf(typeof(ScriptBase)))
+                    {
+                        _typeTable.Add(type.FullName?? string.Empty, type);
+                    }
+                }
+            } 
+        }
+        
         private void Awake()
         {
-            if (Activator.CreateInstance(typeof(BowlScript)) is ScriptBase script)
+            var key = (fullScriptName ?? string.Empty).Trim();
+            if (_typeTable[key] is Type type && Activator.CreateInstance(type) is ScriptBase script)
             {
                 script._SetTargets(targets);
                 CallbackTools.Handle(script.Awake, "[Awake()]");
@@ -32,7 +48,9 @@ namespace Unicorn.Scripts
 
         private ScriptBase _script;
 
-        public string scriptName;
+        public string fullScriptName;
         public UnityEngine.Object[] targets;
+
+        private static readonly Hashtable _typeTable = new (128);
     }
 }

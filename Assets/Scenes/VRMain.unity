@@ -2730,7 +2730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af287c7837d3438a882f838851198c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptName: BowlScript
+  fullScriptName: Client.BowlScript
   targets:
   - {fileID: 2115203738}
   - {fileID: 2100000, guid: a0ce42cee81e94cb9917b831c8be723f, type: 2}
