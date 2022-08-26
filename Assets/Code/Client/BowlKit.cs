@@ -11,20 +11,25 @@ using Unicorn;
 
 namespace Client
 {
-    public class BowlScript: ScriptBase
+    public class BowlKit: KitBase
     {
         public override void Awake()
         {
-            var targets = GetTargets();
-            var script = targets[0] as XRGrabInteractable;
+            var assets = GetAssets();
+            if (assets.Length < 3)
+            {
+                return;
+            }
+            
+            var script = assets[0] as XRGrabInteractable;
             AddListener(script.hoverEntered, args =>
             {
-                script.GetComponent<MeshRenderer>().material = targets[1] as Material;
+                script.GetComponent<MeshRenderer>().material = assets[1] as Material;
             });
             
             AddListener(script.hoverExited, args =>
             {
-                script.GetComponent<MeshRenderer>().material = targets[2] as Material;
+                script.GetComponent<MeshRenderer>().material = assets[2] as Material;
             });
         }
 

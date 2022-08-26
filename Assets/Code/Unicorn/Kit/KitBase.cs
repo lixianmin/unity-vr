@@ -9,7 +9,7 @@ using UnityEngine.Events;
 
 namespace Unicorn
 {
-    public class ScriptBase
+    public class KitBase
     {
         public virtual void Awake() { }
         public virtual void OnDestroy() { }
@@ -29,17 +29,17 @@ namespace Unicorn
             _listener.RemoveAllListeners();
         }
         
-        public UnityEngine.Object[] GetTargets()
+        public UnityEngine.Object[] GetAssets()
         {
-            return _targets;
+            return _assets;
         }
         
-        internal void _SetTargets(UnityEngine.Object[] targets)
+        internal void _SetAssets(UnityEngine.Object[] assets)
         {
-            _targets = targets;
+            _assets = assets;
         }
         
-        private UnityEngine.Object[] _targets;
+        private UnityEngine.Object[] _assets;
         private readonly EventListener _listener = new();
     }
 }

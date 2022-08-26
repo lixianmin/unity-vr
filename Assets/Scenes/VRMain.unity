@@ -2718,7 +2718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2115203739
+--- !u!114 &2115203744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2730,8 +2730,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af287c7837d3438a882f838851198c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullScriptName: Client.BowlScript
-  targets:
+  fullKitName: Client.BowlKit
+  assets:
   - {fileID: 2115203738}
   - {fileID: 2100000, guid: a0ce42cee81e94cb9917b831c8be723f, type: 2}
-  - {fileID: 2100000, guid: 489467924fa8c4f62a3a2e6099d9b668, type: 2}
+  - {fileID: 2100000, guid: a8add734d9059af4c9838ae47ddc91e7, type: 2}

@@ -12,15 +12,15 @@ using UnityEngine;
 
 namespace Unicorn
 {
-    public class MBScriptProvider : MonoBehaviour
+    public class MBKitProvider : MonoBehaviour
     {
-        static MBScriptProvider()
+        static MBKitProvider()
         {
             foreach (var assembly in TypeTools.GetCustomAssemblies())
             {
                 foreach (var type in assembly.GetExportedTypes())
                 {
-                    if (type.IsSubclassOf(typeof(ScriptBase)))
+                    if (type.IsSubclassOf(typeof(KitBase)))
                     {
                         var key = type.FullName ?? string.Empty;
                         _typeTable.Add(key, type);
@@ -31,29 +31,36 @@ namespace Unicorn
         
         private void Awake()
         {
-            var key = (fullScriptName ?? string.Empty).Trim();
-            if (_typeTable[key] is Type type && Activator.CreateInstance(type) is ScriptBase script)
+            var key = (fullKitName ?? string.Empty).Trim();
+            if (_typeTable[key] is Type type && Activator.CreateInstance(type) is KitBase kit)
             {
-                script._SetTargets(targets);
-                CallbackTools.Handle(script.Awake, "[Awake()]");
-                _script = script;
+                kit._SetAssets(assets);
+                CallbackTools.Handle(kit.Awake, "[Awake()]");
+                _kit = kit;
             }
         }
         
         private void OnDestroy()
         {
-            var script = _script;
-            if (script is not null)
+            var kit = _kit;
+            if (kit is not null)
             {
-                CallbackTools.Handle(script.OnDestroy, "[OnDestroy()]");
-                script.RemoveAllListeners();
+                CallbackTools.Handle(kit.OnDestroy, "[OnDestroy()]");
+                kit.RemoveAllListeners();
             }
         }
         
-        public string fullScriptName;
-        public UnityEngine.Object[] targets;
+        /// <summary>
+        /// 包含namespace的kit脚本全称, 用于关联kit脚本
+        /// </summary>
+        public string fullKitName;
+        
+        /// <summary>
+        /// 关联场景资源, 用于kit脚本逻辑
+        /// </summary>
+        public UnityEngine.Object[] assets;
 
-        private ScriptBase _script;
+        private KitBase _kit;
         private static readonly Hashtable _typeTable = new (128);
     }
 }
