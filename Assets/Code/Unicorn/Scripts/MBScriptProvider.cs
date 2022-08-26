@@ -15,11 +15,24 @@ namespace Unicorn.Scripts
     {
         private void Awake()
         {
-            
-            var script = Activator.CreateInstance(typeof(BowlScript));
+            if (Activator.CreateInstance(typeof(BowlScript)) is ScriptBase script)
+            {
+                script._SetTargets(targets);
+                CallbackTools.Handle(script.Awake, "[Awake()]");
+            }
+        }
+        
+        private void OnDestroy()
+        {
+            if (_script is not null)
+            {
+                CallbackTools.Handle(_script.OnDestroy, "[OnDestroy()]");    
+            }
         }
 
-        public MonoBehaviour target;
+        private ScriptBase _script;
+
         public string scriptName;
+        public UnityEngine.Object[] targets;
     }
 }

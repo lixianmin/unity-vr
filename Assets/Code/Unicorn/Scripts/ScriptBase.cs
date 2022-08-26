@@ -9,6 +9,19 @@ namespace Unicorn.Scripts
 {
     public class ScriptBase
     {
+        public virtual void Awake() { }
+        public virtual void OnDestroy() { }
+
+        public UnityEngine.Object[] GetTargets()
+        {
+            return _targets;
+        }
         
+        internal void _SetTargets(UnityEngine.Object[] targets)
+        {
+            _targets = targets;
+        }
+        
+        private UnityEngine.Object[] _targets;
     }
 }
