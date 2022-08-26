@@ -5,6 +5,8 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using UnityEngine.Events;
+
 namespace Unicorn
 {
     public class ScriptBase
@@ -12,6 +14,21 @@ namespace Unicorn
         public virtual void Awake() { }
         public virtual void OnDestroy() { }
 
+        public void AddListener(UnityEvent evt, UnityAction handler)
+        {
+            _listener.AddListener(evt, handler);
+        }
+        
+        public void AddListener<T>(UnityEvent<T> evt, UnityAction<T> handler)
+        {
+            _listener.AddListener(evt, handler);
+        }
+
+        internal void RemoveAllListeners()
+        {
+            _listener.RemoveAllListeners();
+        }
+        
         public UnityEngine.Object[] GetTargets()
         {
             return _targets;
@@ -23,5 +40,6 @@ namespace Unicorn
         }
         
         private UnityEngine.Object[] _targets;
+        private readonly EventListener _listener = new();
     }
 }

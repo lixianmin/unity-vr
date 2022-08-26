@@ -42,15 +42,15 @@ namespace Unicorn
         {
             if (_script is not null)
             {
-                CallbackTools.Handle(_script.OnDestroy, "[OnDestroy()]");    
+                CallbackTools.Handle(_script.OnDestroy, "[OnDestroy()]");
+                _script.RemoveAllListeners();
             }
         }
-
-        private ScriptBase _script;
-
+        
         public string fullScriptName;
         public UnityEngine.Object[] targets;
 
+        private ScriptBase _script;
         private static readonly Hashtable _typeTable = new (128);
     }
 }
