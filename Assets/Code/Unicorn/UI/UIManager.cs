@@ -20,6 +20,15 @@ using UnityEngine;
 namespace Unicorn.UI
 {
     /// <summary>
+    /// 2022-08-26 Update:
+    /// 1. 也许可以统一UI制作方式:
+    ///     1. 每一个prefab都先创建一个自己的Canvas, 然后在自己的Canvas下面再挂接具体的UI控件
+    ///     2. 同时保留UIRoot为空节点
+    /// 2. 如果是普通UI, 就先: 右键->UI->Canvas
+    /// 3. 如果是XR, 则选: 右键->XR->XR Canvas
+    /// 4. 不清楚这个方案的运行性能如何, 不过看起来比较统一, 值得测试. 特别是, 如果是VR同时希望制作world space的UI的话, 好像只能这么做?
+    ///  
+    ///
     /// 不同的 Canvas.renderMode 要求不同的UI制作方式:
     /// 1. 如果是 RenderMode.ScreenSpaceOverlay 或 RenderMode.ScreenSpaceCamera , 则可以把Canvas, Canvas Scaler, Graphic Raycaster放到UIRoot上
     /// 2. 如果是 RenderMode.WorldSpace, 则需要把Canvas, Canvas Scaler, Graphic Raycaster跟具体的UI放到一起. 原因是WorldSpace中的UI需要位置信息, 这一点好像只能由Canvas对象所在的RectTransform提供
