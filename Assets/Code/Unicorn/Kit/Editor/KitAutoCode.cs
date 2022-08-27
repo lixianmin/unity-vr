@@ -9,13 +9,12 @@ Copyright (C) - All Rights Reserved
 using System;
 using System.Collections.Generic;
 using Unicorn.AutoCode;
-using UnityEditor;
 
-namespace Unicorn.Kit
+namespace Unicorn
 {
-    public class MakeAutoCode
+    internal class KitAutoCode
     {
-        internal void _WriteKitFactory(string fullPath)
+        internal void WriteKitFactory(string fullPath)
         {
             using (_writer = new CodeWriter(fullPath))
             {
@@ -31,8 +30,6 @@ namespace Unicorn.Kit
                     }
                 }
             }
-            
-            AssetDatabase.Refresh();
         }
         
         private void _WriteMetaFactory_GetLookupTableByType ()
@@ -42,6 +39,8 @@ namespace Unicorn.Kit
             using (CodeScope.CreateCSharpScope(_writer))
             {
                 var subTypes = System.Linq.Enumerable.ToList(CollectSubTypes(typeof(KitBase)));
+                subTypes.Sort((a, b) => string.Compare(a.FullName!, b.FullName, StringComparison.Ordinal));
+                
                 var count = subTypes.Count;
                 _writer.WriteLine("return new Hashtable({0})", count.ToString());
 

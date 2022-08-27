@@ -14,8 +14,8 @@ namespace Unicorn
             return new Hashtable(3)
             {
                 { "Client.AnotherKit", (Func<KitBase>)(() => new Client.AnotherKit()) },
-                { "Client.TestKit", (Func<KitBase>)(() => new Client.TestKit()) },
                 { "Client.BowlKit", (Func<KitBase>)(() => new Client.BowlKit()) },
+                { "Client.TestKit", (Func<KitBase>)(() => new Client.TestKit()) },
             };
         }
     }

@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace Unicorn.Kit
 {
-    public class KitMenus
+    internal class KitMenus
     {
         [MenuItem("*Kit/Make Auto Code", false, 0)]
         private static void Make ()
@@ -25,7 +25,7 @@ namespace Unicorn.Kit
 
             var factoryPath = _GetFactoryFilePath();
             os.makedirs(Path.GetDirectoryName(factoryPath));
-            new MakeAutoCode()._WriteKitFactory(factoryPath);
+            new KitAutoCode().WriteKitFactory(factoryPath);
         }
 
         [MenuItem("*Kit/Clear Auto Code", false, 1)]

@@ -16,23 +16,23 @@ namespace Unicorn
     {
         static MBKitProvider()
         {
-            foreach (var assembly in TypeTools.GetCustomAssemblies())
+            var kitFactoryType = TypeTools.SearchType("Unicorn._KitFactory");
+            if (null != kitFactoryType)
             {
-                foreach (var type in assembly.GetExportedTypes())
+                TypeTools.CreateDelegate(kitFactoryType, "_GetLookupTableByName", out Func<Hashtable> method);
+                if (method != null)
                 {
-                    if (type.IsSubclassOf(typeof(KitBase)))
-                    {
-                        var key = type.FullName ?? string.Empty;
-                        _typeTable.Add(key, type);
-                    }
+                    _lookupTable = method();
                 }
-            } 
+            }
+
+            _lookupTable ??= new Hashtable();
         }
         
         private void Awake()
         {
             var key = (fullKitName ?? string.Empty).Trim();
-            if (_typeTable[key] is Type type && Activator.CreateInstance(type) is KitBase kit)
+            if (_lookupTable[key] is Func<KitBase> creator && creator() is { } kit)
             {
                 _kit = kit;
                 kit._SetAssets(assets);
@@ -40,7 +40,7 @@ namespace Unicorn
             }
             else
             {
-                Console.Error.WriteLine("invalid fullKitName={0}", fullKitName);
+                Console.Error.WriteLine("invalid fullKitName={0}, or need to make auto code", fullKitName);
             }
         }
         
@@ -74,6 +74,6 @@ namespace Unicorn
         public UnityEngine.Object[] assets;
 
         private KitBase _kit;
-        private static readonly Hashtable _typeTable = new (128);
+        private static readonly Hashtable _lookupTable;
     }
 }
