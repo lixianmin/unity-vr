@@ -11,7 +11,7 @@ using UnityEditor;
 
 namespace Unicorn.Menus
 {
-    public class HotKeyEditor : EditorWindow
+    public class HotKeyEditor
     {
         [MenuItem("*HotKeys/Addressables", false, 0)]
         public static void OpenAddressables()
