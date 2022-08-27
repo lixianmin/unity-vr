@@ -10,3 +10,4 @@ resource/ios/
 ServerData/
 *.apk
 unity-vr_BackUpThisFolder_ButDontShipItWithYourGame/
+*.dwlt
