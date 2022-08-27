@@ -13,6 +13,7 @@ namespace Unicorn
     {
         public virtual void Awake() { }
         public virtual void OnDestroy() { }
+        public virtual void Update() { }
 
         public void AddListener(UnityEvent evt, UnityAction handler)
         {

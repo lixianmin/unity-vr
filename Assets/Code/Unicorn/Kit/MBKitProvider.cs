@@ -34,9 +34,13 @@ namespace Unicorn
             var key = (fullKitName ?? string.Empty).Trim();
             if (_typeTable[key] is Type type && Activator.CreateInstance(type) is KitBase kit)
             {
+                _kit = kit;
                 kit._SetAssets(assets);
                 CallbackTools.Handle(kit.Awake, "[Awake()]");
-                _kit = kit;
+            }
+            else
+            {
+                Console.Error.WriteLine("invalid fullKitName={0}", fullKitName);
             }
         }
         
@@ -49,9 +53,18 @@ namespace Unicorn
                 kit.RemoveAllListeners();
             }
         }
+
+        private void Update()
+        {
+            var kit = _kit;
+            if (kit is not null)
+            {
+                CallbackTools.Handle(kit.Update, "[Update()]");
+            }
+        }
         
         /// <summary>
-        /// 包含namespace的kit脚本全称, 用于关联kit脚本
+        /// 包含namespace的kit脚本全称, 用于生成kit脚本
         /// </summary>
         public string fullKitName;
         
