@@ -198,7 +198,7 @@ MonoBehaviour:
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
   m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.25
+  m_ThrowSmoothingDuration: 0.5
   m_ThrowSmoothingCurve:
     serializedVersion: 2
     m_Curve:

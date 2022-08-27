@@ -943,6 +943,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1947861116}
+    - target: {fileID: 1093825965863468039, guid: e9a307b9271c3465bb767e1d481d64e4, type: 3}
+      propertyPath: m_ThrowVelocityScale
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1631971711914184781, guid: e9a307b9271c3465bb767e1d481d64e4, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1482,6 +1486,7 @@ GameObject:
   - component: {fileID: 966004500}
   - component: {fileID: 966004502}
   - component: {fileID: 966004501}
+  - component: {fileID: 966004503}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -1584,6 +1589,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_System: {fileID: 966004501}
   m_DelayTime: 0
+--- !u!114 &966004503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966004496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc4f2c0214c9b494fa7eb5b8b2c02885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_System: {fileID: 966004501}
+  m_TurnAmount: 20
+  m_DebounceTime: 0.5
+  m_EnableTurnLeftRight: 1
+  m_EnableTurnAround: 1
+  m_DelayTime: 0
+  m_TurnUsage: 0
+  m_Controllers:
+  - {fileID: 37653616}
+  - {fileID: 1770114652}
+  m_DeadZone: 0.75
 --- !u!1 &1285525906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,6 +2598,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1947861116}
+    - target: {fileID: 1093825965863468039, guid: e9a307b9271c3465bb767e1d481d64e4, type: 3}
+      propertyPath: m_ThrowVelocityScale
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1093825965863468039, guid: e9a307b9271c3465bb767e1d481d64e4, type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.size
       value: 0
