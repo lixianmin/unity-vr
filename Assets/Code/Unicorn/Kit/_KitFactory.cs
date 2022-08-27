@@ -15,7 +15,7 @@ namespace Unicorn
             {
                 { "Client.AnotherKit", (Func<KitBase>)(() => new Client.AnotherKit()) },
                 { "Client.BowlKit", (Func<KitBase>)(() => new Client.BowlKit()) },
-                { "Client.TestKit", (Func<KitBase>)(() => new Client.TestKit()) },
+                { "Client.PlayerMoveKit", (Func<KitBase>)(() => new Client.PlayerMoveKit()) },
             };
         }
     }

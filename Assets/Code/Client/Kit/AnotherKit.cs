@@ -13,9 +13,4 @@ namespace Client
     {
         
     }
-    
-    public class TestKit: KitBase
-    {
-        
-    }
 }
