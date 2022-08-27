@@ -30,13 +30,13 @@ namespace Client
 
             var transform = GetTransform();
             var isOk = _leftController.inputDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out var delta);
-            if (isOk && delta.sqrMagnitude > 0.001)
+
+            const float squaredDeadZone = 0.001f;
+            if (isOk && delta.sqrMagnitude > squaredDeadZone)
             {
                 const float moveSpeed = 2.0f;
-                delta *= moveSpeed * Time.deltaTime;
-                
-                var lastPos = transform.position;
-                transform.position = new Vector3(lastPos.x + delta.x, lastPos.y, lastPos.z + delta.y);
+                var motion = new Vector3(delta.x, 0, delta.y) * moveSpeed * Time.deltaTime;                
+                transform.Translate(motion);
             }
         }
 
