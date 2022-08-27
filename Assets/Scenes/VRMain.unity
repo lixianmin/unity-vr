@@ -1475,7 +1475,6 @@ MonoBehaviour:
   m_DelayTime: 0
   m_TurnUsage: 0
   m_Controllers:
-  - {fileID: 37653616}
   - {fileID: 1770114652}
   m_DeadZone: 0.75
 --- !u!114 &966004504

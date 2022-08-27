@@ -29,8 +29,8 @@ namespace Client
             }
 
             var transform = GetTransform();
-            var isPressing = _leftController.inputDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out var delta);
-            if (isPressing)
+            var isOk = _leftController.inputDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out var delta);
+            if (isOk)
             {
                 const float moveSpeed = 2.0f;
                 delta *= moveSpeed * Time.deltaTime;
@@ -40,6 +40,7 @@ namespace Client
             }
         }
 
+        // 左手移动, 右手旋转
         private XRController _leftController;
     }
 }

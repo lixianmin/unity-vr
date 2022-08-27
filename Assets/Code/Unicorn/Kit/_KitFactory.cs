@@ -11,9 +11,8 @@ namespace Unicorn
     {
         private static Hashtable _GetLookupTableByName ()
         {
-            return new Hashtable(3)
+            return new Hashtable(2)
             {
-                { "Client.AnotherKit", (Func<KitBase>)(() => new Client.AnotherKit()) },
                 { "Client.BowlKit", (Func<KitBase>)(() => new Client.BowlKit()) },
                 { "Client.PlayerMoveKit", (Func<KitBase>)(() => new Client.PlayerMoveKit()) },
             };
