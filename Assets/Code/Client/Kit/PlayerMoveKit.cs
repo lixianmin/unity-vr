@@ -30,7 +30,7 @@ namespace Client
 
             var transform = GetTransform();
             var isOk = _leftController.inputDevice.TryGetFeatureValue(CommonUsages.primary2DAxis, out var delta);
-            if (isOk)
+            if (isOk && delta.sqrMagnitude > 0.001)
             {
                 const float moveSpeed = 2.0f;
                 delta *= moveSpeed * Time.deltaTime;

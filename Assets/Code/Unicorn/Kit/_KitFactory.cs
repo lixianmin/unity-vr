@@ -9,6 +9,7 @@ namespace Unicorn
 {
     public class _KitFactory
     {
+        [UnityEngine.Scripting.Preserve]
         private static Hashtable _GetLookupTableByName ()
         {
             return new Hashtable(2)
