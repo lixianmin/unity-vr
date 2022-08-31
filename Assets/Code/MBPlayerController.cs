@@ -88,12 +88,13 @@ public class MBPlayerController : MonoBehaviour
         _Look();
         _MoveHeight();
         
-        // 因为controller自己有minMOveDistance的设置, 所以不需要使用deadZone进行限制
+        // 因为controller自己有minMoveDistance的设置, 所以不需要使用deadZone进行限制
         _controller.Move(_moveVeloctity * Time.deltaTime);
     }
 
     private void _MoveHeight()
     {
+        // todo 目前有一个isGrounded反复变化的问题, 不知道怎么解
         if (_controller.isGrounded)
         {
             // 如果角色接触地面，则向下的速度置0
