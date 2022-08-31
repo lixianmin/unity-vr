@@ -5,13 +5,17 @@ author:     lixianmin
 
 参考: https://www.bilibili.com/video/BV1eK4y1R7fA?spm_id_from=333.337.search-card.all.click&vd_source=060cae0323076afc7bb35d1220dc6cf7
 
+    https://blog.csdn.net/weixin_43147385/article/details/126566920
+
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
 using System;
 using System.Collections.Generic;
+using Unicorn;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(CharacterController))]
 public class MBPlayerController : MonoBehaviour
@@ -26,67 +30,86 @@ public class MBPlayerController : MonoBehaviour
     private void _initInputAction()
     {
         // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.3/manual/ActionBindings.html#2d-vector
-        _moveAction = new InputAction("move", InputActionType.PassThrough);
-        _moveAction.AddCompositeBinding("2DVector(mode=0)") // Or "Dpad"
+        var moveAction = new InputAction("move", InputActionType.PassThrough);
+        moveAction.AddCompositeBinding("2DVector(mode=0)") // Or "Dpad"
             .With("Up", "<Keyboard>/w")
             .With("Down", "<Keyboard>/s")
             .With("Left", "<Keyboard>/a")
             .With("Right", "<Keyboard>/d");
 
+        // 针对Keyboard来讲:
+        //  InputActionType.Value => keydown返回1, keyup无返回
+        //  InputActionType.PassThrough => keydown读到1, keyup读到0
+        var jumpAction = new InputAction("jump", InputActionType.Value, "<Keyboard>/space");        
+        var lookAction = new InputAction("look", InputActionType.PassThrough, "<Pointer>/delta");
+        var rightMouseAction = new InputAction("rightMouse", InputActionType.PassThrough, "<Mouse>/rightButton");
         
-        _lookAction = new InputAction("look", InputActionType.PassThrough, "<Pointer>/delta");
-        _rightMouseAction = new InputAction("rightMouse", InputActionType.PassThrough, "<Mouse>/rightButton");
+        _onEnableAction = () =>
+        {
+            _EnableAction(moveAction, ctx=>
+            { 
+                var direction = ctx.ReadValue<Vector2>();
+                _moveVeloctity.x = direction.x * MoveSpeed;
+                _moveVeloctity.z = direction.y * MoveSpeed;
+            });
+
+            _EnableAction(jumpAction, ctx =>
+            {
+                _moveVeloctity.y = Mathf.Sqrt(2 * Gravity * JumpHeight);
+                // Console.WriteLine(ctx.ReadValue<float>());
+            });
+        
+            _EnableAction(lookAction, ctx =>
+            {
+                _lookRotate = ctx.ReadValue<Vector2>();
+            });
+
+            _EnableAction(rightMouseAction, ctx =>
+            {
+                var click = ctx.ReadValue<float>();
+                _isRightButtonDown = click > 0;
+            });   
+        };
     }
     
     private void OnEnable()
     {
-        _EnableAction(_moveAction, ctx=>{
-            _moveDirection = ctx.ReadValue<Vector2>();
-        });
-        
-        _EnableAction(_lookAction, ctx =>
-        {
-            _lookRotate = ctx.ReadValue<Vector2>();
-        });
-
-        _EnableAction(_rightMouseAction, ctx =>
-        {
-            var click = ctx.ReadValue<float>();
-            _isRightButtonDown = click > 0;
-            Console.WriteLine(_isRightButtonDown);
-        });        
+        _onEnableAction();
     }
     
     private void OnDisable()
     {
-        var count = _actionDisableHandlers.Count;
-        if (count > 0)
-        {
-            for (var i = 0; i < count; i++)
-            {
-                var disableHandler = _actionDisableHandlers[i];
-                disableHandler();
-            }
-            _actionDisableHandlers.Clear();
-        }
+        _actionDisableHandlers.InvokeAndClearEx();
     }
 
     private void Update()
     {
         _Look();
-        _Move();
+        _MoveHeight();
+        
+        const float deadZone = 0.001f;
+        // if (_moveVeloctity.sqrMagnitude > deadZone)
+        {
+            _controller.Move(_moveVeloctity * Time.deltaTime);
+        }
     }
 
-    private void _Move()
+    private void _MoveHeight()
     {
-        if (_moveDirection.sqrMagnitude < 0.01)
+        if (_controller.isGrounded)
         {
-            return;
+            // 如果角色接触地面，则向下的速度置0
+            if (_moveVeloctity.y < 0)
+            {
+                // _moveVeloctity.y = 0;
+            }
         }
-
-        var motion = new Vector3(_moveDirection.x, 0, _moveDirection.y) * (MoveSpeed * Time.deltaTime);
-        // _controller.Move(motion);
-        _transform.Translate(motion);
+        else
+        {   // 如果角色在空中, 则要基于重力给一个向下的速度
+            _moveVeloctity.y -= Gravity * Time.deltaTime;
+        }
+        
+        Console.WriteLine($"_moveVeloctity={_moveVeloctity}, isGrounded={_controller.isGrounded}");
     }
 
     private void _Look()
@@ -115,17 +138,16 @@ public class MBPlayerController : MonoBehaviour
     public float MoveSpeed = 5f;
     public float RotateSpeed = 3f;
     
+    public float Gravity = 9.8f;    // 重力加速度
+    public float JumpHeight = 1.2f; // 跳跃的高度
+
     private CharacterController _controller;
     private Transform _transform;
+
+    private Action _onEnableAction;
     private readonly List<Action> _actionDisableHandlers = new ();
 
-    private InputAction _moveAction;
-    private Vector2 _moveDirection;
-
-    private InputAction _lookAction;
-    private Vector2 _lookRotate;
-    
-    private InputAction _rightMouseAction;
+    private Vector3 _moveVeloctity = Vector3.zero;
+    private Vector2 _lookRotate = Vector2.zero;
     private bool _isRightButtonDown;
-    private Vector3 _lastMousePosition;
 }
