@@ -49,8 +49,9 @@ public class MBPlayerController : MonoBehaviour
             _EnableAction(moveAction, ctx=>
             { 
                 var direction = ctx.ReadValue<Vector2>();
-                _moveVeloctity.x = direction.x * MoveSpeed;
-                _moveVeloctity.z = direction.y * MoveSpeed;
+                var motion = _transform.rotation *  new Vector3(direction.x, 0, direction.y) * MoveSpeed;
+                _moveVeloctity.x = motion.x;
+                _moveVeloctity.z = motion.z;
             });
 
             _EnableAction(jumpAction, ctx =>
@@ -101,7 +102,7 @@ public class MBPlayerController : MonoBehaviour
             // 如果角色接触地面，则向下的速度置0
             if (_moveVeloctity.y < 0)
             {
-                // _moveVeloctity.y = 0;
+                _moveVeloctity.y = 0;
             }
         }
         else
