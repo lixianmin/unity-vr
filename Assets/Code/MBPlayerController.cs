@@ -88,11 +88,8 @@ public class MBPlayerController : MonoBehaviour
         _Look();
         _MoveHeight();
         
-        const float deadZone = 0.001f;
-        // if (_moveVeloctity.sqrMagnitude > deadZone)
-        {
-            _controller.Move(_moveVeloctity * Time.deltaTime);
-        }
+        // 因为controller自己有minMOveDistance的设置, 所以不需要使用deadZone进行限制
+        _controller.Move(_moveVeloctity * Time.deltaTime);
     }
 
     private void _MoveHeight()
@@ -110,7 +107,7 @@ public class MBPlayerController : MonoBehaviour
             _moveVeloctity.y -= Gravity * Time.deltaTime;
         }
         
-        Console.WriteLine($"_moveVeloctity={_moveVeloctity}, isGrounded={_controller.isGrounded}");
+        // Console.WriteLine($"_moveVeloctity={_moveVeloctity}, isGrounded={_controller.isGrounded}");
     }
 
     private void _Look()
