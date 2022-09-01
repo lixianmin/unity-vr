@@ -80,6 +80,11 @@ namespace Unicorn.UI
             return item.window;
         }
         
+        public static T GetWindow<T>() where T: UIWindowBase
+        {
+            return GetWindow(typeof(T)) as T;
+        }
+        
         public static void LogicUpdate(float deltaTime)
         {
             var snapshot = _TakeSnapshot();
