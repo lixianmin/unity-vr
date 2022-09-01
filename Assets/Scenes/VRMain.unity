@@ -1545,6 +1545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1342315831}
   - component: {fileID: 1342315830}
+  - component: {fileID: 1342315832}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1629,6 +1630,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1342315832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342315829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1515514945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1763,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515514945}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4d4c5b24569704cf58c983f9949a3d9f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
@@ -2601,6 +2622,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3127176643089023624, guid: e9a307b9271c3465bb767e1d481d64e4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b5a89bc831ffb4808b4faf970d3060da, type: 2}
     - target: {fileID: 8616057122483809329, guid: e9a307b9271c3465bb767e1d481d64e4, type: 3}
       propertyPath: m_Name
       value: bowling1
@@ -2645,4 +2670,4 @@ MonoBehaviour:
   assets:
   - {fileID: 2115203738}
   - {fileID: 2100000, guid: a0ce42cee81e94cb9917b831c8be723f, type: 2}
-  - {fileID: 2100000, guid: a8add734d9059af4c9838ae47ddc91e7, type: 2}
+  - {fileID: 2100000, guid: 8a8302d8c1e0842ee8279264fd9f698d, type: 2}
