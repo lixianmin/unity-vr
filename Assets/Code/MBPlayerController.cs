@@ -13,9 +13,9 @@ Copyright (C) - All Rights Reserved
 using System;
 using System.Collections.Generic;
 using Unicorn;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(CharacterController))]
 public class MBPlayerController : MonoBehaviour
@@ -56,7 +56,7 @@ public class MBPlayerController : MonoBehaviour
 
             _EnableAction(jumpAction, ctx =>
             {
-                _moveVeloctity.y = Mathf.Sqrt(2 * Gravity * JumpHeight);
+                _moveVeloctity.y = math.sqrt(2 * Gravity * JumpHeight);
                 // Console.WriteLine(ctx.ReadValue<float>());
             });
         
@@ -119,7 +119,7 @@ public class MBPlayerController : MonoBehaviour
         }
         
         var scaledRotateSpeed = RotateSpeed * Time.deltaTime;
-        _transform.localRotation *= Quaternion.Euler(0, _lookRotate.x * scaledRotateSpeed, 0);
+        _transform.localRotation *= quaternion.Euler(0, _lookRotate.x * scaledRotateSpeed, 0);
     }
     
     private void _EnableAction(InputAction action, Action<InputAction.CallbackContext> handler)
