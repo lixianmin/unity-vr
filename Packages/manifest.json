@@ -2,7 +2,7 @@
   "dependencies": {
     "com.unity.addressables": "1.19.19",
     "com.unity.burst": "1.6.6",
-    "com.unity.cinemachine": "2.8.6",
+    "com.unity.cinemachine": "2.8.9",
     "com.unity.entities": "0.51.1-preview.21",
     "com.unity.feature.development": "1.0.1",
     "com.unity.ide.rider": "3.0.15",
@@ -14,7 +14,8 @@
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.7.8",
     "com.unity.xr.interaction.toolkit": "2.1.1",
-    "com.unity.xr.picoxr": "file:/Users/xmli/Downloads/Pico UnityXR SDK 2.0.5/Pico UnityXR SDK v2.0.5",
+    "com.unity.xr.management": "4.2.1",
+    "com.unity.xr.picoxr": "https://github.com/lixianmin/pico-unity-integration-sdk.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

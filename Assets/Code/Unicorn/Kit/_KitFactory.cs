@@ -5,7 +5,7 @@
 using System;
 using System.Collections;
 
-namespace Unicorn
+namespace Unicorn.Kit
 {
     public class _KitFactory
     {

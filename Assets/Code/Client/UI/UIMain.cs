@@ -13,48 +13,41 @@ namespace Client.UI
 {
     public class UIMain : UIWindowBase
     {
-        public override string GetResourcePath()
+        public override string GetAssetPath()
         {
-            return "Assets/res/prefabs/uimain.prefab";
+            return "uimain";
         }
-        
-        private readonly UIWidget<UIButton> _btnOpenBag = new( "btn_open_bag");
-        private readonly UIWidget<UIButton> _btnOpenShop = new( "btn_open_shop");
-        private readonly UIWidget<UIButton> _btnOpenTop = new( "btn_open_top");
-        private readonly UIWidget<UIButton> _btnCollectGarbage = new( "btn_collect_garbage");
 
-        public override void OnLoaded()
+        protected override void OnLoaded()
         {
             _btnOpenBag.UI.onClick.AddListener(OnClickOpenBag);
-            _btnOpenShop.UI.onClick.AddListener(OnClickOpenShop);
             _btnOpenTop.UI.onClick.AddListener(OnClickOpenTop);
             _btnCollectGarbage.UI.onClick.AddListener(OnClickBtnCollectGarbage);
+            Console.WriteLine("uimain loaded");
         }
         
         private void OnClickOpenBag()
         {
-            UIManager.OpenWindow(typeof(UIBag));
-        }
-        
-        private void OnClickOpenShop()
-        {
-            UIManager.OpenWindow(typeof(UIShop));
+            UIManager.Instance.OpenWindow(typeof(UIBag));
         }
         
         private void OnClickOpenTop()
         {
-            UIManager.OpenWindow(typeof(UITop));
+            UIManager.Instance.OpenWindow(typeof(UITop));
         }
 
         private void OnClickBtnCollectGarbage()
         {
-            UIManager.CloseWindow(typeof(UIShop));
-            UIManager.CloseWindow(typeof(UIBag));
-            UIManager.CloseWindow(typeof(UITop));
+            UIManager.Instance.CloseWindow(typeof(UIBag));
+            UIManager.Instance.CloseWindow(typeof(UITop));
             
             Resources.UnloadUnusedAssets();
             GC.Collect();
             Console.WriteLine("gc done");
         }
+        
+        private readonly UIWidget<UIButton> _btnOpenBag = new( "btn_open_bag");
+        private readonly UIWidget<UIButton> _btnOpenTop = new( "btn_open_top");
+        private readonly UIWidget<UIButton> _btnCollectGarbage = new( "btn_collect_garbage");
     }
 }

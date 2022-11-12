@@ -5,9 +5,8 @@ author:     lixianmin
 
 Copyright (C) - All Rights Reserved
 *********************************************************************/
-using UnityEngine;
-using UnityEditor;
 
+using UnityEditor;
 
 namespace Unicorn.Menus
 {

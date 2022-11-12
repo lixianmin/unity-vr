@@ -11,17 +11,12 @@ namespace Client.UI
 {
     public class UIAdjustNumber: UIWindowBase
     {
-        public override string GetResourcePath()
+        public override string GetAssetPath()
         {
-            return "Assets/res/prefabs/uiadjustnumber.prefab";
+            return "uiadjustnumber";
         }
-
-        private readonly UIWidget<UIButton> _btnIncr = new( "btn_increment");
-        private readonly UIWidget<UIButton> _btnDecr= new(  "btn_decrement");
-        private readonly UIWidget<UIText> _title = new( "text_number");
-        private readonly UIWidget<UIText> _debugText = new("text_debug");
-
-        public override void OnLoaded()
+        
+        protected override void OnLoaded()
         {
             _isLoaded = true;
             _btnIncr.UI.onClick.AddListener(() =>
@@ -38,7 +33,7 @@ namespace Client.UI
             Console.WriteLine("uiadjustnumber is OnLoaded");
         }
 
-        public override void OnUnloading()
+        protected override void OnUnloading()
         {
             Console.WriteLine("uiadjustnumber is OnUnloading");
             _isLoaded = false;
@@ -52,6 +47,10 @@ namespace Client.UI
             }
         }
 
-        private bool _isLoaded = false;
+        private bool _isLoaded;
+        private readonly UIWidget<UIButton> _btnIncr = new( "btn_increment");
+        private readonly UIWidget<UIButton> _btnDecr= new(  "btn_decrement");
+        private readonly UIWidget<UIText> _title = new( "text_number");
+        private readonly UIWidget<UIText> _debugText = new("text_debug");
     }
 }

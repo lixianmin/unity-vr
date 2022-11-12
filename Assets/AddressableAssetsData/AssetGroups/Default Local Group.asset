@@ -21,8 +21,20 @@ MonoBehaviour:
     m_Address: Assets/Scenes/Level1.unity
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 5bb4d83e9bc29432b8d22495c75ffe6e
-    m_Address: Assets/res/prefabs/uiadjustnumber.prefab
+  - m_GUID: a2f69b5ee0e9d46d8a36813728381c88
+    m_Address: Assets/res/metadata/locale.zh_cn.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c22261281215244439a15922a7aeba98
+    m_Address: Assets/res/metadata/metadata@.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ddedf68d26fdb43068c7d49241c9250f
+    m_Address: Assets/res/metadata/metadata.bytes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 60e55691492b14858973ebca95843ab8
+    m_Address: Assets/res/prefabs/ui/uitop.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

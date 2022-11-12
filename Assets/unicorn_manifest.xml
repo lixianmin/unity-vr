@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UnicornManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <RelativePaths>
-    <string>resource</string>
-    <string>Assets/LuaScripts</string>
-    <string>resource/metadata</string>
-  </RelativePaths>
-  <MakeAutoCode>true</MakeAutoCode>
-  <ClearAutoCode>true</ClearAutoCode>
-  <spriteDirPath>Assets/Art/UIResource/UI/Sprite</spriteDirPath>
-  <uiPrefabDirPath>Assets/prefabs/ui</uiPrefabDirPath>
+  <editorSettings>
+    <colorSpace>Linear</colorSpace>
+    <bakeCollisionMeshes>true</bakeCollisionMeshes>
+  </editorSettings>
+  <relativePaths>
+    <editorResourceRoot />
+    <xmlMetadataRoot>resource/metadata</xmlMetadataRoot>
+    <exportMetadataRoot>Assets/res/metadata</exportMetadataRoot>
+  </relativePaths>
+  <makeAutoCode>true</makeAutoCode>
 </UnicornManifest>

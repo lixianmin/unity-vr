@@ -8,6 +8,7 @@ Copyright (C) - All Rights Reserved
 
 using Client.UI;
 using Unicorn;
+using Unicorn.Kit;
 using Unicorn.UI;
 using UnityEngine;
 using UnityEngine.XR;
@@ -15,15 +16,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Client
 {
-    public class PlayerMoveKit: KitBase
+    public class PlayerMoveKit: KitBase, IExpensiveUpdater
     {
-        public override void Awake()
+        protected override void Awake()
         {
             var transform = GetTransform();
             _leftController = transform.DeepFindComponentEx("LeftHand Controller", typeof(XRController)) as XRController;
         }
 
-        public override void Update()
+        public void ExpensiveUpdate(float deltaTime)
         {
             if (_leftController is null)
             {
@@ -47,7 +48,7 @@ namespace Client
                 _lastPrintTime = Time.time + 1;
                 var text = $"transform={transform.rotation}";
                 
-                _debugUI ??= UIManager.GetWindow<UIAdjustNumber>();
+                _debugUI ??= UIManager.Instance.GetWindow<UIAdjustNumber>();
                 _debugUI?.SetDebugText(text);
                 Console.WriteLine(text);
             }

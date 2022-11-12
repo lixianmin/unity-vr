@@ -6,15 +6,16 @@ author:     lixianmin
 Copyright (C) - All Rights Reserved
 *********************************************************************/
 
+using Unicorn;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using Unicorn;
+using Unicorn.Kit;
 
 namespace Client
 {
     public class BowlKit: KitBase
     {
-        public override void Awake()
+        protected override void Awake()
         {
             var assets = GetAssets();
             if (assets.Length < 3)
@@ -23,20 +24,23 @@ namespace Client
             }
             
             var script = assets[0] as XRGrabInteractable;
-            AddListener(script.hoverEntered, args =>
+            _listener.AddListener(script!.hoverEntered, args =>
             {
                 script.GetComponent<MeshRenderer>().material = assets[1] as Material;
             });
             
-            AddListener(script.hoverExited, args =>
+            _listener.AddListener(script.hoverExited, args =>
             {
                 script.GetComponent<MeshRenderer>().material = assets[2] as Material;
             });
         }
 
-        public override void OnDestroy()
+        protected override void OnDestroy()
         {
-            Console.WriteLine("@@@ OnDestroy()");
+            _listener.RemoveAllListeners();
+            Console.WriteLine("OnDestroy()");
         }
+
+        private readonly EventListener _listener = new();
     }
 }
