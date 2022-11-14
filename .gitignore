@@ -11,3 +11,7 @@ ServerData/
 *.apk
 unity-vr_BackUpThisFolder_ButDontShipItWithYourGame/
 *.dwlt
+.DS_Store
+.idea/
+Logs/
+*.csproj
