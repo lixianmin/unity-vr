@@ -26,8 +26,10 @@ namespace Client
 
         public void ExpensiveUpdate(float deltaTime)
         {
+            _debugUI ??= UIManager.Instance.GetWindow<UIAdjustNumber>();
             if (_leftController is null)
             {
+                _debugUI?.SetDebugText("_leftController is null");
                 return;
             }
 
@@ -48,9 +50,8 @@ namespace Client
                 _lastPrintTime = Time.time + 1;
                 var text = $"transform={transform.rotation}";
                 
-                _debugUI ??= UIManager.Instance.GetWindow<UIAdjustNumber>();
                 _debugUI?.SetDebugText(text);
-                Console.WriteLine(text);
+                // Console.WriteLine(text);
             }
         }
 
